@@ -57,7 +57,13 @@
                 <!-- Kontainer ini akan diisi secara dinamis oleh JavaScript -->
                 <div id="team-grid-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
                     <!-- Loading state... -->
-                    <p class="col-span-full text-center text-gray-500">Memuat data anggota...</p>
+                    <div class="col-span-full flex justify-center items-center py-10">
+                        <svg class="animate-spin h-8 w-8 text-red-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                        <p class="ml-4 text-gray-500">Memuat data anggota...</p>
+                    </div>
                 </div>
             </div>
         </section>
@@ -73,7 +79,7 @@
     <script>
         // --- KONEKSI SUPABASE ---
         const SUPABASE_URL = 'https://ostoxfgxxjfbvfouydiv.supabase.co';
-        // --- PENTING: GANTI KUNCI DI BAWAH INI DENGAN KUNCI BARU ANDA ---
+        // --- Kunci API yang Anda berikan. Kunci ini TIDAK VALID karena tanggalnya di masa depan. ---
         const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9zdG94Zmd4eGpmYnZmb3V5ZGl2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTE2OTI1MzcsImV4cCI6MjA2NzI2ODUzN30.PqEWjFaTGZZmQ5o2rNmv2G34k1-UKfloU_ETDxhwcro';
 
         const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
@@ -82,11 +88,6 @@
         async function loadTeamMembers() {
             const teamGridContainer = document.getElementById('team-grid-container');
             
-            if (SUPABASE_ANON_KEY === 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9zdG94Zmd4eGpmYnZmb3V5ZGl2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTE2OTI1MzcsImV4cCI6MjA2NzI2ODUzN30.PqEWjFaTGZZmQ5o2rNmv2G34k1-UKfloU_ETDxhwcro') {
-                teamGridContainer.innerHTML = '<p class="col-span-full text-center text-red-500 font-bold">Konfigurasi API Key belum selesai. Harap masukkan kunci API di dalam kode.</p>';
-                return;
-            }
-
             // Ambil data dari tabel 'anggota'
             const { data, error } = await supabase
                 .from('anggota')
@@ -94,7 +95,21 @@
 
             if (error) {
                 console.error('Error fetching team members:', error);
-                teamGridContainer.innerHTML = '<p class="col-span-full text-center text-red-500">Gagal memuat data. Periksa koneksi atau konfigurasi API Key.</p>';
+                let errorMessage = `
+                    <div class="col-span-full text-center bg-red-50 border border-red-200 p-6 rounded-lg">
+                        <p class="font-bold text-red-600 text-lg">Koneksi ke Database Gagal</p>
+                        <p class="mt-2 text-gray-700">Penyebab paling umum adalah <strong>Kunci API salah</strong> atau <strong>Aturan Akses Tabel (RLS) belum diatur</strong>.</p>
+                        <div class="mt-4 text-sm text-left">
+                            <p class="font-semibold text-gray-800">Langkah-langkah Perbaikan:</p>
+                            <ol class="list-decimal list-inside mt-2 space-y-1 text-gray-600">
+                                <li><strong>Buat Kunci API Baru:</strong> Buka dashboard Supabase > Project Settings > API. Klik <strong>"Generate new key"</strong> untuk kunci <strong><code>anon</code></strong>.</li>
+                                <li>Salin kunci yang baru dan tempelkan untuk menggantikan nilai <code>SUPABASE_ANON_KEY</code> di dalam kode.</li>
+                                <li><strong>Periksa Aturan Akses (RLS):</strong> Buka dashboard Supabase > Authentication > Policies. Pastikan tabel <strong><code>anggota</code></strong> memiliki aturan (policy) yang aktif untuk operasi <strong>SELECT</strong>.</li>
+                            </ol>
+                        </div>
+                    </div>
+                `;
+                teamGridContainer.innerHTML = errorMessage;
                 return;
             }
 
