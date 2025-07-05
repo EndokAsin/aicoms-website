@@ -82,11 +82,7 @@
     <script>
         // --- KONEKSI SUPABASE ---
         const SUPABASE_URL = 'https://ostoxfgxxjfbvfouydiv.supabase.co';
-        // --- PENTING: GANTI KUNCI DI BAWAH INI ---
-        // 1. Buka dashboard Supabase Anda.
-        // 2. Pergi ke Project Settings > API.
-        // 3. Salin kunci 'anon' (public) dan tempel di sini.
-        const SUPABASE_ANON_KEY = 'MASUKKAN_KUNCI_API_BARU_ANDA_DI_SINI';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9zdG94Zmd4eGpmYnZmb3V5ZGl2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTE2OTI1MzcsImV4cCI6MjA2NzI2ODUzN30.PqEWjFaTGZZmQ5o2rNmv2G34k1-UKfloU_ETDxhwcro';
 
         const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
@@ -95,19 +91,6 @@
             const memberDetailContainer = document.getElementById('member-detail-container');
             const pageFooter = document.getElementById('page-footer');
             
-            // Cek jika API Key belum diganti
-            if (SUPABASE_ANON_KEY === 'MASUKKAN_KUNCI_API_BARU_ANDA_DI_SINI') {
-                memberDetailContainer.innerHTML = `
-                    <div class="text-center">
-                        <p class="font-bold text-red-600 text-lg">Konfigurasi Belum Selesai</p>
-                        <p class="mt-2 text-gray-600">Harap masukkan Kunci API (anon key) Supabase Anda di dalam kode untuk melanjutkan.</p>
-                    </div>
-                `;
-                pageFooter.classList.remove('hidden');
-                pageFooter.classList.add('fade-in');
-                return;
-            }
-
             try {
                 // 1. Ambil ID dari URL
                 const urlParams = new URLSearchParams(window.location.search);
@@ -132,7 +115,7 @@
                 if (data) {
                     // 3. Siapkan variabel HTML dari data yang didapat
                     let affiliation = data.prodi && data.universitas_asal ? `${data.prodi} - ${data.universitas_asal}` : (data.prodi || data.universitas_asal || '');
-                    let professionalIdsHTML = (data.scopus_id || data.google_scholar_id) ? `<p class="text-gray-500">Scopus ID: ${data.scopus_id || 'N/A'} | Google Scholar: ${data.google_scholar_id || 'N/A'}</p>` : '';
+                    let professionalIdsHTML = (data.scopus_id || data.google_scholar_id) ? `<p class="text-sm text-gray-500">Scopus ID: ${data.scopus_id || 'N/A'} | Google Scholar: ${data.google_scholar_id || 'N/A'}</p>` : '';
                     const educationList = Array.isArray(data.pendidikan) && data.pendidikan.length > 0 ? data.pendidikan.map(item => `<li class="mb-1">${item}</li>`).join('') : '<li>Data pendidikan tidak tersedia.</li>';
                     const researchTopics = Array.isArray(data.topik_penelitian) && data.topik_penelitian.length > 0 ? data.topik_penelitian.map(item => `<span class="bg-red-100 text-red-800 text-sm font-medium mr-2 mb-2 px-3 py-1 rounded-full">${item}</span>`).join('') : '<p class="text-gray-500">Tidak ada topik penelitian yang terdaftar.</p>';
                     const publicationList = Array.isArray(data.publikasi) && data.publikasi.length > 0 ? data.publikasi.map(item => `<li class="mb-2 pl-2">${item}</li>`).join('') : '<li>Tidak ada publikasi yang terdaftar.</li>';
@@ -148,14 +131,14 @@
                             </div>
                             <div class="flex flex-col md:flex-row items-center md:items-start gap-8">
                                 <div class="flex-shrink-0">
-                                    <img src="${data.foto_url || 'https://placehold.co/250x250/F87171/FFFFFF?text=Foto+Profil'}" alt="Foto Profil ${data.nama}" class="w-48 h-48 md:w-64 md:h-64 rounded-full object-cover border-8 border-gray-100 shadow-sm">
+                                    <img src="${data.foto_url || 'https://placehold.co/250x250/F87171/FFFFFF?text=Foto+Profil'}" alt="Foto Profil ${data.nama}" class="w-48 h-48 md:w-64 md:h-64 rounded-lg object-cover border-8 border-gray-100 shadow-sm">
                                 </div>
                                 <div class="text-center md:text-left flex-grow">
-                                    <h1 class="text-3xl md:text-4xl font-bold text-red-800">${data.nama}</h1>
-                                    <p class="text-xl text-gray-600 font-medium mt-1">${data.jabatan}</p>
+                                    <h1 class="text-4xl font-bold text-red-800">${data.nama}</h1>
+                                    <p class="text-xl text-gray-700 font-medium mt-1">${data.jabatan}</p>
                                     ${affiliation ? `<p class="text-md text-gray-500 mt-1">${affiliation}</p>` : ''}
-                                    <div class="mt-4 border-t pt-4">
-                                        ${data.email ? `<h3 class="text-lg font-semibold text-gray-700 mb-2">${data.email}</h3>` : ''}
+                                    <div class="mt-4 border-t pt-4 space-y-2">
+                                        ${data.email ? `<h3 class="text-lg font-semibold text-gray-800">${data.email}</h3>` : ''}
                                         ${professionalIdsHTML}
                                     </div>
                                 </div>
@@ -193,6 +176,7 @@
                 }
                 memberDetailContainer.innerHTML = errorMessage;
             } finally {
+                // Selalu tampilkan footer setelah proses selesai
                 pageFooter.classList.remove('hidden');
                 pageFooter.classList.add('fade-in');
             }
