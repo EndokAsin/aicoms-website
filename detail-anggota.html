@@ -83,7 +83,7 @@
         // --- KONEKSI SUPABASE ---
         const SUPABASE_URL = 'https://ostoxfgxxjfbvfouydiv.supabase.co';
         // --- PENTING: GANTI KUNCI DI BAWAH INI DENGAN KUNCI BARU ANDA ---
-        const SUPABASE_ANON_KEY = 'MASUKKAN_KUNCI_API_BARU_ANDA_DI_SINI';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9zdG94Zmd4eGpmYnZmb3V5ZGl2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTE2OTI1MzcsImV4cCI6MjA2NzI2ODUzN30.PqEWjFaTGZZmQ5o2rNmv2G34k1-UKfloU_ETDxhwcro';
 
         const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
@@ -92,7 +92,7 @@
             const memberDetailContainer = document.getElementById('member-detail-container');
             const pageFooter = document.getElementById('page-footer');
             
-            if (SUPABASE_ANON_KEY === 'MASUKKAN_KUNCI_API_BARU_ANDA_DI_SINI') {
+            if (SUPABASE_ANON_KEY === 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9zdG94Zmd4eGpmYnZmb3V5ZGl2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTE2OTI1MzcsImV4cCI6MjA2NzI2ODUzN30.PqEWjFaTGZZmQ5o2rNmv2G34k1-UKfloU_ETDxhwcro') {
                 memberDetailContainer.innerHTML = '<p class="text-center text-red-500 font-bold">Konfigurasi API Key belum selesai. Harap masukkan kunci API di dalam kode.</p>';
                 pageFooter.classList.remove('hidden');
                 pageFooter.classList.add('fade-in');
