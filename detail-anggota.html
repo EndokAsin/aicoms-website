@@ -110,24 +110,22 @@
 
                     // ID Profesional (Scopus & Scholar)
                     let professionalIdsHTML = '';
-                    if (data.scopus_id) {
-                        professionalIdsHTML += `<p class="text-sm text-gray-500">Scopus ID: ${data.scopus_id}</p>`;
-                    }
-                    if (data.google_scholar_id) {
-                        professionalIdsHTML += `<p class="text-sm text-gray-500">Google Scholar ID: ${data.google_scholar_id}</p>`;
+                    if (data.scopus_id || data.google_scholar_id) {
+                         professionalIdsHTML = `<p class="text-gray-500">Scopus ID: ${data.scopus_id || 'N/A'} | Google Scholar: ${data.google_scholar_id || 'N/A'}</p>`;
                     }
 
-                    // Daftar Pendidikan (FIX: Tidak perlu JSON.parse)
+
+                    // Daftar Pendidikan
                     const educationList = data.pendidikan && data.pendidikan.length > 0
                         ? data.pendidikan.map(item => `<li class="mb-1">${item}</li>`).join('')
                         : '<li>Data pendidikan tidak tersedia.</li>';
 
-                    // Topik Penelitian (FIX: Tidak perlu JSON.parse)
+                    // Topik Penelitian
                     const researchTopics = data.topik_penelitian && data.topik_penelitian.length > 0
                         ? data.topik_penelitian.map(item => `<span class="bg-red-100 text-red-800 text-sm font-medium mr-2 mb-2 px-3 py-1 rounded-full">${item}</span>`).join('')
                         : '<p class="text-gray-500">Tidak ada topik penelitian yang terdaftar.</p>';
 
-                    // Daftar Publikasi (FIX: Tidak perlu JSON.parse)
+                    // Daftar Publikasi
                     const publicationList = data.publikasi && data.publikasi.length > 0
                         ? data.publikasi.map(item => `<li class="mb-2 pl-2">${item}</li>`).join('')
                         : '<li>Tidak ada publikasi yang terdaftar.</li>';
@@ -144,14 +142,14 @@
                         </div>
                         <div class="flex flex-col md:flex-row items-center md:items-start gap-8">
                             <div class="flex-shrink-0">
-                                <img src="${data.foto_url || 'https://placehold.co/250x250/F87171/FFFFFF?text=Foto+Profil'}" alt="Foto Profil ${data.nama}" class="w-48 h-48 md:w-64 md:h-64 rounded-lg object-cover border-8 border-gray-100 shadow-sm">
+                                <img src="${data.foto_url || 'https://placehold.co/250x250/F87171/FFFFFF?text=Foto+Profil'}" alt="Foto Profil ${data.nama}" class="w-48 h-48 md:w-64 md:h-64 rounded-full object-cover border-8 border-gray-100 shadow-sm">
                             </div>
-                            <div class="text-center md:text-left flex-grow">
+                            <div class="text-center md:text-left">
                                 <h1 class="text-4xl font-bold text-red-800">${data.nama}</h1>
-                                <p class="text-xl text-gray-700 font-medium mt-1">${data.jabatan}</p>
+                                <p class="text-xl text-gray-600 font-medium mt-1">${data.jabatan}</p>
                                 ${affiliation ? `<p class="text-md text-gray-500 mt-1">${affiliation}</p>` : ''}
-                                <div class="mt-4 border-t pt-4 space-y-2">
-                                    ${data.email ? `<h3 class="text-lg font-semibold text-gray-800">${data.email}</h3>` : ''}
+                                <div class="mt-4 border-t pt-4">
+                                    ${data.email ? `<h3 class="text-lg font-semibold text-gray-700 mb-2">${data.email}</h3>` : ''}
                                     ${professionalIdsHTML}
                                 </div>
                             </div>
