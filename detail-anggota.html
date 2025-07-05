@@ -72,8 +72,8 @@
         </section>
     </main>
 
-    <!-- Footer -->
-    <footer class="bg-gray-800 text-white py-12">
+    <!-- Footer (Disembunyikan secara default) -->
+    <footer id="page-footer" class="bg-gray-800 text-white py-12 hidden">
         <div class="container mx-auto px-6 text-center">
              <p>&copy; 2024 AICOMS - Telkom University. All Rights Reserved.</p>
         </div>
@@ -82,13 +82,14 @@
     <script>
         // --- KONEKSI SUPABASE ---
         const SUPABASE_URL = 'https://ostoxfgxxjfbvfouydiv.supabase.co';
-        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9zdG94Zmd4eGpmYnZmb3V5ZGl2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTE2OTI1MzcsImV4cCI6MjA2NzI2ODUzN30.PqEWjFaTGZZmQ5o2rNmv2G34k1-UKfloU_ETDxhwcro';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9zdG94Zmd4eGpmYnZmb3V5ZGl2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTE2OTI1MzcsImV4cCI6MjA2NzI2ODUzN30.PqEWFaTGZZmQ5o2rNmv2G34k1-UKfloU_ETDxhwcro';
 
         const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
         // --- FUNGSI UNTUK MEMUAT DETAIL ANGGOTA ---
         async function loadMemberDetails() {
             const memberDetailContainer = document.getElementById('member-detail-container');
+            const pageFooter = document.getElementById('page-footer');
             
             try {
                 // 1. Ambil ID dari URL
@@ -193,6 +194,10 @@
             } catch (e) {
                 console.error('Error loading member details:', e);
                 memberDetailContainer.innerHTML = `<p class="text-center text-red-500">Terjadi kesalahan saat memuat halaman. Silakan coba lagi. (${e.message})</p>`;
+            } finally {
+                // Selalu tampilkan footer setelah proses selesai
+                pageFooter.classList.remove('hidden');
+                pageFooter.classList.add('fade-in');
             }
         }
 
