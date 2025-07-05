@@ -5,16 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Projects - AICOMS</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <style>
-        body { font-family: 'Inter', sans-serif; }
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style> 
+        body { font-family: 'Inter', sans-serif; } 
+        .project-filter-btn.active {
+            @apply bg-red-600 text-white;
+        }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800">
 
-    <!-- Header / Navigation Bar (Konsisten dengan halaman lain) -->
+    <!-- Header / Navigation Bar -->
     <header class="bg-white/80 backdrop-blur-lg shadow-md fixed top-0 left-0 right-0 z-50">
         <div class="container mx-auto px-6 py-2 flex justify-between items-center">
             <a href="index.html">
@@ -29,8 +31,7 @@
                     </button>
                     <div class="absolute left-0 top-full pt-4 w-48 bg-transparent -mt-2">
                         <div class="bg-white rounded-md shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 invisible group-hover:visible">
-                            <a href="index.html#sejarah" class="block px-4 py-2 text-sm text-gray-700 hover:bg-red-50 rounded-t-md">Sejarah</a>
-                            <a href="index.html#visi-misi" class="block px-4 py-2 text-sm text-gray-700 hover:bg-red-50">Visi & Misi</a>
+                            <a href="index.html#about-org" class="block px-4 py-2 text-sm text-gray-700 hover:bg-red-50 rounded-t-md">Tentang Kami</a>
                             <a href="tim.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-red-50 rounded-b-md">Tim Kami</a>
                         </div>
                     </div>
@@ -51,14 +52,11 @@
                         </div>
                     </div>
                 </div>
-                <a href="#join-us" class="bg-red-600 text-white px-4 py-2 rounded-full hover:bg-red-700 transition duration-300 shadow hover:shadow-lg">Join Us</a>
+                <a href="index.html#feedback" class="bg-red-600 text-white px-4 py-2 rounded-full hover:bg-red-700 transition duration-300 shadow hover:shadow-lg">Join Us</a>
             </nav>
             <button id="mobile-menu-button" class="md:hidden">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
             </button>
-        </div>
-        <div id="mobile-menu" class="hidden md:hidden bg-white">
-            <!-- Mobile links... -->
         </div>
     </header>
 
@@ -68,42 +66,21 @@
                 <h1 class="text-4xl font-bold text-center text-gray-800 mb-4">Proyek Kami</h1>
                 <div class="w-24 h-1 bg-red-600 mx-auto mb-12"></div>
 
-                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <!-- Contoh Kartu Proyek -->
-                    <div class="bg-gray-50 rounded-lg shadow-md overflow-hidden group transform hover:-translate-y-2 transition-all duration-300 hover:shadow-xl">
-                        <img src="https://placehold.co/600x400/F87171/FFFFFF?text=Proyek+1" alt="Gambar Proyek" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300">
-                        <div class="p-6">
-                            <span class="text-sm text-gray-600 font-semibold">Proyek Unggulan</span>
-                            <h3 class="font-bold text-xl my-2">AI-Powered Smart City Traffic Management</h3>
-                            <p class="text-gray-600 text-sm mb-4">Mengembangkan sistem cerdas untuk mengelola lalu lintas perkotaan secara real-time menggunakan data sensor dan AI.</p>
-                            <a href="#" class="text-red-600 font-semibold hover:underline">Lihat Detail &rarr;</a>
-                        </div>
-                    </div>
-                    <div class="bg-gray-50 rounded-lg shadow-md overflow-hidden group transform hover:-translate-y-2 transition-all duration-300 hover:shadow-xl">
-                        <img src="https://placehold.co/600x400/F87171/FFFFFF?text=Proyek+2" alt="Gambar Proyek" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300">
-                        <div class="p-6">
-                            <span class="text-sm text-gray-600 font-semibold">Proyek Internasional</span>
-                            <h3 class="font-bold text-xl my-2">6G Network Slicing Research</h3>
-                            <p class="text-gray-600 text-sm mb-4">Kolaborasi riset dengan Waseda University untuk mengembangkan teknologi network slicing pada jaringan 6G.</p>
-                            <a href="#" class="text-red-600 font-semibold hover:underline">Lihat Detail &rarr;</a>
-                        </div>
-                    </div>
-                    <div class="bg-gray-50 rounded-lg shadow-md overflow-hidden group transform hover:-translate-y-2 transition-all duration-300 hover:shadow-xl">
-                        <img src="https://placehold.co/600x400/F87171/FFFFFF?text=Proyek+3" alt="Gambar Proyek" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300">
-                        <div class="p-6">
-                            <span class="text-sm text-gray-600 font-semibold">Proyek Nasional</span>
-                            <h3 class="font-bold text-xl my-2">Sistem Peringatan Dini Bencana</h3>
-                            <p class="text-gray-600 text-sm mb-4">Implementasi sistem peringatan dini bencana berbasis IoT dan AI bekerja sama dengan BMKG.</p>
-                            <a href="#" class="text-red-600 font-semibold hover:underline">Lihat Detail &rarr;</a>
-                        </div>
-                    </div>
-                    <!-- Tambahkan kartu proyek lainnya di sini -->
+                <!-- Filter Kategori -->
+                <div id="project-filter-container" class="flex flex-wrap justify-center gap-2 mb-12">
+                    <button data-kategori="Semua" class="project-filter-btn active bg-red-600 text-white px-4 py-2 rounded-full text-sm font-medium">Semua</button>
+                    <button data-kategori="Internasional" class="project-filter-btn bg-gray-200 text-gray-700 px-4 py-2 rounded-full text-sm font-medium hover:bg-gray-300">Internasional</button>
+                    <button data-kategori="Nasional" class="project-filter-btn bg-gray-200 text-gray-700 px-4 py-2 rounded-full text-sm font-medium hover:bg-gray-300">Nasional</button>
+                    <button data-kategori="Unggulan" class="project-filter-btn bg-gray-200 text-gray-700 px-4 py-2 rounded-full text-sm font-medium hover:bg-gray-300">Unggulan</button>
+                </div>
+
+                <div id="projects-grid-container" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Kartu Proyek akan dimuat di sini -->
                 </div>
             </div>
         </section>
     </main>
 
-    <!-- Footer -->
     <footer class="bg-gray-800 text-white py-12">
         <div class="container mx-auto px-6 text-center">
             <p class="font-bold text-lg mb-2">PUI-PT AICOMS</p>
@@ -114,12 +91,64 @@
     </footer>
 
     <script>
-        // JavaScript untuk Mobile Menu Toggle
-        const mobileMenuButton = document.getElementById('mobile-menu-button');
-        const mobileMenu = document.getElementById('mobile-menu');
-        mobileMenuButton.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
+        const SUPABASE_URL = 'https://ostoxfgxxjfbvfouydiv.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9zdG94Zmd4eGpmYnZmb3V5ZGl2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTE2OTI1MzcsImV4cCI6MjA2NzI2ODUzN30.PqEWjFaTGZZmQ5o2rNmv2G34k1-UKfloU_ETDxhwcro';
+        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        let allProjects = [];
+
+        async function loadProjects() {
+            const container = document.getElementById('projects-grid-container');
+            container.innerHTML = '<p class="col-span-full text-center text-gray-500">Memuat proyek...</p>';
+            
+            const { data, error } = await supabase.from('projects').select('*').order('created_at', { ascending: false });
+
+            if (error) {
+                container.innerHTML = `<div class="col-span-full text-center bg-red-50 border border-red-200 p-6 rounded-lg"><p class="font-bold text-red-600 text-lg">Gagal Memuat Proyek</p><p class="mt-2 text-gray-700">Penyebabnya adalah Kunci API yang tidak valid. Silakan buat kunci baru di dashboard Supabase.</p></div>`;
+                return;
+            }
+            allProjects = data;
+            displayProjects(allProjects);
+        }
+
+        function displayProjects(projects) {
+            const container = document.getElementById('projects-grid-container');
+            container.innerHTML = '';
+            if (projects && projects.length > 0) {
+                projects.forEach(item => {
+                    const projectCard = `
+                        <a href="project-detail.html?id=${item.id}" class="block bg-white rounded-lg shadow-md overflow-hidden group transform hover:-translate-y-2 transition-all duration-300 hover:shadow-xl">
+                            <img src="${item.gambar_url || 'https://placehold.co/600x400/F87171/FFFFFF?text=Proyek'}" alt="${item.judul}" class="w-full h-48 object-cover">
+                            <div class="p-6">
+                                <span class="text-sm text-red-600 font-semibold">${item.kategori || 'Umum'}</span>
+                                <h3 class="font-bold text-xl my-2">${item.judul}</h3>
+                                <p class="text-gray-600 text-sm mb-4">${item.deskripsi ? item.deskripsi.substring(0, 100) + '...' : ''}</p>
+                                <p class="text-red-600 font-semibold hover:underline">Lihat Detail &rarr;</p>
+                            </div>
+                        </a>
+                    `;
+                    container.innerHTML += projectCard;
+                });
+            } else {
+                container.innerHTML = '<p class="col-span-full text-center text-gray-500">Tidak ada proyek dalam kategori ini.</p>';
+            }
+        }
+
+        document.querySelectorAll('.project-filter-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                document.querySelectorAll('.project-filter-btn').forEach(btn => {
+                    btn.classList.remove('active', 'bg-red-600', 'text-white');
+                    btn.classList.add('bg-gray-200', 'text-gray-700');
+                });
+                button.classList.add('active', 'bg-red-600', 'text-white');
+                button.classList.remove('bg-gray-200', 'text-gray-700');
+                const kategori = button.dataset.kategori;
+                const filteredProjects = kategori === 'Semua' ? allProjects : allProjects.filter(p => p.kategori === kategori);
+                displayProjects(filteredProjects);
+            });
         });
+
+        document.addEventListener('DOMContentLoaded', loadProjects);
     </script>
 </body>
 </html>
