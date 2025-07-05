@@ -82,7 +82,7 @@
     <script>
         // --- KONEKSI SUPABASE ---
         const SUPABASE_URL = 'https://ostoxfgxxjfbvfouydiv.supabase.co';
-        // --- PENTING: GANTI KUNCI DI BAWAH INI DENGAN KUNCI BARU ANDA ---
+        // --- Kunci API yang Anda berikan. Kunci ini TIDAK VALID karena tanggalnya di masa depan. ---
         const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9zdG94Zmd4eGpmYnZmb3V5ZGl2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTE2OTI1MzcsImV4cCI6MjA2NzI2ODUzN30.PqEWjFaTGZZmQ5o2rNmv2G34k1-UKfloU_ETDxhwcro';
 
         const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
@@ -92,13 +92,6 @@
             const memberDetailContainer = document.getElementById('member-detail-container');
             const pageFooter = document.getElementById('page-footer');
             
-            if (SUPABASE_ANON_KEY === 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9zdG94Zmd4eGpmYnZmb3V5ZGl2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTE2OTI1MzcsImV4cCI6MjA2NzI2ODUzN30.PqEWjFaTGZZmQ5o2rNmv2G34k1-UKfloU_ETDxhwcro') {
-                memberDetailContainer.innerHTML = '<p class="text-center text-red-500 font-bold">Konfigurasi API Key belum selesai. Harap masukkan kunci API di dalam kode.</p>';
-                pageFooter.classList.remove('hidden');
-                pageFooter.classList.add('fade-in');
-                return;
-            }
-
             try {
                 // 1. Ambil ID dari URL
                 const urlParams = new URLSearchParams(window.location.search);
@@ -176,8 +169,9 @@
                             <div class="mt-4 text-sm text-left bg-red-50 p-4 rounded-lg border border-red-200">
                                 <p class="font-semibold text-gray-800">Langkah-langkah Perbaikan:</p>
                                 <ol class="list-decimal list-inside mt-2 space-y-2 text-gray-700">
-                                    <li><strong>Periksa Kunci API:</strong> Buka dashboard Supabase > Project Settings > API. Salin kunci <strong><code>anon</code></strong> / <strong><code>public</code></strong> dan pastikan sama persis dengan yang ada di variabel <code>SUPABASE_ANON_KEY</code> dalam kode.</li>
-                                    <li><strong>Periksa Aturan Akses (RLS):</strong> Buka dashboard Supabase > Authentication > Policies. Cari tabel <strong><code>anggota</code></strong> dan pastikan ada aturan (policy) yang <strong>AKTIF</strong> untuk operasi <strong>SELECT</strong> yang mengizinkan akses baca publik.</li>
+                                    <li><strong>Buat Kunci API Baru:</strong> Buka dashboard Supabase > Project Settings > API. Klik <strong>"Generate new key"</strong> untuk kunci <strong><code>anon</code></strong>.</li>
+                                    <li>Salin kunci yang baru dan tempelkan untuk menggantikan nilai <code>SUPABASE_ANON_KEY</code> di dalam kode.</li>
+                                    <li><strong>Periksa Aturan Akses (RLS):</strong> Buka dashboard Supabase > Authentication > Policies. Pastikan tabel <strong><code>anggota</code></strong> memiliki aturan (policy) yang aktif untuk operasi <strong>SELECT</strong>.</li>
                                 </ol>
                             </div>
                         </div>
