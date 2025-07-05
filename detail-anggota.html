@@ -50,7 +50,7 @@
         <section class="py-16">
             <div class="container mx-auto px-6">
                 <!-- Kontainer ini akan diisi secara dinamis -->
-                <div id="member-detail-container" class="bg-white p-8 rounded-lg shadow-xl max-w-4xl mx-auto">
+                <div id="member-detail-container" class="bg-white p-4 sm:p-6 md:p-8 rounded-lg shadow-xl max-w-4xl mx-auto">
                     <!-- Loading state... -->
                     <p class="text-center text-gray-500">Memuat detail anggota...</p>
                 </div>
@@ -114,33 +114,19 @@
                          professionalIdsHTML = `<p class="text-gray-500">Scopus ID: ${data.scopus_id || 'N/A'} | Google Scholar: ${data.google_scholar_id || 'N/A'}</p>`;
                     }
 
-                    // Helper function untuk parse JSON dengan aman
-                    const parseJsonSafely = (jsonString) => {
-                        if (!jsonString || typeof jsonString !== 'string') return [];
-                        try {
-                            const parsed = JSON.parse(jsonString);
-                            return Array.isArray(parsed) ? parsed : [];
-                        } catch (e) {
-                            return [];
-                        }
-                    };
-
-                    // Daftar Pendidikan (FIX: Parse JSON dengan aman)
-                    const educationArray = parseJsonSafely(data.pendidikan);
-                    const educationList = educationArray.length > 0
-                        ? educationArray.map(item => `<li class="mb-1">${item}</li>`).join('')
+                    // Daftar Pendidikan (FIX: Langsung gunakan array dari Supabase)
+                    const educationList = Array.isArray(data.pendidikan) && data.pendidikan.length > 0
+                        ? data.pendidikan.map(item => `<li class="mb-1">${item}</li>`).join('')
                         : '<li>Data pendidikan tidak tersedia.</li>';
 
-                    // Topik Penelitian (FIX: Parse JSON dengan aman)
-                    const researchArray = parseJsonSafely(data.topik_penelitian);
-                    const researchTopics = researchArray.length > 0
-                        ? researchArray.map(item => `<span class="bg-red-100 text-red-800 text-sm font-medium mr-2 mb-2 px-3 py-1 rounded-full">${item}</span>`).join('')
+                    // Topik Penelitian (FIX: Langsung gunakan array dari Supabase)
+                    const researchTopics = Array.isArray(data.topik_penelitian) && data.topik_penelitian.length > 0
+                        ? data.topik_penelitian.map(item => `<span class="bg-red-100 text-red-800 text-sm font-medium mr-2 mb-2 px-3 py-1 rounded-full">${item}</span>`).join('')
                         : '<p class="text-gray-500">Tidak ada topik penelitian yang terdaftar.</p>';
 
-                    // Daftar Publikasi (FIX: Parse JSON dengan aman)
-                    const publicationArray = parseJsonSafely(data.publikasi);
-                    const publicationList = publicationArray.length > 0
-                        ? publicationArray.map(item => `<li class="mb-2 pl-2">${item}</li>`).join('')
+                    // Daftar Publikasi (FIX: Langsung gunakan array dari Supabase)
+                    const publicationList = Array.isArray(data.publikasi) && data.publikasi.length > 0
+                        ? data.publikasi.map(item => `<li class="mb-2 pl-2">${item}</li>`).join('')
                         : '<li>Tidak ada publikasi yang terdaftar.</li>';
 
                     // 4. Buat struktur HTML lengkap
@@ -157,8 +143,8 @@
                             <div class="flex-shrink-0">
                                 <img src="${data.foto_url || 'https://placehold.co/250x250/F87171/FFFFFF?text=Foto+Profil'}" alt="Foto Profil ${data.nama}" class="w-48 h-48 md:w-64 md:h-64 rounded-full object-cover border-8 border-gray-100 shadow-sm">
                             </div>
-                            <div class="text-center md:text-left">
-                                <h1 class="text-4xl font-bold text-red-800">${data.nama}</h1>
+                            <div class="text-center md:text-left flex-grow">
+                                <h1 class="text-3xl md:text-4xl font-bold text-red-800">${data.nama}</h1>
                                 <p class="text-xl text-gray-600 font-medium mt-1">${data.jabatan}</p>
                                 ${affiliation ? `<p class="text-md text-gray-500 mt-1">${affiliation}</p>` : ''}
                                 <div class="mt-4 border-t pt-4">
