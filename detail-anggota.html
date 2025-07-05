@@ -76,106 +76,109 @@
         async function loadMemberDetails() {
             const memberDetailContainer = document.getElementById('member-detail-container');
             
-            // 1. Ambil ID dari URL
-            const urlParams = new URLSearchParams(window.location.search);
-            const memberId = urlParams.get('id');
+            try {
+                // 1. Ambil ID dari URL
+                const urlParams = new URLSearchParams(window.location.search);
+                const memberId = urlParams.get('id');
 
-            if (!memberId) {
-                memberDetailContainer.innerHTML = '<p class="text-center text-red-500">ID anggota tidak ditemukan.</p>';
-                return;
-            }
-
-            // 2. Ambil data anggota spesifik dari Supabase
-            const { data, error } = await supabase
-                .from('anggota')
-                .select('*')
-                .eq('id', memberId)
-                .single(); // .single() untuk mendapatkan satu objek, bukan array
-
-            if (error) {
-                console.error('Error fetching member details:', error);
-                memberDetailContainer.innerHTML = `<p class="text-center text-red-500">Gagal memuat data untuk anggota dengan ID ${memberId}.</p>`;
-                return;
-            }
-
-            if (data) {
-                // 3. Siapkan variabel HTML dari data yang didapat
-                
-                // Afiliasi (Prodi & Universitas)
-                let affiliation = '';
-                if (data.prodi && data.universitas_asal) {
-                    affiliation = `${data.prodi} - ${data.universitas_asal}`;
-                } else {
-                    affiliation = data.prodi || data.universitas_asal || '';
+                if (!memberId) {
+                    memberDetailContainer.innerHTML = '<p class="text-center text-red-500">ID anggota tidak ditemukan.</p>';
+                    return;
                 }
 
-                // ID Profesional (Scopus & Scholar)
-                let professionalIdsHTML = '';
-                if (data.scopus_id) {
-                    professionalIdsHTML += `<p class="text-sm text-gray-500">Scopus ID: ${data.scopus_id}</p>`;
+                // 2. Ambil data anggota spesifik dari Supabase
+                const { data, error } = await supabase
+                    .from('anggota')
+                    .select('*')
+                    .eq('id', memberId)
+                    .single();
+
+                if (error) {
+                    throw new Error(`Gagal mengambil data: ${error.message}`);
                 }
-                if (data.google_scholar_id) {
-                    professionalIdsHTML += `<p class="text-sm text-gray-500">Google Scholar ID: ${data.google_scholar_id}</p>`;
-                }
 
-                // Daftar Pendidikan
-                const educationList = data.pendidikan && JSON.parse(data.pendidikan).length > 0
-                    ? JSON.parse(data.pendidikan).map(item => `<li class="mb-1">${item}</li>`).join('')
-                    : '<li>Data pendidikan tidak tersedia.</li>';
+                if (data) {
+                    // 3. Siapkan variabel HTML dari data yang didapat
+                    
+                    // Afiliasi (Prodi & Universitas)
+                    let affiliation = '';
+                    if (data.prodi && data.universitas_asal) {
+                        affiliation = `${data.prodi} - ${data.universitas_asal}`;
+                    } else {
+                        affiliation = data.prodi || data.universitas_asal || '';
+                    }
 
-                // Topik Penelitian
-                const researchTopics = data.topik_penelitian && JSON.parse(data.topik_penelitian).length > 0
-                    ? JSON.parse(data.topik_penelitian).map(item => `<span class="bg-red-100 text-red-800 text-sm font-medium mr-2 mb-2 px-3 py-1 rounded-full">${item}</span>`).join('')
-                    : '<p class="text-gray-500">Tidak ada topik penelitian yang terdaftar.</p>';
+                    // ID Profesional (Scopus & Scholar)
+                    let professionalIdsHTML = '';
+                    if (data.scopus_id) {
+                        professionalIdsHTML += `<p class="text-sm text-gray-500">Scopus ID: ${data.scopus_id}</p>`;
+                    }
+                    if (data.google_scholar_id) {
+                        professionalIdsHTML += `<p class="text-sm text-gray-500">Google Scholar ID: ${data.google_scholar_id}</p>`;
+                    }
 
-                // Daftar Publikasi (menggunakan ordered list)
-                const publicationList = data.publikasi && JSON.parse(data.publikasi).length > 0
-                    ? JSON.parse(data.publikasi).map(item => `<li class="mb-2 pl-2">${item}</li>`).join('')
-                    : '<li>Tidak ada publikasi yang terdaftar.</li>';
+                    // Daftar Pendidikan (FIX: Tidak perlu JSON.parse)
+                    const educationList = data.pendidikan && data.pendidikan.length > 0
+                        ? data.pendidikan.map(item => `<li class="mb-1">${item}</li>`).join('')
+                        : '<li>Data pendidikan tidak tersedia.</li>';
 
-                // 4. Buat struktur HTML lengkap
-                const memberHTML = `
-                    <div class="mb-8">
-                        <a href="tim.html" class="text-red-600 hover:text-red-800 transition-colors duration-300 flex items-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd" />
-                            </svg>
-                            Kembali ke Halaman Tim
-                        </a>
-                    </div>
-                    <div class="flex flex-col md:flex-row items-center md:items-start gap-8">
-                        <div class="flex-shrink-0">
-                            <img src="${data.foto_url || 'https://placehold.co/250x250/F87171/FFFFFF?text=Foto+Profil'}" alt="Foto Profil ${data.nama}" class="w-48 h-48 md:w-64 md:h-64 rounded-lg object-cover border-8 border-gray-100 shadow-sm">
+                    // Topik Penelitian (FIX: Tidak perlu JSON.parse)
+                    const researchTopics = data.topik_penelitian && data.topik_penelitian.length > 0
+                        ? data.topik_penelitian.map(item => `<span class="bg-red-100 text-red-800 text-sm font-medium mr-2 mb-2 px-3 py-1 rounded-full">${item}</span>`).join('')
+                        : '<p class="text-gray-500">Tidak ada topik penelitian yang terdaftar.</p>';
+
+                    // Daftar Publikasi (FIX: Tidak perlu JSON.parse)
+                    const publicationList = data.publikasi && data.publikasi.length > 0
+                        ? data.publikasi.map(item => `<li class="mb-2 pl-2">${item}</li>`).join('')
+                        : '<li>Tidak ada publikasi yang terdaftar.</li>';
+
+                    // 4. Buat struktur HTML lengkap
+                    const memberHTML = `
+                        <div class="mb-8">
+                            <a href="tim.html" class="text-red-600 hover:text-red-800 transition-colors duration-300 flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd" />
+                                </svg>
+                                Kembali ke Halaman Tim
+                            </a>
                         </div>
-                        <div class="text-center md:text-left flex-grow">
-                            <h1 class="text-4xl font-bold text-red-800">${data.nama}</h1>
-                            <p class="text-xl text-gray-700 font-medium mt-1">${data.jabatan}</p>
-                            ${affiliation ? `<p class="text-md text-gray-500 mt-1">${affiliation}</p>` : ''}
-                            <div class="mt-4 border-t pt-4 space-y-2">
-                                ${data.email ? `<h3 class="text-lg font-semibold text-gray-800">${data.email}</h3>` : ''}
-                                ${professionalIdsHTML}
+                        <div class="flex flex-col md:flex-row items-center md:items-start gap-8">
+                            <div class="flex-shrink-0">
+                                <img src="${data.foto_url || 'https://placehold.co/250x250/F87171/FFFFFF?text=Foto+Profil'}" alt="Foto Profil ${data.nama}" class="w-48 h-48 md:w-64 md:h-64 rounded-lg object-cover border-8 border-gray-100 shadow-sm">
+                            </div>
+                            <div class="text-center md:text-left flex-grow">
+                                <h1 class="text-4xl font-bold text-red-800">${data.nama}</h1>
+                                <p class="text-xl text-gray-700 font-medium mt-1">${data.jabatan}</p>
+                                ${affiliation ? `<p class="text-md text-gray-500 mt-1">${affiliation}</p>` : ''}
+                                <div class="mt-4 border-t pt-4 space-y-2">
+                                    ${data.email ? `<h3 class="text-lg font-semibold text-gray-800">${data.email}</h3>` : ''}
+                                    ${professionalIdsHTML}
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="mt-12 space-y-10">
-                        <div>
-                            <h2 class="text-2xl font-bold border-l-4 border-red-600 pl-4 mb-4">Latar Belakang Pendidikan</h2>
-                            <ul class="list-disc list-inside text-gray-700 space-y-2">${educationList}</ul>
+                        <div class="mt-12 space-y-10">
+                            <div>
+                                <h2 class="text-2xl font-bold border-l-4 border-red-600 pl-4 mb-4">Latar Belakang Pendidikan</h2>
+                                <ul class="list-disc list-inside text-gray-700 space-y-2">${educationList}</ul>
+                            </div>
+                            <div>
+                                <h2 class="text-2xl font-bold border-l-4 border-red-600 pl-4 mb-4">Topik Penelitian</h2>
+                                <div class="flex flex-wrap items-center">${researchTopics}</div>
+                            </div>
+                            <div>
+                                <h2 class="text-2xl font-bold border-l-4 border-red-600 pl-4 mb-4">Publikasi Pilihan</h2>
+                                <ol class="list-decimal list-inside text-gray-700 space-y-3">${publicationList}</ol>
+                            </div>
                         </div>
-                        <div>
-                            <h2 class="text-2xl font-bold border-l-4 border-red-600 pl-4 mb-4">Topik Penelitian</h2>
-                            <div class="flex flex-wrap items-center">${researchTopics}</div>
-                        </div>
-                        <div>
-                            <h2 class="text-2xl font-bold border-l-4 border-red-600 pl-4 mb-4">Publikasi Pilihan</h2>
-                            <ol class="list-decimal list-inside text-gray-700 space-y-3">${publicationList}</ol>
-                        </div>
-                    </div>
-                `;
-                memberDetailContainer.innerHTML = memberHTML;
-            } else {
-                 memberDetailContainer.innerHTML = `<p class="text-center text-gray-500">Anggota dengan ID ${memberId} tidak ditemukan.</p>`;
+                    `;
+                    memberDetailContainer.innerHTML = memberHTML;
+                } else {
+                    memberDetailContainer.innerHTML = `<p class="text-center text-gray-500">Anggota dengan ID ${memberId} tidak ditemukan.</p>`;
+                }
+            } catch (e) {
+                console.error('Error loading member details:', e);
+                memberDetailContainer.innerHTML = `<p class="text-center text-red-500">Terjadi kesalahan saat memuat halaman. Silakan coba lagi. (${e.message})</p>`;
             }
         }
 
