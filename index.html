@@ -14,13 +14,22 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
     <style>
+        /* Menggunakan font Inter sebagai default */
         body {
             font-family: 'Inter', sans-serif;
         }
+        /* Animasi untuk counter angka */
+        @keyframes count-up {
+            from { transform: translateY(15px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        .counter-number {
+            animation: count-up 1s ease-out forwards;
+        }
+        /* Smooth scroll behavior */
         html {
             scroll-behavior: smooth;
         }
-        /* Animasi untuk konten yang muncul */
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
@@ -65,10 +74,22 @@
                         </div>
                     </div>
                 </div>
-                <a href="#activities" class="text-gray-600 hover:text-red-600 transition duration-300">Activities</a>
-                <a href="#partners" class="text-gray-600 hover:text-red-600 transition duration-300">Partners</a>
-                <a href="#projects" class="text-gray-600 hover:text-red-600 transition duration-300">Projects</a>
-                <a href="#publications" class="text-gray-600 hover:text-red-600 transition duration-300">Publications</a>
+                <a href="activities.html" class="text-gray-600 hover:text-red-600 transition duration-300">Activities</a>
+                <a href="partners.html" class="text-gray-600 hover:text-red-600 transition duration-300">Partners</a>
+                <a href="projects.html" class="text-gray-600 hover:text-red-600 transition duration-300">Projects</a>
+                <div class="relative group py-6 -my-6">
+                    <button class="text-gray-600 hover:text-red-600 transition duration-300 flex items-center">
+                        Publications
+                        <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div class="absolute left-0 top-full pt-4 w-48 bg-transparent -mt-2">
+                        <div class="bg-white rounded-md shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 invisible group-hover:visible">
+                            <a href="#news" class="block px-4 py-2 text-sm text-gray-700 hover:bg-red-50 rounded-t-md">News</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-red-50">Papers</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-red-50 rounded-b-md">Jurnal</a>
+                        </div>
+                    </div>
+                </div>
                 <a href="#join-us" class="bg-red-600 text-white px-4 py-2 rounded-full hover:bg-red-700 transition duration-300 shadow hover:shadow-lg">Join Us</a>
             </nav>
 
@@ -84,10 +105,12 @@
             <a href="#sejarah" class="block px-6 py-3 text-gray-600 hover:bg-red-50">Sejarah</a>
             <a href="#visi-misi" class="block px-6 py-3 text-gray-600 hover:bg-red-50">Visi & Misi</a>
             <a href="tim.html" class="block px-6 py-3 text-gray-600 hover:bg-red-50">Tim Kami</a>
-            <a href="#activities" class="block px-6 py-3 text-gray-600 hover:bg-red-50">Activities</a>
-            <a href="#partners" class="block px-6 py-3 text-gray-600 hover:bg-red-50">Partners</a>
-            <a href="#projects" class="block px-6 py-3 text-gray-600 hover:bg-red-50">Projects</a>
-            <a href="#publications" class="block px-6 py-3 text-gray-600 hover:bg-red-50">Publications</a>
+            <a href="activities.html" class="block px-6 py-3 text-gray-600 hover:bg-red-50">Activities</a>
+            <a href="partners.html" class="block px-6 py-3 text-gray-600 hover:bg-red-50">Partners</a>
+            <a href="projects.html" class="block px-6 py-3 text-gray-600 hover:bg-red-50">Projects</a>
+            <a href="#news" class="block px-6 py-3 text-gray-600 hover:bg-red-50">News</a>
+            <a href="#" class="block px-6 py-3 text-gray-600 hover:bg-red-50">Papers</a>
+            <a href="#" class="block px-6 py-3 text-gray-600 hover:bg-red-50">Jurnal</a>
             <a href="#join-us" class="block px-6 py-3 text-white bg-red-600 text-center">Join Us</a>
         </div>
     </header>
@@ -190,37 +213,34 @@
             </div>
         </section>
 
-        <!-- Publications & Projects Section -->
-        <section id="publications" class="py-20 bg-gray-100">
+        <!-- News Section -->
+        <section id="news" class="py-20 bg-gray-100">
              <div class="container mx-auto px-6">
-                <h2 class="text-3xl font-bold text-center text-gray-800 mb-4">Publikasi & Proyek Terbaru</h2>
+                <h2 class="text-3xl font-bold text-center text-gray-800 mb-4">Berita AICOMS</h2>
                 <div class="w-24 h-1 bg-red-600 mx-auto mb-12"></div>
                 <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                     <div class="bg-white rounded-lg shadow-md overflow-hidden group transform hover:-translate-y-2 transition-all duration-300 hover:shadow-xl">
-                        <img src="https://placehold.co/600x400/DC2626/FFFFFF?text=Publikasi+1" alt="Gambar Publikasi" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300">
+                        <img src="https://placehold.co/600x400/E74C3C/FFFFFF?text=Berita+1" alt="Berita 1" class="w-full h-48 object-cover">
                         <div class="p-6">
-                            <span class="text-sm text-red-600 font-semibold">Q1 Journal</span>
-                            <h3 class="font-bold text-xl my-2">Optimizing 6G Networks with Deep Reinforcement Learning</h3>
-                            <p class="text-gray-600 text-sm mb-4">Penelitian ini mengeksplorasi penggunaan DRL untuk manajemen sumber daya dinamis di jaringan 6G.</p>
-                            <a href="#" class="text-red-600 font-semibold hover:underline">Baca Selengkapnya &rarr;</a>
-                        </div>
-                    </div>
-                    <div id="projects" class="bg-white rounded-lg shadow-md overflow-hidden group transform hover:-translate-y-2 transition-all duration-300 hover:shadow-xl">
-                        <img src="https://placehold.co/600x400/F87171/FFFFFF?text=Proyek+1" alt="Gambar Proyek" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300">
-                        <div class="p-6">
-                            <span class="text-sm text-gray-600 font-semibold">Proyek Unggulan</span>
-                            <h3 class="font-bold text-xl my-2">AI-Powered Smart City Traffic Management</h3>
-                            <p class="text-gray-600 text-sm mb-4">Mengembangkan sistem cerdas untuk mengelola lalu lintas perkotaan secara real-time.</p>
-                            <a href="#" class="text-red-600 font-semibold hover:underline">Lihat Detail Proyek &rarr;</a>
+                            <p class="text-sm text-gray-500 mb-2">15 Juni 2024</p>
+                            <h3 class="font-bold text-xl mb-3">AICOMS Menangkan Hibah Penelitian Internasional</h3>
+                            <p class="text-gray-600 text-sm">Tim peneliti kami berhasil mendapatkan pendanaan untuk proyek kolaborasi riset AI dengan universitas di Jepang.</p>
                         </div>
                     </div>
                     <div class="bg-white rounded-lg shadow-md overflow-hidden group transform hover:-translate-y-2 transition-all duration-300 hover:shadow-xl">
-                        <img src="https://placehold.co/600x400/DC2626/FFFFFF?text=Publikasi+2" alt="Gambar Publikasi" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300">
+                        <img src="https://placehold.co/600x400/9B59B6/FFFFFF?text=Berita+2" alt="Berita 2" class="w-full h-48 object-cover">
                         <div class="p-6">
-                            <span class="text-sm text-red-600 font-semibold">IEEE Conference</span>
-                            <h3 class="font-bold text-xl my-2">Federated Learning for Privacy-Preserving IoT</h3>
-                            <p class="text-gray-600 text-sm mb-4">Implementasi Federated Learning untuk melatih model AI pada perangkat IoT.</p>
-                            <a href="#" class="text-red-600 font-semibold hover:underline">Baca Selengkapnya &rarr;</a>
+                            <p class="text-sm text-gray-500 mb-2">2 Mei 2024</p>
+                            <h3 class="font-bold text-xl mb-3">Seminar Nasional "AI for Indonesia 2024" Sukses Digelar</h3>
+                            <p class="text-gray-600 text-sm">AICOMS menjadi tuan rumah seminar yang dihadiri oleh ratusan akademisi dan praktisi industri dari seluruh Indonesia.</p>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden group transform hover:-translate-y-2 transition-all duration-300 hover:shadow-xl">
+                        <img src="https://placehold.co/600x400/F1C40F/FFFFFF?text=Berita+3" alt="Berita 3" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <p class="text-sm text-gray-500 mb-2">10 April 2024</p>
+                            <h3 class="font-bold text-xl mb-3">Mahasiswa Binaan AICOMS Raih Juara di Kompetisi AI</h3>
+                            <p class="text-gray-600 text-sm">Selamat kepada tim mahasiswa yang berhasil meraih juara pertama dalam kompetisi pengembangan aplikasi AI tingkat nasional.</p>
                         </div>
                     </div>
                 </div>
