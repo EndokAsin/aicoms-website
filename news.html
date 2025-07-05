@@ -11,8 +11,49 @@
 </head>
 <body class="bg-gray-50 text-gray-800">
 
+    <!-- Header / Navigation Bar -->
     <header class="bg-white/80 backdrop-blur-lg shadow-md fixed top-0 left-0 right-0 z-50">
-        </header>
+        <div class="container mx-auto px-6 py-2 flex justify-between items-center">
+            <a href="index.html">
+                <img src="images/1. Logo AICOMS.png" alt="Logo AICOMS" class="h-16 w-auto">
+            </a>
+            <nav class="hidden md:flex items-center space-x-8">
+                <a href="index.html" class="text-gray-600 hover:text-red-600 transition duration-300">Home</a>
+                <div class="relative group py-6 -my-6">
+                    <button class="text-gray-600 hover:text-red-600 flex items-center">
+                        About Us
+                        <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div class="absolute left-0 top-full pt-4 w-48 bg-transparent -mt-2">
+                        <div class="bg-white rounded-md shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 invisible group-hover:visible">
+                            <a href="index.html#about-org" class="block px-4 py-2 text-sm text-gray-700 hover:bg-red-50 rounded-t-md">Tentang Kami</a>
+                            <a href="tim.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-red-50 rounded-b-md">Tim Kami</a>
+                        </div>
+                    </div>
+                </div>
+                <a href="activities.html" class="text-gray-600 hover:text-red-600 transition duration-300">Activities</a>
+                <a href="partners.html" class="text-gray-600 hover:text-red-600 transition duration-300">Partners</a>
+                <a href="projects.html" class="text-gray-600 hover:text-red-600 transition duration-300">Projects</a>
+                <div class="relative group py-6 -my-6">
+                    <button class="text-red-600 font-semibold flex items-center">
+                        Publications
+                        <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div class="absolute left-0 top-full pt-4 w-48 bg-transparent -mt-2">
+                        <div class="bg-white rounded-md shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 invisible group-hover:visible">
+                            <a href="news.html" class="block px-4 py-2 text-sm text-red-700 font-semibold hover:bg-red-50 rounded-t-md">News</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-red-50">Papers</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-red-50 rounded-b-md">Jurnal</a>
+                        </div>
+                    </div>
+                </div>
+                <a href="index.html#feedback" class="bg-red-600 text-white px-4 py-2 rounded-full hover:bg-red-700 transition duration-300 shadow hover:shadow-lg">Join Us</a>
+            </nav>
+            <button id="mobile-menu-button" class="md:hidden">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
+        </div>
+    </header>
 
     <main class="pt-24 bg-white">
         <section class="py-20">
@@ -21,18 +62,26 @@
                 <div class="w-24 h-1 bg-red-600 mx-auto mb-12"></div>
 
                 <div id="news-grid-container" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Kartu Berita akan dimuat di sini oleh JavaScript -->
                     <p class="col-span-full text-center text-gray-500">Memuat berita...</p>
                 </div>
             </div>
         </section>
     </main>
 
+    <!-- Footer -->
     <footer class="bg-gray-800 text-white py-12">
-        </footer>
+        <div class="container mx-auto px-6 text-center">
+            <p class="font-bold text-lg mb-2">PUI-PT AICOMS</p>
+            <p class="text-gray-400">Gedung Panambulai, Telkom University</p>
+            <p class="text-gray-400 mb-6">Jl. Telekomunikasi No. 1, Terusan Buahbatu, Bandung</p>
+            <p class="text-sm text-gray-500">&copy; 2024 AICOMS - Telkom University. All Rights Reserved.</p>
+        </div>
+    </footer>
 
     <script>
         const SUPABASE_URL = 'https://ostoxfgxxjfbvfouydiv.supabase.co';
-        const SUPABASE_ANON_KEY = 'MASUKKAN_KUNCI_API_BARU_ANDA_DI_SINI';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9zdG94Zmd4eGpmYnZmb3V5ZGl2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTE2OTI1MzcsImV4cCI6MjA2NzI2ODUzN30.PqEWjFaTGZZmQ5o2rNmv2G34k1-UKfloU_ETDxhwcro';
         const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
         async function loadNews() {
@@ -40,24 +89,42 @@
             const { data, error } = await supabase.from('berita').select('*').order('tanggal', { ascending: false });
 
             if (error) {
-                container.innerHTML = `<p class="col-span-full text-center text-red-500">Gagal memuat berita.</p>`;
+                console.error("Error fetching news:", error);
+                container.innerHTML = `
+                    <div class="col-span-full text-center bg-red-50 border border-red-200 p-6 rounded-lg">
+                        <p class="font-bold text-red-600 text-lg">Koneksi ke Database Gagal</p>
+                        <p class="mt-2 text-gray-700">Penyebabnya adalah Kunci API yang tidak valid. Silakan buat kunci baru.</p>
+                        <div class="mt-4 text-sm text-left">
+                            <p class="font-semibold text-gray-800">Langkah-langkah Perbaikan:</p>
+                            <ol class="list-decimal list-inside mt-2 space-y-1 text-gray-600">
+                                <li>Buka dashboard Supabase > Project Settings > API.</li>
+                                <li>Klik <strong>"Generate new key"</strong> untuk kunci <strong><code>anon</code></strong>.</li>
+                                <li>Salin kunci baru dan tempelkan ke variabel <code>SUPABASE_ANON_KEY</code> di semua file HTML.</li>
+                            </ol>
+                        </div>
+                    </div>
+                `;
                 return;
             }
 
-            container.innerHTML = '';
-            data.forEach(item => {
-                const newsCard = `
-                    <a href="news-detail.html?id=${item.id}" class="block bg-white rounded-lg shadow-md overflow-hidden group transform hover:-translate-y-2 transition-all duration-300 hover:shadow-xl">
-                        <img src="${item.gambar_url || 'https://placehold.co/600x400/E74C3C/FFFFFF?text=Berita'}" alt="${item.judul}" class="w-full h-48 object-cover">
-                        <div class="p-6">
-                            <p class="text-sm text-gray-500 mb-2">${new Date(item.tanggal).toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
-                            <h3 class="font-bold text-xl mb-3 leading-tight">${item.judul}</h3>
-                            <p class="text-red-600 font-semibold hover:underline">Baca Selengkapnya &rarr;</p>
-                        </div>
-                    </a>
-                `;
-                container.innerHTML += newsCard;
-            });
+            if (data && data.length > 0) {
+                container.innerHTML = '';
+                data.forEach(item => {
+                    const newsCard = `
+                        <a href="news-detail.html?id=${item.id}" class="block bg-white rounded-lg shadow-md overflow-hidden group transform hover:-translate-y-2 transition-all duration-300 hover:shadow-xl">
+                            <img src="${item.gambar_url || 'https://placehold.co/600x400/E74C3C/FFFFFF?text=Berita'}" alt="${item.judul}" class="w-full h-48 object-cover">
+                            <div class="p-6">
+                                <p class="text-sm text-gray-500 mb-2">${new Date(item.tanggal).toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
+                                <h3 class="font-bold text-xl mb-3 leading-tight">${item.judul}</h3>
+                                <p class="text-red-600 font-semibold hover:underline">Baca Selengkapnya &rarr;</p>
+                            </div>
+                        </a>
+                    `;
+                    container.innerHTML += newsCard;
+                });
+            } else {
+                container.innerHTML = '<p class="col-span-full text-center text-gray-500">Belum ada berita yang dipublikasikan.</p>';
+            }
         }
         document.addEventListener('DOMContentLoaded', loadNews);
     </script>
