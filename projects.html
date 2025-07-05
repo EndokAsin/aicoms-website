@@ -14,6 +14,7 @@
 </head>
 <body class="bg-gray-50 text-gray-800">
 
+    <!-- Header / Navigation Bar (Konsisten dengan halaman lain) -->
     <header class="bg-white/80 backdrop-blur-lg shadow-md fixed top-0 left-0 right-0 z-50">
         <div class="container mx-auto px-6 py-2 flex justify-between items-center">
             <a href="index.html">
@@ -57,17 +58,68 @@
             </button>
         </div>
         <div id="mobile-menu" class="hidden md:hidden bg-white">
-            </div>
+            <!-- Mobile links... -->
+        </div>
     </header>
 
     <main class="pt-24 bg-white">
-        </main>
+        <section class="py-20">
+            <div class="container mx-auto px-6">
+                <h1 class="text-4xl font-bold text-center text-gray-800 mb-4">Proyek Kami</h1>
+                <div class="w-24 h-1 bg-red-600 mx-auto mb-12"></div>
 
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Contoh Kartu Proyek -->
+                    <div class="bg-gray-50 rounded-lg shadow-md overflow-hidden group transform hover:-translate-y-2 transition-all duration-300 hover:shadow-xl">
+                        <img src="https://placehold.co/600x400/F87171/FFFFFF?text=Proyek+1" alt="Gambar Proyek" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300">
+                        <div class="p-6">
+                            <span class="text-sm text-gray-600 font-semibold">Proyek Unggulan</span>
+                            <h3 class="font-bold text-xl my-2">AI-Powered Smart City Traffic Management</h3>
+                            <p class="text-gray-600 text-sm mb-4">Mengembangkan sistem cerdas untuk mengelola lalu lintas perkotaan secara real-time menggunakan data sensor dan AI.</p>
+                            <a href="#" class="text-red-600 font-semibold hover:underline">Lihat Detail &rarr;</a>
+                        </div>
+                    </div>
+                    <div class="bg-gray-50 rounded-lg shadow-md overflow-hidden group transform hover:-translate-y-2 transition-all duration-300 hover:shadow-xl">
+                        <img src="https://placehold.co/600x400/F87171/FFFFFF?text=Proyek+2" alt="Gambar Proyek" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300">
+                        <div class="p-6">
+                            <span class="text-sm text-gray-600 font-semibold">Proyek Internasional</span>
+                            <h3 class="font-bold text-xl my-2">6G Network Slicing Research</h3>
+                            <p class="text-gray-600 text-sm mb-4">Kolaborasi riset dengan Waseda University untuk mengembangkan teknologi network slicing pada jaringan 6G.</p>
+                            <a href="#" class="text-red-600 font-semibold hover:underline">Lihat Detail &rarr;</a>
+                        </div>
+                    </div>
+                    <div class="bg-gray-50 rounded-lg shadow-md overflow-hidden group transform hover:-translate-y-2 transition-all duration-300 hover:shadow-xl">
+                        <img src="https://placehold.co/600x400/F87171/FFFFFF?text=Proyek+3" alt="Gambar Proyek" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300">
+                        <div class="p-6">
+                            <span class="text-sm text-gray-600 font-semibold">Proyek Nasional</span>
+                            <h3 class="font-bold text-xl my-2">Sistem Peringatan Dini Bencana</h3>
+                            <p class="text-gray-600 text-sm mb-4">Implementasi sistem peringatan dini bencana berbasis IoT dan AI bekerja sama dengan BMKG.</p>
+                            <a href="#" class="text-red-600 font-semibold hover:underline">Lihat Detail &rarr;</a>
+                        </div>
+                    </div>
+                    <!-- Tambahkan kartu proyek lainnya di sini -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
     <footer class="bg-gray-800 text-white py-12">
-        </footer>
+        <div class="container mx-auto px-6 text-center">
+            <p class="font-bold text-lg mb-2">PUI-PT AICOMS</p>
+            <p class="text-gray-400">Gedung Panambulai, Telkom University</p>
+            <p class="text-gray-400 mb-6">Jl. Telekomunikasi No. 1, Terusan Buahbatu, Bandung</p>
+            <p class="text-sm text-gray-500">&copy; 2024 AICOMS - Telkom University. All Rights Reserved.</p>
+        </div>
+    </footer>
 
     <script>
-        // Skrip mobile menu
+        // JavaScript untuk Mobile Menu Toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
     </script>
 </body>
 </html>
