@@ -109,7 +109,8 @@
                     .single();
 
                 if (error) {
-                    throw new Error(`Gagal mengambil data: ${error.message}`);
+                    // Lemparkan error agar ditangkap oleh blok catch
+                    throw error;
                 }
 
                 if (data) {
@@ -193,7 +194,28 @@
                 }
             } catch (e) {
                 console.error('Error loading member details:', e);
-                memberDetailContainer.innerHTML = `<p class="text-center text-red-500">Terjadi kesalahan saat memuat halaman. Silakan coba lagi. (${e.message})</p>`;
+                let errorMessage;
+                if (e.message.includes("Invalid API key") || e.message.includes("401")) {
+                    errorMessage = `
+                        <div class="text-center">
+                            <p class="font-bold text-red-600 text-lg">Gagal Terhubung ke Database (Error 401)</p>
+                            <p class="mt-2 text-gray-600">Ini berarti Kunci API (API Key) di dalam kode tidak valid.</p>
+                            <div class="mt-4 text-sm text-left bg-red-50 p-4 rounded-lg border border-red-200">
+                                <p class="font-semibold">Langkah-langkah Perbaikan:</p>
+                                <ol class="list-decimal list-inside mt-2 space-y-1">
+                                    <li>Buka dashboard Supabase proyek Anda.</li>
+                                    <li>Pergi ke <strong>Project Settings</strong> (ikon gerigi).</li>
+                                    <li>Pilih menu <strong>API</strong>.</li>
+                                    <li>Di bawah bagian <strong>Project API Keys</strong>, salin kunci yang berlabel <strong><code>anon</code></strong> / <strong><code>public</code></strong>.</li>
+                                    <li>Pastikan kunci tersebut sama persis dengan yang ada di variabel <strong><code>SUPABASE_ANON_KEY</code></strong> di dalam kode.</li>
+                                </ol>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    errorMessage = `<p class="text-center text-red-500">Terjadi kesalahan saat memuat halaman. Silakan coba lagi. (${e.message})</p>`;
+                }
+                memberDetailContainer.innerHTML = errorMessage;
             } finally {
                 // Selalu tampilkan footer setelah proses selesai
                 pageFooter.classList.remove('hidden');
