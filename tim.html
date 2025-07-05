@@ -93,19 +93,19 @@
             }
 
             if (data && data.length > 0) {
-                // --- LOGIKA PENGURUTAN KHUSUS ---
+                // --- LOGIKA PENGURUTAN KHUSUS BERDASARKAN JABATAN ---
                 const specificOrder = [
-                    "Dr. Eng. Khoirul Anwar, S.T., M.Eng.",
-                    "Dr. Gelar Budiman",
-                    "Dr. Nopendri",
-                    "Fardan, S.T, M.Sc.",
-                    "Ferdhy Ramadan, S.M.",
-                    "Lovei Miftahul Jannah, S.M."
+                    "Direktur PUI-PT AICOMS",
+                    "Manajer PUI-PT AICOMS",
+                    "Asisten Manajer Urusan Kolaborasi Nasional",
+                    "Asisten Manajer Urusan Kolaborasi Internasional",
+                    "Staff Administrasi Urusan Internasional/Eksternal",
+                    "Staff Administrasi Urusan Nasional/Internal"
                 ];
 
                 data.sort((a, b) => {
-                    const indexA = specificOrder.indexOf(a.nama);
-                    const indexB = specificOrder.indexOf(b.nama);
+                    const indexA = specificOrder.indexOf(a.jabatan);
+                    const indexB = specificOrder.indexOf(b.jabatan);
 
                     // Jika keduanya ada di daftar urutan khusus
                     if (indexA !== -1 && indexB !== -1) {
@@ -119,7 +119,7 @@
                     if (indexB !== -1) {
                         return 1; // B comes first
                     }
-                    // Jika keduanya tidak ada di daftar, urutkan berdasarkan abjad
+                    // Jika keduanya tidak ada di daftar, urutkan berdasarkan nama
                     return a.nama.localeCompare(b.nama);
                 });
                 // --- AKHIR LOGIKA PENGURUTAN ---
