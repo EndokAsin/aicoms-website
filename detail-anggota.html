@@ -82,7 +82,6 @@
     <script>
         // --- KONEKSI SUPABASE ---
         const SUPABASE_URL = 'https://ostoxfgxxjfbvfouydiv.supabase.co';
-        // --- PENTING: GANTI KUNCI DI BAWAH INI DENGAN KUNCI BARU ANDA ---
         const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9zdG94Zmd4eGpmYnZmb3V5ZGl2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTE2OTI1MzcsImV4cCI6MjA2NzI2ODUzN30.PqEWjFaTGZZmQ5o2rNmv2G34k1-UKfloU_ETDxhwcro';
 
         const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
@@ -115,7 +114,14 @@
 
                 if (data) {
                     // 3. Siapkan variabel HTML dari data yang didapat
-                    let affiliation = data.prodi && data.universitas_asal ? `${data.prodi} - ${data.universitas_asal}` : (data.prodi || data.universitas_asal || '');
+                    let affiliationHTML = '';
+                    if (data.prodi) {
+                        affiliationHTML += `<p class="text-md text-gray-500 mt-1">${data.prodi}</p>`;
+                    }
+                    if (data.universitas_asal) {
+                        affiliationHTML += `<p class="text-md text-gray-500">${data.universitas_asal}</p>`;
+                    }
+                    
                     let professionalIdsHTML = (data.scopus_id || data.google_scholar_id) ? `<p class="text-gray-500">Scopus ID: ${data.scopus_id || 'N/A'} | Google Scholar: ${data.google_scholar_id || 'N/A'}</p>` : '';
                     const educationList = Array.isArray(data.pendidikan) && data.pendidikan.length > 0 ? data.pendidikan.map(item => `<li class="mb-1">${item}</li>`).join('') : '<li>Data pendidikan tidak tersedia.</li>';
                     const researchTopics = Array.isArray(data.topik_penelitian) && data.topik_penelitian.length > 0 ? data.topik_penelitian.map(item => `<span class="bg-red-100 text-red-800 text-sm font-medium mr-2 mb-2 px-3 py-1 rounded-full">${item}</span>`).join('') : '<p class="text-gray-500">Tidak ada topik penelitian yang terdaftar.</p>';
@@ -134,10 +140,10 @@
                                 <div class="flex-shrink-0">
                                     <img src="${data.foto_url || 'https://placehold.co/250x250/F87171/FFFFFF?text=Foto+Profil'}" alt="Foto Profil ${data.nama}" class="w-48 h-48 md:w-64 md:h-64 rounded-full object-cover border-8 border-gray-100 shadow-sm">
                                 </div>
-                                <div class="text-center md:text-left">
-                                    <h1 class="text-4xl font-bold text-red-800">${data.nama}</h1>
+                                <div class="text-center md:text-left flex-grow">
+                                    <h1 class="text-3xl md:text-4xl font-bold text-red-800">${data.nama}</h1>
                                     <p class="text-xl text-gray-600 font-medium mt-1">${data.jabatan}</p>
-                                    ${affiliation ? `<p class="text-md text-gray-500 mt-1">${affiliation}</p>` : ''}
+                                    ${affiliationHTML}
                                     <div class="mt-4 border-t pt-4">
                                         ${data.email ? `<h3 class="text-lg font-semibold text-gray-700 mb-2">${data.email}</h3>` : ''}
                                         ${professionalIdsHTML}
