@@ -114,20 +114,33 @@
                          professionalIdsHTML = `<p class="text-gray-500">Scopus ID: ${data.scopus_id || 'N/A'} | Google Scholar: ${data.google_scholar_id || 'N/A'}</p>`;
                     }
 
+                    // Helper function untuk parse JSON dengan aman
+                    const parseJsonSafely = (jsonString) => {
+                        if (!jsonString || typeof jsonString !== 'string') return [];
+                        try {
+                            const parsed = JSON.parse(jsonString);
+                            return Array.isArray(parsed) ? parsed : [];
+                        } catch (e) {
+                            return [];
+                        }
+                    };
 
-                    // Daftar Pendidikan
-                    const educationList = data.pendidikan && data.pendidikan.length > 0
-                        ? data.pendidikan.map(item => `<li class="mb-1">${item}</li>`).join('')
+                    // Daftar Pendidikan (FIX: Parse JSON dengan aman)
+                    const educationArray = parseJsonSafely(data.pendidikan);
+                    const educationList = educationArray.length > 0
+                        ? educationArray.map(item => `<li class="mb-1">${item}</li>`).join('')
                         : '<li>Data pendidikan tidak tersedia.</li>';
 
-                    // Topik Penelitian
-                    const researchTopics = data.topik_penelitian && data.topik_penelitian.length > 0
-                        ? data.topik_penelitian.map(item => `<span class="bg-red-100 text-red-800 text-sm font-medium mr-2 mb-2 px-3 py-1 rounded-full">${item}</span>`).join('')
+                    // Topik Penelitian (FIX: Parse JSON dengan aman)
+                    const researchArray = parseJsonSafely(data.topik_penelitian);
+                    const researchTopics = researchArray.length > 0
+                        ? researchArray.map(item => `<span class="bg-red-100 text-red-800 text-sm font-medium mr-2 mb-2 px-3 py-1 rounded-full">${item}</span>`).join('')
                         : '<p class="text-gray-500">Tidak ada topik penelitian yang terdaftar.</p>';
 
-                    // Daftar Publikasi
-                    const publicationList = data.publikasi && data.publikasi.length > 0
-                        ? data.publikasi.map(item => `<li class="mb-2 pl-2">${item}</li>`).join('')
+                    // Daftar Publikasi (FIX: Parse JSON dengan aman)
+                    const publicationArray = parseJsonSafely(data.publikasi);
+                    const publicationList = publicationArray.length > 0
+                        ? publicationArray.map(item => `<li class="mb-2 pl-2">${item}</li>`).join('')
                         : '<li>Tidak ada publikasi yang terdaftar.</li>';
 
                     // 4. Buat struktur HTML lengkap
