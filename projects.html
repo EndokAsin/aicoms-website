@@ -3,20 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Projects - AICOMS</title>
+    <title>Detail Proyek - AICOMS</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style> 
         body { font-family: 'Inter', sans-serif; } 
-        .project-filter-btn.active {
-            @apply bg-red-600 text-white;
-        }
+        .prose-custom p { margin-bottom: 1.25em; }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-800">
+<body class="bg-gray-50">
 
-    <!-- Header / Navigation Bar -->
+    <!-- Header / Navigation Bar (Diperbarui) -->
     <header class="bg-white/80 backdrop-blur-lg shadow-md fixed top-0 left-0 right-0 z-50">
         <div class="container mx-auto px-6 py-2 flex justify-between items-center">
             <a href="index.html">
@@ -47,8 +46,8 @@
                     <div class="absolute left-0 top-full pt-4 w-48 bg-transparent -mt-2">
                         <div class="bg-white rounded-md shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 invisible group-hover:visible">
                             <a href="news.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-red-50 rounded-t-md">News</a>
-                            <a href="papers" class="block px-4 py-2 text-sm text-gray-700 hover:bg-red-50">Papers</a>
-                            <a href="journals" class="block px-4 py-2 text-sm text-gray-700 hover:bg-red-50 rounded-b-md">Jurnal</a>
+                            <a href="papers.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-red-50">Papers</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-red-50 rounded-b-md">Jurnal</a>
                         </div>
                     </div>
                 </div>
@@ -58,27 +57,23 @@
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
             </button>
         </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-white divide-y divide-gray-100">
+            <a href="index.html" class="block px-6 py-3 text-gray-600 hover:bg-red-50">Home</a>
+            <a href="tim.html" class="block px-6 py-3 text-gray-600 hover:bg-red-50">Tim Kami</a>
+            <a href="activities.html" class="block px-6 py-3 text-gray-600 hover:bg-red-50">Activities</a>
+            <a href="partners.html" class="block px-6 py-3 text-gray-600 hover:bg-red-50">Partners</a>
+            <a href="projects.html" class="block px-6 py-3 text-gray-600 hover:bg-red-50">Projects</a>
+            <a href="news.html" class="block px-6 py-3 text-gray-600 hover:bg-red-50">News</a>
+            <a href="papers.html" class="block px-6 py-3 text-gray-600 hover:bg-red-50">Papers</a>
+            <a href="#" class="block px-6 py-3 text-gray-600 hover:bg-red-50">Jurnal</a>
+            <a href="index.html#feedback" class="block px-6 py-3 text-white bg-red-600 text-center">Join Us</a>
+        </div>
     </header>
 
-    <main class="pt-24 bg-white">
-        <section class="py-20">
-            <div class="container mx-auto px-6">
-                <h1 class="text-4xl font-bold text-center text-gray-800 mb-4">Proyek Kami</h1>
-                <div class="w-24 h-1 bg-red-600 mx-auto mb-12"></div>
-
-                <!-- Filter Kategori -->
-                <div id="project-filter-container" class="flex flex-wrap justify-center gap-2 mb-12">
-                    <button data-kategori="Semua" class="project-filter-btn active bg-red-600 text-white px-4 py-2 rounded-full text-sm font-medium">Semua</button>
-                    <button data-kategori="Internasional" class="project-filter-btn bg-gray-200 text-gray-700 px-4 py-2 rounded-full text-sm font-medium hover:bg-gray-300">Internasional</button>
-                    <button data-kategori="Nasional" class="project-filter-btn bg-gray-200 text-gray-700 px-4 py-2 rounded-full text-sm font-medium hover:bg-gray-300">Nasional</button>
-                    <button data-kategori="Unggulan" class="project-filter-btn bg-gray-200 text-gray-700 px-4 py-2 rounded-full text-sm font-medium hover:bg-gray-300">Unggulan</button>
-                </div>
-
-                <div id="projects-grid-container" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <!-- Kartu Proyek akan dimuat di sini -->
-                </div>
-            </div>
-        </section>
+    <main class="pt-24">
+        <div id="project-detail-container" class="max-w-4xl mx-auto py-16 px-6 bg-white my-8 rounded-lg shadow-lg min-h-[400px] flex justify-center items-center">
+            <!-- Konten detail proyek akan dimuat di sini -->
+        </div>
     </main>
 
     <footer class="bg-gray-800 text-white py-12">
@@ -95,60 +90,50 @@
         const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9zdG94Zmd4eGpmYnZmb3V5ZGl2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTE2OTI1MzcsImV4cCI6MjA2NzI2ODUzN30.PqEWjFaTGZZmQ5o2rNmv2G34k1-UKfloU_ETDxhwcro';
         const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-        let allProjects = [];
+        async function loadProjectDetail() {
+            const container = document.getElementById('project-detail-container');
+            const urlParams = new URLSearchParams(window.location.search);
+            const projectId = urlParams.get('id');
 
-        async function loadProjects() {
-            const container = document.getElementById('projects-grid-container');
-            container.innerHTML = '<p class="col-span-full text-center text-gray-500">Memuat proyek...</p>';
-            
-            const { data, error } = await supabase.from('projects').select('*').order('created_at', { ascending: false });
-
-            if (error) {
-                container.innerHTML = `<div class="col-span-full text-center bg-red-50 border border-red-200 p-6 rounded-lg"><p class="font-bold text-red-600 text-lg">Gagal Memuat Proyek</p><p class="mt-2 text-gray-700">Penyebabnya adalah Kunci API yang tidak valid. Silakan buat kunci baru di dashboard Supabase.</p></div>`;
+            if (!projectId) {
+                container.innerHTML = '<p class="text-center text-red-500">Proyek tidak ditemukan.</p>';
                 return;
             }
-            allProjects = data;
-            displayProjects(allProjects);
-        }
 
-        function displayProjects(projects) {
-            const container = document.getElementById('projects-grid-container');
-            container.innerHTML = '';
-            if (projects && projects.length > 0) {
-                projects.forEach(item => {
-                    const projectCard = `
-                        <a href="project-detail.html?id=${item.id}" class="block bg-white rounded-lg shadow-md overflow-hidden group transform hover:-translate-y-2 transition-all duration-300 hover:shadow-xl">
-                            <img src="${item.gambar_url || 'https://placehold.co/600x400/F87171/FFFFFF?text=Proyek'}" alt="${item.judul}" class="w-full h-48 object-cover">
-                            <div class="p-6">
-                                <span class="text-sm text-red-600 font-semibold">${item.kategori || 'Umum'}</span>
-                                <h3 class="font-bold text-xl my-2">${item.judul}</h3>
-                                <p class="text-gray-600 text-sm mb-4">${item.deskripsi ? item.deskripsi.substring(0, 100) + '...' : ''}</p>
-                                <p class="text-red-600 font-semibold hover:underline">Lihat Detail &rarr;</p>
-                            </div>
-                        </a>
-                    `;
-                    container.innerHTML += projectCard;
-                });
-            } else {
-                container.innerHTML = '<p class="col-span-full text-center text-gray-500">Tidak ada proyek dalam kategori ini.</p>';
+            const { data, error } = await supabase.from('projects').select('*').eq('id', projectId).single();
+
+            if (error || !data) {
+                container.innerHTML = `<div class="text-center"><p class="font-bold text-red-600 text-lg">Gagal Memuat Proyek</p><p class="mt-2 text-gray-700">Pastikan Kunci API dan RLS sudah benar.</p><a href="projects.html" class="mt-6 inline-block text-red-600 hover:underline">&larr; Kembali ke daftar proyek</a></div>`;
+                return;
             }
-        }
 
-        document.querySelectorAll('.project-filter-btn').forEach(button => {
-            button.addEventListener('click', () => {
-                document.querySelectorAll('.project-filter-btn').forEach(btn => {
-                    btn.classList.remove('active', 'bg-red-600', 'text-white');
-                    btn.classList.add('bg-gray-200', 'text-gray-700');
-                });
-                button.classList.add('active', 'bg-red-600', 'text-white');
-                button.classList.remove('bg-gray-200', 'text-gray-700');
-                const kategori = button.dataset.kategori;
-                const filteredProjects = kategori === 'Semua' ? allProjects : allProjects.filter(p => p.kategori === kategori);
-                displayProjects(filteredProjects);
+            document.title = `${data.judul} - AICOMS`;
+            
+            const detailHTML = `
+                <article class="prose-custom max-w-none">
+                    <div class="mb-8">
+                        <a href="projects.html" class="text-red-600 hover:text-red-800 transition-colors duration-300 flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd" /></svg>
+                            Kembali ke Daftar Proyek
+                        </a>
+                    </div>
+                    <span class="bg-red-100 text-red-800 text-sm font-medium mr-2 px-3 py-1 rounded-full">${data.kategori}</span>
+                    <h1 class="text-4xl font-extrabold text-gray-900 mt-4">${data.judul}</h1>
+                    <img src="${data.gambar_url || 'https://placehold.co/1200x600/EFEFEF/AAAAAA?text=Gambar+Tidak+Tersedia'}" alt="${data.judul}" class="w-full rounded-lg shadow-lg my-8">
+                    <div class="text-gray-700 leading-relaxed">${data.deskripsi ? data.deskripsi.replace(/\n/g, '<br>') : 'Deskripsi tidak tersedia.'}</div>
+                </article>
+            `;
+            container.innerHTML = detailHTML;
+        }
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            loadProjectDetail();
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
             });
         });
-
-        document.addEventListener('DOMContentLoaded', loadProjects);
     </script>
 </body>
 </html>
