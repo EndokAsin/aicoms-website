@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detail Berita - AICOMS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style> body { font-family: 'Inter', sans-serif; } </style>
+</head>
+<body class="bg-gray-50">
+
+    <header class="bg-white/80 backdrop-blur-lg shadow-md fixed top-0 left-0 right-0 z-50">
+        </header>
+
+    <main class="pt-24">
+        <div id="news-detail-container" class="max-w-4xl mx-auto py-16 px-6">
+            </div>
+    </main>
+
+    <footer class="bg-gray-800 text-white py-12">
+        </footer>
+
+    <script>
+        const SUPABASE_URL = 'https://ostoxfgxxjfbvfouydiv.supabase.co';
+        const SUPABASE_ANON_KEY = 'MASUKKAN_KUNCI_API_BARU_ANDA_DI_SINI';
+        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        async function loadNewsDetail() {
+            const container = document.getElementById('news-detail-container');
+            const urlParams = new URLSearchParams(window.location.search);
+            const newsId = urlParams.get('id');
+
+            if (!newsId) {
+                container.innerHTML = '<p class="text-center text-red-500">Berita tidak ditemukan.</p>';
+                return;
+            }
+
+            const { data, error } = await supabase.from('berita').select('*').eq('id', newsId).single();
+
+            if (error || !data) {
+                container.innerHTML = '<p class="text-center text-red-500">Gagal memuat detail berita.</p>';
+                return;
+            }
+
+            document.title = `${data.judul} - AICOMS`; // Update judul halaman
+            const tagsHTML = data.tags ? JSON.parse(data.tags).map(tag => `<span class="bg-red-100 text-red-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full">${tag}</span>`).join('') : '';
+            const detailHTML = `
+                <article class="prose lg:prose-xl max-w-none">
+                    <h1 class="text-4xl font-extrabold text-gray-900">${data.judul}</h1>
+                    <p class="text-gray-500">
+                        Dipublikasikan pada ${new Date(data.tanggal).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })}
+                    </p>
+                    <div class="my-4">${tagsHTML}</div>
+                    <img src="${data.gambar_url}" alt="${data.judul}" class="w-full rounded-lg shadow-lg my-8">
+                    <div class="text-gray-700 leading-relaxed">${data.isi.replace(/\n/g, '<br>')}</div>
+                </article>
+            `;
+            container.innerHTML = detailHTML;
+        }
+        document.addEventListener('DOMContentLoaded', loadNewsDetail);
+    </script>
+</body>
+</html>
