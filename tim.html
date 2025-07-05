@@ -3,96 +3,242 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tim Kami - AICOMS</title>
+    <title>AICOMS - Pusat Unggulan IPTEKS Telekomunikasi Cerdas</title>
+    
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
     <style>
-        body { font-family: 'Inter', sans-serif; }
+        /* Menggunakan font Inter sebagai default */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Animasi untuk counter angka */
+        @keyframes count-up {
+            from { transform: translateY(15px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        .counter-number {
+            animation: count-up 1s ease-out forwards;
+        }
+        /* Smooth scroll behavior */
+        html {
+            scroll-behavior: smooth;
+        }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800">
 
-    <!-- Header / Navigation Bar (Tema Merah Putih) -->
+    <!-- Header / Navigation Bar -->
     <header class="bg-white/80 backdrop-blur-lg shadow-md fixed top-0 left-0 right-0 z-50">
         <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="index.html" class="text-2xl font-bold text-red-800">AICOMS</a>
+            <a href="#" class="text-2xl font-bold text-red-800">AICOMS</a>
+            
+            <!-- Desktop Menu -->
             <nav class="hidden md:flex items-center space-x-8">
-                <a href="index.html#home" class="text-gray-600 hover:text-red-600">Home</a>
+                <a href="#home" class="text-gray-600 hover:text-red-600 transition duration-300">Home</a>
                 <div class="relative group">
-                    <button class="text-gray-600 hover:text-red-600 flex items-center">
+                    <button class="text-gray-600 hover:text-red-600 transition duration-300 flex items-center">
                         About Us
-                        <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                     </button>
-                    <div class="absolute left-0 mt-2 w-48 bg-white rounded-md shadow-lg opacity-0 group-hover:opacity-100 invisible group-hover:visible">
-                        <a href="index.html#sejarah" class="block px-4 py-2 text-sm text-gray-700 hover:bg-red-50">Sejarah</a>
-                        <a href="index.html#visi-misi" class="block px-4 py-2 text-sm text-gray-700 hover:bg-red-50">Visi & Misi</a>
-                        <a href="tim.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-red-50 font-bold">Tim Kami</a>
+                    <div class="absolute left-0 mt-2 w-48 bg-white rounded-md shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 invisible group-hover:visible">
+                        <a href="#sejarah" class="block px-4 py-2 text-sm text-gray-700 hover:bg-red-50">Sejarah</a>
+                        <a href="#visi-misi" class="block px-4 py-2 text-sm text-gray-700 hover:bg-red-50">Visi & Misi</a>
+                        <a href="tim.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-red-50">Tim Kami</a>
                     </div>
                 </div>
-                <a href="index.html#activities" class="text-gray-600 hover:text-red-600">Activities</a>
-                <a href="index.html#partners" class="text-gray-600 hover:text-red-600">Partners</a>
-                <a href="index.html#projects" class="text-gray-600 hover:text-red-600">Projects</a>
-                <a href="index.html#publications" class="text-gray-600 hover:text-red-600">Publications</a>
-                <a href="index.html#join-us" class="bg-red-600 text-white px-4 py-2 rounded-full hover:bg-red-700">Join Us</a>
+                <a href="#activities" class="text-gray-600 hover:text-red-600 transition duration-300">Activities</a>
+                <a href="#partners" class="text-gray-600 hover:text-red-600 transition duration-300">Partners</a>
+                <a href="#projects" class="text-gray-600 hover:text-red-600 transition duration-300">Projects</a>
+                <a href="#publications" class="text-gray-600 hover:text-red-600 transition duration-300">Publications</a>
+                <a href="#join-us" class="bg-red-600 text-white px-4 py-2 rounded-full hover:bg-red-700 transition duration-300">Join Us</a>
             </nav>
+
+            <!-- Mobile Menu Button -->
             <button id="mobile-menu-button" class="md:hidden">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
             </button>
         </div>
+
+        <!-- Mobile Menu -->
         <div id="mobile-menu" class="hidden md:hidden bg-white">
-             <!-- Mobile links... -->
+            <a href="#home" class="block px-6 py-3 text-gray-600 hover:bg-red-50">Home</a>
+            <a href="#sejarah" class="block px-6 py-3 text-gray-600 hover:bg-red-50">Sejarah</a>
+            <a href="#visi-misi" class="block px-6 py-3 text-gray-600 hover:bg-red-50">Visi & Misi</a>
+            <a href="tim.html" class="block px-6 py-3 text-gray-600 hover:bg-red-50">Tim Kami</a>
+            <a href="#activities" class="block px-6 py-3 text-gray-600 hover:bg-red-50">Activities</a>
+            <a href="#partners" class="block px-6 py-3 text-gray-600 hover:bg-red-50">Partners</a>
+            <a href="#projects" class="block px-6 py-3 text-gray-600 hover:bg-red-50">Projects</a>
+            <a href="#publications" class="block px-6 py-3 text-gray-600 hover:bg-red-50">Publications</a>
+            <a href="#join-us" class="block px-6 py-3 text-white bg-red-600 text-center">Join Us</a>
         </div>
     </header>
 
-    <main class="pt-24">
-        <section id="team-list" class="py-16">
+    <main class="pt-20">
+        <!-- Hero Section -->
+        <section id="home" class="relative h-[60vh] min-h-[400px] bg-cover bg-center" style="background-image: url('https://placehold.co/1600x900/B91C1C/FFFFFF?text=Foto+Tim+AICOMS');">
+            <div class="absolute inset-0 bg-black bg-opacity-60"></div>
+            <div class="relative z-10 flex flex-col items-center justify-center h-full text-white text-center px-4">
+                <h1 class="text-4xl md:text-6xl font-extrabold mb-4">PUI-PT AICOMS</h1>
+                <p class="text-lg md:text-2xl font-light max-w-3xl">Mengembangkan Inovasi dalam Artificial Intelligence dan Telekomunikasi untuk Masa Depan yang Terhubung</p>
+            </div>
+        </section>
+
+        <!-- About Organization Section -->
+        <section id="about-org" class="py-20 bg-white">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="text-3xl font-bold text-gray-800 mb-4">Tentang AICOMS</h2>
+                <p class="max-w-4xl mx-auto text-gray-600 leading-relaxed">
+                    Pusat Unggulan IPTEKS Perguruan Tinggi (PUI-PT) Telekomunikasi Cerdas (AICOMS) di Telkom University adalah pusat riset berorientasi sains yang berfokus pada pengembangan Artificial Intelligence (AI) dan telekomunikasi pada semua lapisan komunikasi. Kami berkomitmen untuk menghasilkan penelitian terdepan, inovasi teknologi, dan solusi yang berdampak bagi industri dan masyarakat.
+                </p>
+            </div>
+        </section>
+
+        <!-- Statistics Section -->
+        <section id="facts" class="py-20 bg-gray-100">
             <div class="container mx-auto px-6">
-                <h1 class="text-4xl font-bold text-center text-gray-800 mb-2">Tim Kami</h1>
-                <p class="text-center text-gray-600 mb-12">Kenali para peneliti dan inovator di balik AICOMS.</p>
-                
-                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-                    <!-- Contoh Kartu Anggota 1 -->
-                    <a href="detail-anggota.html" class="block bg-white rounded-lg shadow-lg text-center p-6 group hover:shadow-2xl hover:-translate-y-2 transition-all duration-300">
-                        <img src="https://placehold.co/200x200/F87171/FFFFFF?text=Foto" alt="Foto Anggota" class="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-white group-hover:border-red-300 transition-colors">
-                        <h3 class="font-bold text-xl text-gray-800">Dr. Budi Sanjoyo</h3>
-                        <p class="text-red-600 font-semibold">Kepala Pusat</p>
-                    </a>
-                    <!-- Contoh Kartu Anggota 2 -->
-                    <a href="detail-anggota.html" class="block bg-white rounded-lg shadow-lg text-center p-6 group hover:shadow-2xl hover:-translate-y-2 transition-all duration-300">
-                        <img src="https://placehold.co/200x200/F87171/FFFFFF?text=Foto" alt="Foto Anggota" class="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-white group-hover:border-red-300 transition-colors">
-                        <h3 class="font-bold text-xl text-gray-800">Prof. Rina Suryani</h3>
-                        <p class="text-red-600 font-semibold">Peneliti Utama</p>
-                    </a>
-                    <!-- Contoh Kartu Anggota 3 -->
-                    <a href="detail-anggota.html" class="block bg-white rounded-lg shadow-lg text-center p-6 group hover:shadow-2xl hover:-translate-y-2 transition-all duration-300">
-                        <img src="https://placehold.co/200x200/F87171/FFFFFF?text=Foto" alt="Foto Anggota" class="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-white group-hover:border-red-300 transition-colors">
-                        <h3 class="font-bold text-xl text-gray-800">Ahmad Zulkifli, M.T.</h3>
-                        <p class="text-red-600 font-semibold">Peneliti</p>
-                    </a>
-                    <!-- Tambahkan kartu anggota lainnya di sini -->
-                    <a href="detail-anggota.html" class="block bg-white rounded-lg shadow-lg text-center p-6 group hover:shadow-2xl hover:-translate-y-2 transition-all duration-300">
-                        <img src="https://placehold.co/200x200/F87171/FFFFFF?text=Foto" alt="Foto Anggota" class="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-white group-hover:border-red-300 transition-colors">
-                        <h3 class="font-bold text-xl text-gray-800">Siti Nurhaliza, Ph.D.</h3>
-                        <p class="text-red-600 font-semibold">Peneliti</p>
-                    </a>
+                <h2 class="text-3xl font-bold text-center text-gray-800 mb-12">Fakta & Statistik AICOMS</h2>
+                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 text-center">
+                    <div class="bg-white p-6 rounded-lg shadow-lg">
+                        <div class="text-red-600 text-5xl font-extrabold mb-2 counter-number">63+</div>
+                        <p class="text-gray-500 font-medium">Jumlah Anggota</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-lg">
+                        <div class="text-red-600 text-5xl font-extrabold mb-2 counter-number">68+</div>
+                        <p class="text-gray-500 font-medium">Jumlah Publikasi</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-lg">
+                        <div class="text-red-600 text-5xl font-extrabold mb-2 counter-number">5+</div>
+                        <p class="text-gray-500 font-medium">Proyek Unggulan</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-lg">
+                        <div class="text-red-600 text-5xl font-extrabold mb-2 counter-number">16+</div>
+                        <p class="text-gray-500 font-medium">Proyek Nasional</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-lg col-span-2 md:col-span-1 lg:col-span-1">
+                        <div class="text-red-600 text-5xl font-extrabold mb-2 counter-number">8+</div>
+                        <p class="text-gray-500 font-medium">Proyek Internasional</p>
+                    </div>
                 </div>
             </div>
         </section>
+
+        <!-- Publications & Projects Section -->
+        <section id="publications" class="py-20 bg-white">
+            <div class="container mx-auto px-6">
+                <h2 class="text-3xl font-bold text-center text-gray-800 mb-12">Publikasi & Proyek Terbaru</h2>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Publication Card 1 -->
+                    <div class="bg-gray-50 rounded-lg shadow-md overflow-hidden group">
+                        <img src="https://placehold.co/600x400/DC2626/FFFFFF?text=Publikasi+1" alt="Gambar Publikasi" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300">
+                        <div class="p-6">
+                            <span class="text-sm text-red-600 font-semibold">Q1 Journal</span>
+                            <h3 class="font-bold text-xl my-2">Optimizing 6G Networks with Deep Reinforcement Learning</h3>
+                            <p class="text-gray-600 text-sm mb-4">Penelitian ini mengeksplorasi penggunaan DRL untuk manajemen sumber daya dinamis di jaringan 6G.</p>
+                            <a href="#" class="text-red-600 font-semibold hover:underline">Baca Selengkapnya &rarr;</a>
+                        </div>
+                    </div>
+                    <!-- Project Card 1 -->
+                    <div id="projects" class="bg-gray-50 rounded-lg shadow-md overflow-hidden group">
+                        <img src="https://placehold.co/600x400/F87171/FFFFFF?text=Proyek+1" alt="Gambar Proyek" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300">
+                        <div class="p-6">
+                            <span class="text-sm text-gray-600 font-semibold">Proyek Unggulan</span>
+                            <h3 class="font-bold text-xl my-2">AI-Powered Smart City Traffic Management</h3>
+                            <p class="text-gray-600 text-sm mb-4">Mengembangkan sistem cerdas untuk mengelola lalu lintas perkotaan secara real-time menggunakan data sensor dan AI.</p>
+                            <a href="#" class="text-red-600 font-semibold hover:underline">Lihat Detail Proyek &rarr;</a>
+                        </div>
+                    </div>
+                    <!-- Publication Card 2 -->
+                    <div class="bg-gray-50 rounded-lg shadow-md overflow-hidden group">
+                        <img src="https://placehold.co/600x400/DC2626/FFFFFF?text=Publikasi+2" alt="Gambar Publikasi" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300">
+                        <div class="p-6">
+                            <span class="text-sm text-red-600 font-semibold">IEEE Conference</span>
+                            <h3 class="font-bold text-xl my-2">Federated Learning for Privacy-Preserving IoT</h3>
+                            <p class="text-gray-600 text-sm mb-4">Implementasi Federated Learning untuk melatih model AI pada perangkat IoT tanpa mengorbankan privasi data pengguna.</p>
+                            <a href="#" class="text-red-600 font-semibold hover:underline">Baca Selengkapnya &rarr;</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- News Section -->
+        <section id="news" class="py-20 bg-gray-100">
+            <div class="container mx-auto px-6">
+                <h2 class="text-3xl font-bold text-center text-gray-800 mb-12">Berita AICOMS</h2>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- News Item 1 -->
+                    <div class="bg-white rounded-lg overflow-hidden shadow-lg">
+                        <img src="https://placehold.co/600x400/E74C3C/FFFFFF?text=Berita+1" alt="Berita 1" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <p class="text-sm text-gray-500 mb-2">15 Juni 2024</p>
+                            <h3 class="font-bold text-xl mb-3">AICOMS Menangkan Hibah Penelitian Internasional</h3>
+                            <p class="text-gray-600 text-sm">Tim peneliti kami berhasil mendapatkan pendanaan untuk proyek kolaborasi riset AI dengan universitas di Jepang.</p>
+                        </div>
+                    </div>
+                    <!-- News Item 2 -->
+                    <div class="bg-white rounded-lg overflow-hidden shadow-lg">
+                        <img src="https://placehold.co/600x400/9B59B6/FFFFFF?text=Berita+2" alt="Berita 2" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <p class="text-sm text-gray-500 mb-2">2 Mei 2024</p>
+                            <h3 class="font-bold text-xl mb-3">Seminar Nasional "AI for Indonesia 2024" Sukses Digelar</h3>
+                            <p class="text-gray-600 text-sm">AICOMS menjadi tuan rumah seminar yang dihadiri oleh ratusan akademisi dan praktisi industri dari seluruh Indonesia.</p>
+                        </div>
+                    </div>
+                    <!-- News Item 3 -->
+                    <div class="bg-white rounded-lg overflow-hidden shadow-lg">
+                        <img src="https://placehold.co/600x400/F1C40F/FFFFFF?text=Berita+3" alt="Berita 3" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <p class="text-sm text-gray-500 mb-2">10 April 2024</p>
+                            <h3 class="font-bold text-xl mb-3">Mahasiswa Binaan AICOMS Raih Juara di Kompetisi AI</h3>
+                            <p class="text-gray-600 text-sm">Selamat kepada tim mahasiswa yang berhasil meraih juara pertama dalam kompetisi pengembangan aplikasi AI tingkat nasional.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Feedback Section -->
+        <section id="feedback" class="py-20 bg-red-700 text-white">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="text-3xl font-bold mb-4">Punya Pertanyaan atau Masukan?</h2>
+                <p class="max-w-2xl mx-auto mb-8">Kami senang mendengar dari Anda. Silakan tinggalkan pesan Anda di bawah ini.</p>
+                <form class="max-w-xl mx-auto">
+                    <div class="flex flex-col md:flex-row gap-4 mb-4">
+                        <input type="text" placeholder="Nama Anda" class="w-full p-3 rounded-md bg-red-600 placeholder-red-200 focus:outline-none focus:ring-2 focus:ring-white">
+                        <input type="email" placeholder="Email Anda" class="w-full p-3 rounded-md bg-red-600 placeholder-red-200 focus:outline-none focus:ring-2 focus:ring-white">
+                    </div>
+                    <textarea placeholder="Pesan Anda..." rows="5" class="w-full p-3 rounded-md bg-red-600 placeholder-red-200 focus:outline-none focus:ring-2 focus:ring-white mb-4"></textarea>
+                    <button type="submit" class="bg-white text-red-700 font-bold px-8 py-3 rounded-full hover:bg-gray-200 transition duration-300">Kirim Pesan</button>
+                </form>
+            </div>
+        </section>
+
     </main>
 
-    <!-- Footer (Sama seperti di index.html) -->
+    <!-- Footer -->
     <footer class="bg-gray-800 text-white py-12">
         <div class="container mx-auto px-6 text-center">
-             <p>&copy; 2024 AICOMS - Telkom University. All Rights Reserved.</p>
+            <p class="font-bold text-lg mb-2">PUI-PT AICOMS</p>
+            <p class="text-gray-400">Gedung Panambulai, Telkom University</p>
+            <p class="text-gray-400 mb-6">Jl. Telekomunikasi No. 1, Terusan Buahbatu, Bandung</p>
+            <p class="text-sm text-gray-500">&copy; 2024 AICOMS - Telkom University. All Rights Reserved.</p>
         </div>
     </footer>
 
     <script>
-        // Script untuk mobile menu
-        document.getElementById('mobile-menu-button').addEventListener('click', function() {
-            document.getElementById('mobile-menu').classList.toggle('hidden');
+        // JavaScript untuk Mobile Menu Toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
         });
     </script>
 </body>
