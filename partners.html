@@ -14,6 +14,7 @@
 </head>
 <body class="bg-gray-50 text-gray-800">
 
+    <!-- Header / Navigation Bar (Konsisten dengan halaman lain) -->
     <header class="bg-white/80 backdrop-blur-lg shadow-md fixed top-0 left-0 right-0 z-50">
         <div class="container mx-auto px-6 py-2 flex justify-between items-center">
             <a href="index.html">
@@ -57,17 +58,56 @@
             </button>
         </div>
         <div id="mobile-menu" class="hidden md:hidden bg-white">
-            </div>
+            <!-- Mobile links... -->
+        </div>
     </header>
 
     <main class="pt-24 bg-white">
-        </main>
+        <section class="py-20">
+            <div class="container mx-auto px-6">
+                <h1 class="text-4xl font-bold text-center text-gray-800 mb-4">Partner Kami</h1>
+                <div class="w-24 h-1 bg-red-600 mx-auto mb-12"></div>
 
+                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 items-center">
+                    <!-- Contoh Partner Logo -->
+                    <div class="flex justify-center items-center p-6 bg-gray-100 rounded-lg h-32 transform hover:scale-105 transition-transform duration-300">
+                        <img src="https://placehold.co/200x100/CCCCCC/FFFFFF?text=Partner+1" alt="Logo Partner 1" class="max-h-16">
+                    </div>
+                    <div class="flex justify-center items-center p-6 bg-gray-100 rounded-lg h-32 transform hover:scale-105 transition-transform duration-300">
+                        <img src="https://placehold.co/200x100/CCCCCC/FFFFFF?text=Partner+2" alt="Logo Partner 2" class="max-h-16">
+                    </div>
+                    <div class="flex justify-center items-center p-6 bg-gray-100 rounded-lg h-32 transform hover:scale-105 transition-transform duration-300">
+                        <img src="https://placehold.co/200x100/CCCCCC/FFFFFF?text=Partner+3" alt="Logo Partner 3" class="max-h-16">
+                    </div>
+                    <div class="flex justify-center items-center p-6 bg-gray-100 rounded-lg h-32 transform hover:scale-105 transition-transform duration-300">
+                        <img src="https://placehold.co/200x100/CCCCCC/FFFFFF?text=Partner+4" alt="Logo Partner 4" class="max-h-16">
+                    </div>
+                    <div class="flex justify-center items-center p-6 bg-gray-100 rounded-lg h-32 transform hover:scale-105 transition-transform duration-300">
+                        <img src="https://placehold.co/200x100/CCCCCC/FFFFFF?text=Partner+5" alt="Logo Partner 5" class="max-h-16">
+                    </div>
+                    <!-- Tambahkan partner lainnya di sini -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
     <footer class="bg-gray-800 text-white py-12">
-        </footer>
+        <div class="container mx-auto px-6 text-center">
+            <p class="font-bold text-lg mb-2">PUI-PT AICOMS</p>
+            <p class="text-gray-400">Gedung Panambulai, Telkom University</p>
+            <p class="text-gray-400 mb-6">Jl. Telekomunikasi No. 1, Terusan Buahbatu, Bandung</p>
+            <p class="text-sm text-gray-500">&copy; 2024 AICOMS - Telkom University. All Rights Reserved.</p>
+        </div>
+    </footer>
 
     <script>
-        // Skrip mobile menu
+        // JavaScript untuk Mobile Menu Toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
     </script>
 </body>
 </html>
