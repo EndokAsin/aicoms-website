@@ -30,6 +30,13 @@
         html {
             scroll-behavior: smooth;
         }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .tab-panel {
+            animation: fadeIn 0.5s;
+        }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800">
@@ -84,7 +91,7 @@
         </div>
     </header>
 
-    <main class="pt-20">
+    <main class="pt-24">
         <!-- Hero Section -->
         <section id="home" class="relative h-[60vh] min-h-[400px] bg-cover bg-center" style="background-image: url('images/DSCF0009.jpg');">
             <div class="absolute inset-0 bg-black bg-opacity-60"></div>
@@ -133,13 +140,64 @@
             </div>
         </section>
 
+        <!-- Daftar Proyek & Produk Section -->
+        <section id="project-lists" class="py-20 bg-white">
+            <div class="container mx-auto px-6">
+                <h2 class="text-3xl font-bold text-center text-gray-800 mb-12">Daftar Proyek & Produk</h2>
+                
+                <!-- Tab Buttons -->
+                <div class="flex justify-center border-b border-gray-200">
+                    <button data-tab="internasional" class="tab-button py-4 px-6 block hover:text-red-600 focus:outline-none text-gray-800 border-b-2 font-medium border-red-600">
+                        Proyek Internasional
+                    </button>
+                    <button data-tab="nasional" class="tab-button py-4 px-6 block hover:text-red-600 focus:outline-none text-gray-500 border-b-2 font-medium border-transparent">
+                        Proyek Nasional
+                    </button>
+                    <button data-tab="unggulan" class="tab-button py-4 px-6 block hover:text-red-600 focus:outline-none text-gray-500 border-b-2 font-medium border-transparent">
+                        Produk Unggulan
+                    </button>
+                </div>
+
+                <!-- Tab Content -->
+                <div class="mt-8">
+                    <!-- Internasional Projects List -->
+                    <div id="internasional" class="tab-panel">
+                        <ul class="list-disc list-inside space-y-2 text-gray-700">
+                            <li>Collaborative Research on 6G Network Slicing with Waseda University, Japan.</li>
+                            <li>AI-driven IoT Security Framework Development with Fraunhofer Institute, Germany.</li>
+                            <li>Joint Project on Federated Learning for Healthcare with National University of Singapore.</li>
+                            <li>Development of Low-Latency Communication Protocols for Autonomous Vehicles.</li>
+                        </ul>
+                    </div>
+                    <!-- Nasional Projects List -->
+                    <div id="nasional" class="tab-panel hidden">
+                        <ul class="list-disc list-inside space-y-2 text-gray-700">
+                            <li>Sistem Peringatan Dini Bencana Berbasis IoT dan AI untuk BMKG.</li>
+                            <li>Pengembangan Smart Village di Kabupaten Bandung.</li>
+                            <li>Platform Digitalisasi UMKM Berbasis Kecerdasan Buatan.</li>
+                            <li>Riset dan Implementasi Jaringan 5G untuk Aplikasi Industri.</li>
+                        </ul>
+                    </div>
+                    <!-- Unggulan Products List -->
+                    <div id="unggulan" class="tab-panel hidden">
+                        <ul class="list-disc list-inside space-y-2 text-gray-700">
+                            <li>AICOMS SecureComm: Modul Keamanan Komunikasi IoT.</li>
+                            <li>Smart-Traffic Analyzer: Perangkat Lunak Analisis Lalu Lintas Real-time.</li>
+                            <li>Agri-AI: Platform Cerdas untuk Optimalisasi Pertanian.</li>
+                            <li>Health-Bot: Chatbot Cerdas untuk Konsultasi Kesehatan Awal.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- Publications & Projects Section -->
-        <section id="publications" class="py-20 bg-white">
+        <section id="publications" class="py-20 bg-gray-100">
             <div class="container mx-auto px-6">
                 <h2 class="text-3xl font-bold text-center text-gray-800 mb-12">Publikasi & Proyek Terbaru</h2>
                 <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                     <!-- Publication Card 1 -->
-                    <div class="bg-gray-50 rounded-lg shadow-md overflow-hidden group">
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden group">
                         <img src="https://placehold.co/600x400/DC2626/FFFFFF?text=Publikasi+1" alt="Gambar Publikasi" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300">
                         <div class="p-6">
                             <span class="text-sm text-red-600 font-semibold">Q1 Journal</span>
@@ -149,7 +207,7 @@
                         </div>
                     </div>
                     <!-- Project Card 1 -->
-                    <div id="projects" class="bg-gray-50 rounded-lg shadow-md overflow-hidden group">
+                    <div id="projects" class="bg-white rounded-lg shadow-md overflow-hidden group">
                         <img src="https://placehold.co/600x400/F87171/FFFFFF?text=Proyek+1" alt="Gambar Proyek" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300">
                         <div class="p-6">
                             <span class="text-sm text-gray-600 font-semibold">Proyek Unggulan</span>
@@ -159,7 +217,7 @@
                         </div>
                     </div>
                     <!-- Publication Card 2 -->
-                    <div class="bg-gray-50 rounded-lg shadow-md overflow-hidden group">
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden group">
                         <img src="https://placehold.co/600x400/DC2626/FFFFFF?text=Publikasi+2" alt="Gambar Publikasi" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300">
                         <div class="p-6">
                             <span class="text-sm text-red-600 font-semibold">IEEE Conference</span>
@@ -243,6 +301,35 @@
 
         mobileMenuButton.addEventListener('click', () => {
             mobileMenu.classList.toggle('hidden');
+        });
+
+        // JavaScript untuk Tab Proyek
+        const tabButtons = document.querySelectorAll('.tab-button');
+        const tabPanels = document.querySelectorAll('.tab-panel');
+
+        tabButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Nonaktifkan semua tombol
+                tabButtons.forEach(btn => {
+                    btn.classList.remove('text-gray-800', 'border-red-600');
+                    btn.classList.add('text-gray-500', 'border-transparent');
+                });
+                
+                // Aktifkan tombol yang diklik
+                button.classList.add('text-gray-800', 'border-red-600');
+                button.classList.remove('text-gray-500', 'border-transparent');
+
+                // Sembunyikan semua panel
+                tabPanels.forEach(panel => {
+                    panel.classList.add('hidden');
+                });
+
+                // Tampilkan panel yang sesuai
+                const targetPanel = document.getElementById(button.dataset.tab);
+                if(targetPanel) {
+                    targetPanel.classList.remove('hidden');
+                }
+            });
         });
     </script>
 </body>
