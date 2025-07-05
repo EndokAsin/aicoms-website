@@ -73,7 +73,8 @@
     <script>
         // --- KONEKSI SUPABASE ---
         const SUPABASE_URL = 'https://ostoxfgxxjfbvfouydiv.supabase.co';
-        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9zdG94Zmd4eGpmYnZmb3V5ZGl2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTE2OTI1MzcsImV4cCI6MjA2NzI2ODUzN30.PqEWjFaTGZZmQ5o2rNmv2G34k1-UKfloU_ETDxhwcro';
+        // --- PENTING: GANTI KUNCI DI BAWAH INI DENGAN KUNCI BARU ANDA ---
+        const SUPABASE_ANON_KEY = 'MASUKKAN_KUNCI_API_BARU_ANDA_DI_SINI';
 
         const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
@@ -81,6 +82,11 @@
         async function loadTeamMembers() {
             const teamGridContainer = document.getElementById('team-grid-container');
             
+            if (SUPABASE_ANON_KEY === 'MASUKKAN_KUNCI_API_BARU_ANDA_DI_SINI') {
+                teamGridContainer.innerHTML = '<p class="col-span-full text-center text-red-500 font-bold">Konfigurasi API Key belum selesai. Harap masukkan kunci API di dalam kode.</p>';
+                return;
+            }
+
             // Ambil data dari tabel 'anggota'
             const { data, error } = await supabase
                 .from('anggota')
@@ -88,7 +94,7 @@
 
             if (error) {
                 console.error('Error fetching team members:', error);
-                teamGridContainer.innerHTML = '<p class="col-span-full text-center text-red-500">Gagal memuat data. Silakan coba lagi nanti.</p>';
+                teamGridContainer.innerHTML = '<p class="col-span-full text-center text-red-500">Gagal memuat data. Periksa koneksi atau konfigurasi API Key.</p>';
                 return;
             }
 
@@ -107,27 +113,14 @@
                     const indexA = specificOrder.indexOf(a.jabatan);
                     const indexB = specificOrder.indexOf(b.jabatan);
 
-                    // Jika keduanya ada di daftar urutan khusus
-                    if (indexA !== -1 && indexB !== -1) {
-                        return indexA - indexB;
-                    }
-                    // Jika hanya A yang ada di daftar
-                    if (indexA !== -1) {
-                        return -1; // A comes first
-                    }
-                    // Jika hanya B yang ada di daftar
-                    if (indexB !== -1) {
-                        return 1; // B comes first
-                    }
-                    // Jika keduanya tidak ada di daftar, urutkan berdasarkan nama
+                    if (indexA !== -1 && indexB !== -1) return indexA - indexB;
+                    if (indexA !== -1) return -1;
+                    if (indexB !== -1) return 1;
                     return a.nama.localeCompare(b.nama);
                 });
-                // --- AKHIR LOGIKA PENGURUTAN ---
 
-                // Kosongkan kontainer sebelum mengisi data baru
                 teamGridContainer.innerHTML = '';
                 
-                // Loop melalui setiap anggota dan buat kartu HTML
                 data.forEach(member => {
                     const memberCard = `
                         <a href="detail-anggota.html?id=${member.id}" class="block bg-white rounded-lg shadow-lg text-center p-6 group hover:shadow-2xl hover:-translate-y-2 transition-all duration-300">
