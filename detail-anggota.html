@@ -82,6 +82,7 @@
     <script>
         // --- KONEKSI SUPABASE ---
         const SUPABASE_URL = 'https://ostoxfgxxjfbvfouydiv.supabase.co';
+        // --- PENTING: GANTI KUNCI DI BAWAH INI DENGAN KUNCI BARU ANDA ---
         const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9zdG94Zmd4eGpmYnZmb3V5ZGl2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTE2OTI1MzcsImV4cCI6MjA2NzI2ODUzN30.PqEWjFaTGZZmQ5o2rNmv2G34k1-UKfloU_ETDxhwcro';
 
         const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
@@ -115,7 +116,7 @@
                 if (data) {
                     // 3. Siapkan variabel HTML dari data yang didapat
                     let affiliation = data.prodi && data.universitas_asal ? `${data.prodi} - ${data.universitas_asal}` : (data.prodi || data.universitas_asal || '');
-                    let professionalIdsHTML = (data.scopus_id || data.google_scholar_id) ? `<p class="text-sm text-gray-500">Scopus ID: ${data.scopus_id || 'N/A'} | Google Scholar: ${data.google_scholar_id || 'N/A'}</p>` : '';
+                    let professionalIdsHTML = (data.scopus_id || data.google_scholar_id) ? `<p class="text-gray-500">Scopus ID: ${data.scopus_id || 'N/A'} | Google Scholar: ${data.google_scholar_id || 'N/A'}</p>` : '';
                     const educationList = Array.isArray(data.pendidikan) && data.pendidikan.length > 0 ? data.pendidikan.map(item => `<li class="mb-1">${item}</li>`).join('') : '<li>Data pendidikan tidak tersedia.</li>';
                     const researchTopics = Array.isArray(data.topik_penelitian) && data.topik_penelitian.length > 0 ? data.topik_penelitian.map(item => `<span class="bg-red-100 text-red-800 text-sm font-medium mr-2 mb-2 px-3 py-1 rounded-full">${item}</span>`).join('') : '<p class="text-gray-500">Tidak ada topik penelitian yang terdaftar.</p>';
                     const publicationList = Array.isArray(data.publikasi) && data.publikasi.length > 0 ? data.publikasi.map(item => `<li class="mb-2 pl-2">${item}</li>`).join('') : '<li>Tidak ada publikasi yang terdaftar.</li>';
