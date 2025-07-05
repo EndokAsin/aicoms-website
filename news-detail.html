@@ -12,6 +12,19 @@
         body { font-family: 'Inter', sans-serif; } 
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         .fade-in { animation: fadeIn 0.5s ease-out forwards; }
+        /* Styling untuk konten dari Supabase */
+        .prose-custom {
+            color: #374151; /* text-gray-700 */
+        }
+        .prose-custom h1, .prose-custom h2, .prose-custom h3 {
+            color: #111827; /* text-gray-900 */
+        }
+        .prose-custom p {
+            margin-bottom: 1.25em;
+        }
+        .prose-custom ul, .prose-custom ol {
+            margin-left: 1.25rem;
+        }
     </style>
 </head>
 <body class="bg-gray-50">
@@ -73,6 +86,7 @@
         </div>
     </main>
 
+    <!-- Footer -->
     <footer class="bg-gray-800 text-white py-12">
         <div class="container mx-auto px-6 text-center">
             <p class="font-bold text-lg mb-2">PUI-PT AICOMS</p>
@@ -124,7 +138,7 @@
             const tagsHTML = data.berita_tags.map(bt => `<span class="bg-red-100 text-red-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full">${bt.tags.name}</span>`).join('');
             
             const detailHTML = `
-                <article class="prose lg:prose-xl max-w-none">
+                <article class="prose-custom max-w-none">
                     <div class="mb-8">
                         <a href="news.html" class="text-red-600 hover:text-red-800 transition-colors duration-300 flex items-center">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd" /></svg>
@@ -137,7 +151,7 @@
                     </p>
                     <div class="my-4">${tagsHTML}</div>
                     <img src="${data.gambar_url || 'https://placehold.co/1200x600/EFEFEF/AAAAAA?text=Gambar+Tidak+Tersedia'}" alt="${data.judul}" class="w-full rounded-lg shadow-lg my-8">
-                    <div class="text-gray-700 leading-relaxed">${data.isi.replace(/\n/g, '<br>')}</div>
+                    <div class="leading-relaxed">${data.isi.replace(/\n/g, '<br>')}</div>
                 </article>
             `;
             container.innerHTML = detailHTML;
