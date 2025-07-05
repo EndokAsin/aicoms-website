@@ -198,16 +198,17 @@
                 if (e.message.includes("Invalid API key") || e.message.includes("401")) {
                     errorMessage = `
                         <div class="text-center">
-                            <p class="font-bold text-red-600 text-lg">Gagal Terhubung ke Database (Error 401)</p>
-                            <p class="mt-2 text-gray-600">Ini berarti Kunci API (API Key) di dalam kode tidak valid.</p>
+                            <p class="font-bold text-red-600 text-lg">Koneksi ke Database Gagal (Error 401)</p>
+                            <p class="mt-2 text-gray-600">Penyebabnya bisa jadi <strong>Kunci API salah</strong> atau <strong>Aturan Akses Tabel (RLS) belum diatur</strong>.</p>
                             <div class="mt-4 text-sm text-left bg-red-50 p-4 rounded-lg border border-red-200">
-                                <p class="font-semibold">Langkah-langkah Perbaikan:</p>
-                                <ol class="list-decimal list-inside mt-2 space-y-1">
-                                    <li>Buka dashboard Supabase proyek Anda.</li>
-                                    <li>Pergi ke <strong>Project Settings</strong> (ikon gerigi).</li>
-                                    <li>Pilih menu <strong>API</strong>.</li>
-                                    <li>Di bawah bagian <strong>Project API Keys</strong>, salin kunci yang berlabel <strong><code>anon</code></strong> / <strong><code>public</code></strong>.</li>
-                                    <li>Pastikan kunci tersebut sama persis dengan yang ada di variabel <strong><code>SUPABASE_ANON_KEY</code></strong> di dalam kode.</li>
+                                <p class="font-semibold text-gray-800">Langkah-langkah Perbaikan:</p>
+                                <ol class="list-decimal list-inside mt-2 space-y-2 text-gray-700">
+                                    <li>
+                                        <strong>Periksa Kunci API:</strong> Buka dashboard Supabase > Project Settings > API. Salin kunci <strong><code>anon</code></strong> / <strong><code>public</code></strong> dan pastikan sama persis dengan yang ada di variabel <code>SUPABASE_ANON_KEY</code> dalam kode.
+                                    </li>
+                                    <li>
+                                        <strong>Periksa Aturan Akses (RLS):</strong> Buka dashboard Supabase > Authentication > Policies. Cari tabel <strong><code>anggota</code></strong> dan pastikan ada aturan (policy) yang <strong>AKTIF</strong> untuk operasi <strong>SELECT</strong> yang mengizinkan akses baca publik. Jika belum ada, buat policy baru dari template "Enable read access to everyone".
+                                    </li>
                                 </ol>
                             </div>
                         </div>
