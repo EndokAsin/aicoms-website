@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detail Proyek - AICOMS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style> 
+        body { font-family: 'Inter', sans-serif; } 
+        .prose-custom p { margin-bottom: 1.25em; }
+    </style>
+</head>
+<body class="bg-gray-50">
+
+    <header class="bg-white/80 backdrop-blur-lg shadow-md fixed top-0 left-0 right-0 z-50">
+        <!-- ... Kode header konsisten dengan halaman lain ... -->
+    </header>
+
+    <main class="pt-24">
+        <div id="project-detail-container" class="max-w-4xl mx-auto py-16 px-6 bg-white my-8 rounded-lg shadow-lg min-h-[400px] flex justify-center items-center">
+            <!-- Konten detail proyek akan dimuat di sini -->
+        </div>
+    </main>
+
+    <footer class="bg-gray-800 text-white py-12">
+        <!-- ... Kode footer konsisten dengan halaman lain ... -->
+    </footer>
+
+    <script>
+        const SUPABASE_URL = 'https://ostoxfgxxjfbvfouydiv.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9zdG94Zmd4eGpmYnZmb3V5ZGl2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTE2OTI1MzcsImV4cCI6MjA2NzI2ODUzN30.PqEWjFaTGZZmQ5o2rNmv2G34k1-UKfloU_ETDxhwcro';
+        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        async function loadProjectDetail() {
+            const container = document.getElementById('project-detail-container');
+            const urlParams = new URLSearchParams(window.location.search);
+            const projectId = urlParams.get('id');
+
+            if (!projectId) {
+                container.innerHTML = '<p class="text-center text-red-500">Proyek tidak ditemukan.</p>';
+                return;
+            }
+
+            const { data, error } = await supabase.from('projects').select('*').eq('id', projectId).single();
+
+            if (error || !data) {
+                container.innerHTML = `<div class="text-center"><p class="font-bold text-red-600 text-lg">Gagal Memuat Proyek</p><p class="mt-2 text-gray-700">Pastikan Kunci API dan RLS sudah benar.</p><a href="projects.html" class="mt-6 inline-block text-red-600 hover:underline">&larr; Kembali ke daftar proyek</a></div>`;
+                return;
+            }
+
+            document.title = `${data.judul} - AICOMS`;
+            
+            const detailHTML = `
+                <article class="prose-custom max-w-none">
+                    <div class="mb-8">
+                        <a href="projects.html" class="text-red-600 hover:text-red-800 transition-colors duration-300 flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd" /></svg>
+                            Kembali ke Daftar Proyek
+                        </a>
+                    </div>
+                    <span class="bg-red-100 text-red-800 text-sm font-medium mr-2 px-3 py-1 rounded-full">${data.kategori}</span>
+                    <h1 class="text-4xl font-extrabold text-gray-900 mt-4">${data.judul}</h1>
+                    <img src="${data.gambar_url || 'https://placehold.co/1200x600/EFEFEF/AAAAAA?text=Gambar+Tidak+Tersedia'}" alt="${data.judul}" class="w-full rounded-lg shadow-lg my-8">
+                    <div class="text-gray-700 leading-relaxed">${data.deskripsi ? data.deskripsi.replace(/\n/g, '<br>') : 'Deskripsi tidak tersedia.'}</div>
+                </article>
+            `;
+            container.innerHTML = detailHTML;
+        }
+        document.addEventListener('DOMContentLoaded', loadProjectDetail);
+    </script>
+</body>
+</html>
