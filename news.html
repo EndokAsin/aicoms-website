@@ -7,10 +7,16 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <style> body { font-family: 'Inter', sans-serif; } </style>
+    <style> 
+        body { font-family: 'Inter', sans-serif; } 
+        .tag-filter-btn.active {
+            @apply bg-red-600 text-white;
+        }
+    </style>
 </head>
 <body class="bg-gray-50 text-gray-800">
 
+    <!-- Header / Navigation Bar -->
     <header class="bg-white/80 backdrop-blur-lg shadow-md fixed top-0 left-0 right-0 z-50">
         <div class="container mx-auto px-6 py-2 flex justify-between items-center">
             <a href="index.html">
@@ -67,6 +73,13 @@
 
                 <div id="news-grid-container" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                     <!-- Kartu Berita akan dimuat di sini -->
+                    <div class="col-span-full flex justify-center items-center py-10">
+                        <svg class="animate-spin h-8 w-8 text-red-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                        <p class="ml-4 text-gray-500">Memuat berita...</p>
+                    </div>
                 </div>
             </div>
         </section>
@@ -90,7 +103,6 @@
             const newsContainer = document.getElementById('news-grid-container');
             const tagsContainer = document.getElementById('tags-filter-container');
 
-            // Fetch all news with their tags first to check the connection
             const { data: news, error: newsError } = await supabase.from('berita').select('*, berita_tags(tags(id, name))').order('tanggal', { ascending: false });
             
             if (newsError) {
@@ -112,7 +124,6 @@
                 return;
             }
 
-            // Fetch all tags for filtering
             const { data: tags, error: tagsError } = await supabase.from('tags').select('*');
             if (tags && tags.length > 0) {
                 tagsContainer.innerHTML = '<button class="tag-filter-btn active bg-red-600 text-white px-4 py-1 rounded-full">Semua</button>';
@@ -121,16 +132,19 @@
                 });
             }
             
-            displayNews(news); // Tampilkan semua berita awal
+            displayNews(news);
 
-            // Add event listeners to filter buttons
             document.querySelectorAll('.tag-filter-btn').forEach(button => {
                 button.addEventListener('click', () => {
-                    document.querySelectorAll('.tag-filter-btn').forEach(btn => btn.classList.remove('active', 'bg-red-600', 'text-white'));
+                    document.querySelectorAll('.tag-filter-btn').forEach(btn => {
+                        btn.classList.remove('active', 'bg-red-600', 'text-white');
+                        btn.classList.add('bg-gray-200', 'text-gray-700');
+                    });
                     button.classList.add('active', 'bg-red-600', 'text-white');
+                    button.classList.remove('bg-gray-200', 'text-gray-700');
                     
                     const tagId = button.dataset.tagId;
-                    if (!tagId) { // Tombol "Semua"
+                    if (!tagId) {
                         displayNews(news);
                     } else {
                         const filteredNews = news.filter(item => 
