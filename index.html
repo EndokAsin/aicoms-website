@@ -8,6 +8,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Impor Supabase Client -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
         body { font-family: 'Inter', sans-serif; }
         html { scroll-behavior: smooth; }
@@ -170,31 +172,9 @@
              <div class="container mx-auto px-6">
                 <h2 class="text-3xl font-bold text-center text-gray-800 mb-4">Berita AICOMS</h2>
                 <div class="w-24 h-1 bg-red-600 mx-auto mb-12"></div>
-                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <div class="bg-white rounded-lg shadow-md overflow-hidden group transform hover:-translate-y-2 transition-all duration-300 hover:shadow-xl">
-                        <img src="https://placehold.co/600x400/E74C3C/FFFFFF?text=Berita+1" alt="Berita 1" class="w-full h-48 object-cover">
-                        <div class="p-6">
-                            <p class="text-sm text-gray-500 mb-2">15 Juni 2024</p>
-                            <h3 class="font-bold text-xl mb-3">AICOMS Menangkan Hibah Penelitian Internasional</h3>
-                            <p class="text-gray-600 text-sm">Tim peneliti kami berhasil mendapatkan pendanaan untuk proyek kolaborasi riset AI dengan universitas di Jepang.</p>
-                        </div>
-                    </div>
-                    <div class="bg-white rounded-lg shadow-md overflow-hidden group transform hover:-translate-y-2 transition-all duration-300 hover:shadow-xl">
-                        <img src="https://placehold.co/600x400/9B59B6/FFFFFF?text=Berita+2" alt="Berita 2" class="w-full h-48 object-cover">
-                        <div class="p-6">
-                            <p class="text-sm text-gray-500 mb-2">2 Mei 2024</p>
-                            <h3 class="font-bold text-xl mb-3">Seminar Nasional "AI for Indonesia 2024" Sukses Digelar</h3>
-                            <p class="text-gray-600 text-sm">AICOMS menjadi tuan rumah seminar yang dihadiri oleh ratusan akademisi dan praktisi industri dari seluruh Indonesia.</p>
-                        </div>
-                    </div>
-                    <div class="bg-white rounded-lg shadow-md overflow-hidden group transform hover:-translate-y-2 transition-all duration-300 hover:shadow-xl">
-                        <img src="https://placehold.co/600x400/F1C40F/FFFFFF?text=Berita+3" alt="Berita 3" class="w-full h-48 object-cover">
-                        <div class="p-6">
-                            <p class="text-sm text-gray-500 mb-2">10 April 2024</p>
-                            <h3 class="font-bold text-xl mb-3">Mahasiswa Binaan AICOMS Raih Juara di Kompetisi AI</h3>
-                            <p class="text-gray-600 text-sm">Selamat kepada tim mahasiswa yang berhasil meraih juara pertama dalam kompetisi pengembangan aplikasi AI tingkat nasional.</p>
-                        </div>
-                    </div>
+                <div id="news-grid-container" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Berita akan dimuat di sini oleh JavaScript -->
+                    <p class="col-span-full text-center text-gray-500">Memuat berita terbaru...</p>
                 </div>
             </div>
         </section>
@@ -227,68 +207,112 @@
     </footer>
 
     <script>
-        // JavaScript untuk Mobile Menu Toggle
-        const mobileMenuButton = document.getElementById('mobile-menu-button');
-        const mobileMenu = document.getElementById('mobile-menu');
-        mobileMenuButton.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-        });
+        // --- KONEKSI SUPABASE ---
+        const SUPABASE_URL = 'https://ostoxfgxxjfbvfouydiv.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9zdG94Zmd4eGpmYnZmb3V5ZGl2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTE2OTI1MzcsImV4cCI6MjA2NzI2ODUzN30.PqEWjFaTGZZmQ5o2rNmv2G34k1-UKfloU_ETDxhwcro';
+        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-        // JavaScript untuk Tab Proyek
-        const tabButtons = document.querySelectorAll('.tab-button');
-        const tabPanels = document.querySelectorAll('.tab-panel');
-        tabButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                tabButtons.forEach(btn => {
-                    btn.classList.remove('text-red-600', 'border-red-600');
-                    btn.classList.add('text-gray-500', 'border-transparent');
+        // --- FUNGSI UNTUK MEMUAT BERITA TERBARU ---
+        async function loadLatestNews() {
+            const container = document.getElementById('news-grid-container');
+            const { data, error } = await supabase
+                .from('berita')
+                .select('*')
+                .order('tanggal', { ascending: false })
+                .limit(3);
+
+            if (error) {
+                console.error('Error fetching news:', error);
+                container.innerHTML = `
+                    <div class="col-span-full text-center bg-red-50 border border-red-200 p-6 rounded-lg">
+                        <p class="font-bold text-red-600 text-lg">Gagal Memuat Berita</p>
+                        <p class="mt-2 text-gray-700">Penyebabnya bisa jadi <strong>Kunci API salah</strong> atau <strong>Aturan Akses Tabel (RLS) belum diatur</strong>.</p>
+                        <p class="mt-2 text-sm text-gray-500">Pastikan Anda telah membuat kunci API baru yang valid.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            if (data && data.length > 0) {
+                container.innerHTML = '';
+                data.forEach(item => {
+                    const newsCard = `
+                        <a href="news-detail.html?id=${item.id}" class="block bg-white rounded-lg shadow-md overflow-hidden group transform hover:-translate-y-2 transition-all duration-300 hover:shadow-xl">
+                            <img src="${item.gambar_url || 'https://placehold.co/600x400/E74C3C/FFFFFF?text=Berita'}" alt="${item.judul}" class="w-full h-48 object-cover">
+                            <div class="p-6">
+                                <p class="text-sm text-gray-500 mb-2">${new Date(item.tanggal).toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
+                                <h3 class="font-bold text-xl mb-3 leading-tight">${item.judul}</h3>
+                                <p class="text-red-600 font-semibold hover:underline">Baca Selengkapnya &rarr;</p>
+                            </div>
+                        </a>
+                    `;
+                    container.innerHTML += newsCard;
                 });
-                button.classList.add('text-red-600', 'border-red-600');
-                button.classList.remove('text-gray-500', 'border-transparent');
-                tabPanels.forEach(panel => {
-                    if (panel.id === button.dataset.tab) {
-                        panel.classList.remove('hidden');
-                        panel.classList.add('active');
-                    } else {
-                        panel.classList.add('hidden');
-                        panel.classList.remove('active');
-                    }
+            } else {
+                container.innerHTML = '<p class="col-span-full text-center text-gray-500">Belum ada berita.</p>';
+            }
+        }
+
+        // --- SCRIPT LAINNYA ---
+        document.addEventListener('DOMContentLoaded', () => {
+            // Mobile Menu Toggle
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            // Tab Proyek
+            const tabButtons = document.querySelectorAll('.tab-button');
+            const tabPanels = document.querySelectorAll('.tab-panel');
+            tabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    tabButtons.forEach(btn => {
+                        btn.classList.remove('text-red-600', 'border-red-600');
+                        btn.classList.add('text-gray-500', 'border-transparent');
+                    });
+                    button.classList.add('text-red-600', 'border-red-600');
+                    tabPanels.forEach(panel => {
+                        panel.classList.toggle('hidden', panel.id !== button.dataset.tab);
+                        panel.classList.toggle('active', panel.id === button.dataset.tab);
+                    });
                 });
             });
+
+            // Animasi Angka dan Elemen
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        if (entry.target.classList.contains('stat-number')) {
+                            const target = +entry.target.getAttribute('data-target');
+                            entry.target.innerText = '0';
+                            const updateCount = () => {
+                                const count = +entry.target.innerText;
+                                const increment = Math.ceil(target / 100);
+                                if (count < target) {
+                                    entry.target.innerText = `${Math.min(count + increment, target)}`;
+                                    setTimeout(updateCount, 20);
+                                } else {
+                                    entry.target.innerText = target + "+";
+                                }
+                            };
+                            updateCount();
+                            observer.unobserve(entry.target);
+                        }
+                        if (entry.target.classList.contains('animated')) {
+                             entry.target.classList.add('fade-in-up');
+                             observer.unobserve(entry.target);
+                        }
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            document.querySelectorAll('.stat-number').forEach(el => observer.observe(el));
+            document.querySelectorAll('.animated').forEach(el => observer.observe(el));
+
+            // Muat Berita Terbaru
+            loadLatestNews();
         });
-
-        // JavaScript untuk Animasi Angka dan Elemen
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    // Animasi untuk angka statistik
-                    if (entry.target.classList.contains('stat-number')) {
-                        const target = +entry.target.getAttribute('data-target');
-                        entry.target.innerText = '0';
-                        const updateCount = () => {
-                            const count = +entry.target.innerText;
-                            const increment = target / 100; // Kecepatan animasi
-                            if (count < target) {
-                                entry.target.innerText = `${Math.ceil(count + increment)}`;
-                                setTimeout(updateCount, 20);
-                            } else {
-                                entry.target.innerText = target + "+";
-                            }
-                        };
-                        updateCount();
-                        observer.unobserve(entry.target); // Hentikan observasi setelah animasi
-                    }
-                    // Animasi untuk elemen lain
-                    if (entry.target.classList.contains('animated')) {
-                         entry.target.classList.add('fade-in-up');
-                         observer.unobserve(entry.target);
-                    }
-                }
-            });
-        }, { threshold: 0.5 }); // Trigger saat 50% elemen terlihat
-
-        document.querySelectorAll('.stat-number').forEach(el => observer.observe(el));
-        document.querySelectorAll('.animated').forEach(el => observer.observe(el));
     </script>
 </body>
 </html>
