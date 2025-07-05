@@ -82,7 +82,8 @@
     <script>
         // --- KONEKSI SUPABASE ---
         const SUPABASE_URL = 'https://ostoxfgxxjfbvfouydiv.supabase.co';
-        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9zdG94Zmd4eGpmYnZmb3V5ZGl2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTE2OTI1MzcsImV4cCI6MjA2NzI2ODUzN30.PqEWjFaTGZZmQ5o2rNmv2G34k1-UKfloU_ETDxhwcro';
+        // --- PENTING: GANTI KUNCI DI BAWAH INI DENGAN KUNCI BARU ANDA ---
+        const SUPABASE_ANON_KEY = 'MASUKKAN_KUNCI_API_BARU_ANDA_DI_SINI';
 
         const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
@@ -91,6 +92,13 @@
             const memberDetailContainer = document.getElementById('member-detail-container');
             const pageFooter = document.getElementById('page-footer');
             
+            if (SUPABASE_ANON_KEY === 'MASUKKAN_KUNCI_API_BARU_ANDA_DI_SINI') {
+                memberDetailContainer.innerHTML = '<p class="text-center text-red-500 font-bold">Konfigurasi API Key belum selesai. Harap masukkan kunci API di dalam kode.</p>';
+                pageFooter.classList.remove('hidden');
+                pageFooter.classList.add('fade-in');
+                return;
+            }
+
             try {
                 // 1. Ambil ID dari URL
                 const urlParams = new URLSearchParams(window.location.search);
@@ -115,12 +123,8 @@
                 if (data) {
                     // 3. Siapkan variabel HTML dari data yang didapat
                     let affiliationHTML = '';
-                    if (data.prodi) {
-                        affiliationHTML += `<p class="text-md text-gray-500 mt-1">${data.prodi}</p>`;
-                    }
-                    if (data.universitas_asal) {
-                        affiliationHTML += `<p class="text-md text-gray-500">${data.universitas_asal}</p>`;
-                    }
+                    if (data.prodi) affiliationHTML += `<p class="text-md text-gray-500 mt-1">${data.prodi}</p>`;
+                    if (data.universitas_asal) affiliationHTML += `<p class="text-md text-gray-500">${data.universitas_asal}</p>`;
                     
                     let professionalIdsHTML = (data.scopus_id || data.google_scholar_id) ? `<p class="text-gray-500">Scopus ID: ${data.scopus_id || 'N/A'} | Google Scholar: ${data.google_scholar_id || 'N/A'}</p>` : '';
                     const educationList = Array.isArray(data.pendidikan) && data.pendidikan.length > 0 ? data.pendidikan.map(item => `<li class="mb-1">${item}</li>`).join('') : '<li>Data pendidikan tidak tersedia.</li>';
