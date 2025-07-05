@@ -82,7 +82,11 @@
     <script>
         // --- KONEKSI SUPABASE ---
         const SUPABASE_URL = 'https://ostoxfgxxjfbvfouydiv.supabase.co';
-        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9zdG94Zmd4eGpmYnZmb3V5ZGl2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTE2OTI1MzcsImV4cCI6MjA2NzI2ODUzN30.PqEWjFaTGZZmQ5o2rNmv2G34k1-UKfloU_ETDxhwcro';
+        // --- PENTING: GANTI KUNCI DI BAWAH INI ---
+        // 1. Buka dashboard Supabase Anda.
+        // 2. Pergi ke Project Settings > API.
+        // 3. Salin kunci 'anon' (public) dan tempel di sini.
+        const SUPABASE_ANON_KEY = 'MASUKKAN_KUNCI_API_BARU_ANDA_DI_SINI';
 
         const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
@@ -91,6 +95,19 @@
             const memberDetailContainer = document.getElementById('member-detail-container');
             const pageFooter = document.getElementById('page-footer');
             
+            // Cek jika API Key belum diganti
+            if (SUPABASE_ANON_KEY === 'MASUKKAN_KUNCI_API_BARU_ANDA_DI_SINI') {
+                memberDetailContainer.innerHTML = `
+                    <div class="text-center">
+                        <p class="font-bold text-red-600 text-lg">Konfigurasi Belum Selesai</p>
+                        <p class="mt-2 text-gray-600">Harap masukkan Kunci API (anon key) Supabase Anda di dalam kode untuk melanjutkan.</p>
+                    </div>
+                `;
+                pageFooter.classList.remove('hidden');
+                pageFooter.classList.add('fade-in');
+                return;
+            }
+
             try {
                 // 1. Ambil ID dari URL
                 const urlParams = new URLSearchParams(window.location.search);
@@ -109,50 +126,23 @@
                     .single();
 
                 if (error) {
-                    // Lemparkan error agar ditangkap oleh blok catch
                     throw error;
                 }
 
                 if (data) {
                     // 3. Siapkan variabel HTML dari data yang didapat
-                    
-                    // Afiliasi (Prodi & Universitas)
-                    let affiliation = '';
-                    if (data.prodi && data.universitas_asal) {
-                        affiliation = `${data.prodi} - ${data.universitas_asal}`;
-                    } else {
-                        affiliation = data.prodi || data.universitas_asal || '';
-                    }
-
-                    // ID Profesional (Scopus & Scholar)
-                    let professionalIdsHTML = '';
-                    if (data.scopus_id || data.google_scholar_id) {
-                         professionalIdsHTML = `<p class="text-gray-500">Scopus ID: ${data.scopus_id || 'N/A'} | Google Scholar: ${data.google_scholar_id || 'N/A'}</p>`;
-                    }
-
-                    // Daftar Pendidikan
-                    const educationList = Array.isArray(data.pendidikan) && data.pendidikan.length > 0
-                        ? data.pendidikan.map(item => `<li class="mb-1">${item}</li>`).join('')
-                        : '<li>Data pendidikan tidak tersedia.</li>';
-
-                    // Topik Penelitian
-                    const researchTopics = Array.isArray(data.topik_penelitian) && data.topik_penelitian.length > 0
-                        ? data.topik_penelitian.map(item => `<span class="bg-red-100 text-red-800 text-sm font-medium mr-2 mb-2 px-3 py-1 rounded-full">${item}</span>`).join('')
-                        : '<p class="text-gray-500">Tidak ada topik penelitian yang terdaftar.</p>';
-
-                    // Daftar Publikasi
-                    const publicationList = Array.isArray(data.publikasi) && data.publikasi.length > 0
-                        ? data.publikasi.map(item => `<li class="mb-2 pl-2">${item}</li>`).join('')
-                        : '<li>Tidak ada publikasi yang terdaftar.</li>';
+                    let affiliation = data.prodi && data.universitas_asal ? `${data.prodi} - ${data.universitas_asal}` : (data.prodi || data.universitas_asal || '');
+                    let professionalIdsHTML = (data.scopus_id || data.google_scholar_id) ? `<p class="text-gray-500">Scopus ID: ${data.scopus_id || 'N/A'} | Google Scholar: ${data.google_scholar_id || 'N/A'}</p>` : '';
+                    const educationList = Array.isArray(data.pendidikan) && data.pendidikan.length > 0 ? data.pendidikan.map(item => `<li class="mb-1">${item}</li>`).join('') : '<li>Data pendidikan tidak tersedia.</li>';
+                    const researchTopics = Array.isArray(data.topik_penelitian) && data.topik_penelitian.length > 0 ? data.topik_penelitian.map(item => `<span class="bg-red-100 text-red-800 text-sm font-medium mr-2 mb-2 px-3 py-1 rounded-full">${item}</span>`).join('') : '<p class="text-gray-500">Tidak ada topik penelitian yang terdaftar.</p>';
+                    const publicationList = Array.isArray(data.publikasi) && data.publikasi.length > 0 ? data.publikasi.map(item => `<li class="mb-2 pl-2">${item}</li>`).join('') : '<li>Tidak ada publikasi yang terdaftar.</li>';
 
                     // 4. Buat struktur HTML lengkap
                     const memberHTML = `
                         <div class="fade-in w-full">
                             <div class="mb-8">
                                 <a href="tim.html" class="text-red-600 hover:text-red-800 transition-colors duration-300 flex items-center">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
-                                        <path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd" />
-                                    </svg>
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd" /></svg>
                                     Kembali ke Halaman Tim
                                 </a>
                             </div>
@@ -170,24 +160,13 @@
                                     </div>
                                 </div>
                             </div>
-
                             <div class="mt-12 space-y-10">
-                                <div>
-                                    <h2 class="text-2xl font-bold border-l-4 border-red-600 pl-4 mb-4">Latar Belakang Pendidikan</h2>
-                                    <ul class="list-disc list-inside text-gray-700 space-y-2">${educationList}</ul>
-                                </div>
-                                <div>
-                                    <h2 class="text-2xl font-bold border-l-4 border-red-600 pl-4 mb-4">Topik Penelitian</h2>
-                                    <div class="flex flex-wrap items-center">${researchTopics}</div>
-                                </div>
-                                <div>
-                                    <h2 class="text-2xl font-bold border-l-4 border-red-600 pl-4 mb-4">Publikasi Pilihan</h2>
-                                    <ol class="list-decimal list-inside text-gray-700 space-y-3">${publicationList}</ol>
-                                </div>
+                                <div><h2 class="text-2xl font-bold border-l-4 border-red-600 pl-4 mb-4">Latar Belakang Pendidikan</h2><ul class="list-disc list-inside text-gray-700 space-y-2">${educationList}</ul></div>
+                                <div><h2 class="text-2xl font-bold border-l-4 border-red-600 pl-4 mb-4">Topik Penelitian</h2><div class="flex flex-wrap items-center">${researchTopics}</div></div>
+                                <div><h2 class="text-2xl font-bold border-l-4 border-red-600 pl-4 mb-4">Publikasi Pilihan</h2><ol class="list-decimal list-inside text-gray-700 space-y-3">${publicationList}</ol></div>
                             </div>
                         </div>
                     `;
-                    // Hapus spinner dan masukkan konten dengan animasi
                     memberDetailContainer.innerHTML = memberHTML;
                 } else {
                     memberDetailContainer.innerHTML = `<p class="text-center text-gray-500">Anggota dengan ID ${memberId} tidak ditemukan.</p>`;
@@ -203,12 +182,8 @@
                             <div class="mt-4 text-sm text-left bg-red-50 p-4 rounded-lg border border-red-200">
                                 <p class="font-semibold text-gray-800">Langkah-langkah Perbaikan:</p>
                                 <ol class="list-decimal list-inside mt-2 space-y-2 text-gray-700">
-                                    <li>
-                                        <strong>Periksa Kunci API:</strong> Buka dashboard Supabase > Project Settings > API. Salin kunci <strong><code>anon</code></strong> / <strong><code>public</code></strong> dan pastikan sama persis dengan yang ada di variabel <code>SUPABASE_ANON_KEY</code> dalam kode.
-                                    </li>
-                                    <li>
-                                        <strong>Periksa Aturan Akses (RLS):</strong> Buka dashboard Supabase > Authentication > Policies. Cari tabel <strong><code>anggota</code></strong> dan pastikan ada aturan (policy) yang <strong>AKTIF</strong> untuk operasi <strong>SELECT</strong> yang mengizinkan akses baca publik. Jika belum ada, buat policy baru dari template "Enable read access to everyone".
-                                    </li>
+                                    <li><strong>Periksa Kunci API:</strong> Buka dashboard Supabase > Project Settings > API. Salin kunci <strong><code>anon</code></strong> / <strong><code>public</code></strong> dan pastikan sama persis dengan yang ada di variabel <code>SUPABASE_ANON_KEY</code> dalam kode.</li>
+                                    <li><strong>Periksa Aturan Akses (RLS):</strong> Buka dashboard Supabase > Authentication > Policies. Cari tabel <strong><code>anggota</code></strong> dan pastikan ada aturan (policy) yang <strong>AKTIF</strong> untuk operasi <strong>SELECT</strong> yang mengizinkan akses baca publik.</li>
                                 </ol>
                             </div>
                         </div>
@@ -218,7 +193,6 @@
                 }
                 memberDetailContainer.innerHTML = errorMessage;
             } finally {
-                // Selalu tampilkan footer setelah proses selesai
                 pageFooter.classList.remove('hidden');
                 pageFooter.classList.add('fade-in');
             }
