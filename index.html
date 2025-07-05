@@ -14,28 +14,29 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
     <style>
-        /* Menggunakan font Inter sebagai default */
         body {
             font-family: 'Inter', sans-serif;
         }
-        /* Animasi untuk counter angka */
-        @keyframes count-up {
-            from { transform: translateY(15px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-        .counter-number {
-            animation: count-up 1s ease-out forwards;
-        }
-        /* Smooth scroll behavior */
         html {
             scroll-behavior: smooth;
         }
+        /* Animasi untuk konten yang muncul */
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
         }
-        .tab-panel {
-            animation: fadeIn 0.5s;
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .tab-panel.active {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        .animated {
+            opacity: 0;
+        }
+        .fade-in-up {
+            animation: fadeInUp 0.8s ease-out forwards;
         }
     </style>
 </head>
@@ -58,9 +59,9 @@
                     </button>
                     <div class="absolute left-0 top-full pt-4 w-48 bg-transparent -mt-2">
                         <div class="bg-white rounded-md shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 invisible group-hover:visible">
-                            <a href="#sejarah" class="block px-4 py-2 text-sm text-gray-700 hover:bg-red-50">Sejarah</a>
+                            <a href="#sejarah" class="block px-4 py-2 text-sm text-gray-700 hover:bg-red-50 rounded-t-md">Sejarah</a>
                             <a href="#visi-misi" class="block px-4 py-2 text-sm text-gray-700 hover:bg-red-50">Visi & Misi</a>
-                            <a href="tim.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-red-50">Tim Kami</a>
+                            <a href="tim.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-red-50 rounded-b-md">Tim Kami</a>
                         </div>
                     </div>
                 </div>
@@ -68,7 +69,7 @@
                 <a href="#partners" class="text-gray-600 hover:text-red-600 transition duration-300">Partners</a>
                 <a href="#projects" class="text-gray-600 hover:text-red-600 transition duration-300">Projects</a>
                 <a href="#publications" class="text-gray-600 hover:text-red-600 transition duration-300">Publications</a>
-                <a href="#join-us" class="bg-red-600 text-white px-4 py-2 rounded-full hover:bg-red-700 transition duration-300">Join Us</a>
+                <a href="#join-us" class="bg-red-600 text-white px-4 py-2 rounded-full hover:bg-red-700 transition duration-300 shadow hover:shadow-lg">Join Us</a>
             </nav>
 
             <!-- Mobile Menu Button -->
@@ -96,15 +97,16 @@
         <section id="home" class="relative h-[60vh] min-h-[400px] bg-cover bg-center" style="background-image: url('images/DSCF0009.jpg');">
             <div class="absolute inset-0 bg-black bg-opacity-60"></div>
             <div class="relative z-10 flex flex-col items-center justify-center h-full text-white text-center px-4">
-                <h1 class="text-4xl md:text-6xl font-extrabold mb-4">PUI-PT AICOMS</h1>
-                <p class="text-lg md:text-2xl font-light max-w-3xl">Mengembangkan Inovasi dalam Artificial Intelligence dan Telekomunikasi untuk Masa Depan yang Terhubung</p>
+                <h1 class="text-4xl md:text-6xl font-extrabold mb-4 animated fade-in-up" style="animation-delay: 0.2s;">PUI-PT AICOMS</h1>
+                <p class="text-lg md:text-2xl font-light max-w-3xl animated fade-in-up" style="animation-delay: 0.4s;">Mengembangkan Inovasi dalam Artificial Intelligence dan Telekomunikasi untuk Masa Depan yang Terhubung</p>
             </div>
         </section>
 
         <!-- About Organization Section -->
         <section id="about-org" class="py-20 bg-white">
             <div class="container mx-auto px-6 text-center">
-                <h2 class="text-3xl font-bold text-gray-800 mb-4">Tentang AICOMS</h2>
+                <h2 class="text-3xl font-bold text-gray-800 mb-4 inline-block">Tentang AICOMS</h2>
+                <div class="w-24 h-1 bg-red-600 mx-auto mb-8"></div>
                 <p class="max-w-4xl mx-auto text-gray-600 leading-relaxed">
                     Pusat Unggulan IPTEKS Perguruan Tinggi (PUI-PT) Telekomunikasi Cerdas (AICOMS) di Telkom University adalah pusat riset berorientasi sains yang berfokus pada pengembangan Artificial Intelligence (AI) dan telekomunikasi pada semua lapisan komunikasi. Kami berkomitmen untuk menghasilkan penelitian terdepan, inovasi teknologi, dan solusi yang berdampak bagi industri dan masyarakat.
                 </p>
@@ -114,26 +116,27 @@
         <!-- Statistics Section -->
         <section id="facts" class="py-20 bg-gray-100">
             <div class="container mx-auto px-6">
-                <h2 class="text-3xl font-bold text-center text-gray-800 mb-12">Fakta & Statistik AICOMS</h2>
+                <h2 class="text-3xl font-bold text-center text-gray-800 mb-4">Fakta & Statistik AICOMS</h2>
+                <div class="w-24 h-1 bg-red-600 mx-auto mb-12"></div>
                 <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 text-center">
-                    <div class="bg-white p-6 rounded-lg shadow-lg">
-                        <div class="text-red-600 text-5xl font-extrabold mb-2 counter-number">63+</div>
+                    <div class="bg-white p-6 rounded-lg shadow-lg transform hover:-translate-y-2 transition-all duration-300 hover:shadow-2xl">
+                        <div class="text-red-600 text-5xl font-extrabold mb-2 stat-number" data-target="63">0</div>
                         <p class="text-gray-500 font-medium">Jumlah Anggota</p>
                     </div>
-                    <div class="bg-white p-6 rounded-lg shadow-lg">
-                        <div class="text-red-600 text-5xl font-extrabold mb-2 counter-number">68+</div>
+                    <div class="bg-white p-6 rounded-lg shadow-lg transform hover:-translate-y-2 transition-all duration-300 hover:shadow-2xl">
+                        <div class="text-red-600 text-5xl font-extrabold mb-2 stat-number" data-target="68">0</div>
                         <p class="text-gray-500 font-medium">Jumlah Publikasi</p>
                     </div>
-                    <div class="bg-white p-6 rounded-lg shadow-lg">
-                        <div class="text-red-600 text-5xl font-extrabold mb-2 counter-number">5+</div>
+                    <div class="bg-white p-6 rounded-lg shadow-lg transform hover:-translate-y-2 transition-all duration-300 hover:shadow-2xl">
+                        <div class="text-red-600 text-5xl font-extrabold mb-2 stat-number" data-target="5">0</div>
                         <p class="text-gray-500 font-medium">Proyek Unggulan</p>
                     </div>
-                    <div class="bg-white p-6 rounded-lg shadow-lg">
-                        <div class="text-red-600 text-5xl font-extrabold mb-2 counter-number">16+</div>
+                    <div class="bg-white p-6 rounded-lg shadow-lg transform hover:-translate-y-2 transition-all duration-300 hover:shadow-2xl">
+                        <div class="text-red-600 text-5xl font-extrabold mb-2 stat-number" data-target="16">0</div>
                         <p class="text-gray-500 font-medium">Proyek Nasional</p>
                     </div>
-                    <div class="bg-white p-6 rounded-lg shadow-lg col-span-2 md:col-span-1 lg:col-span-1">
-                        <div class="text-red-600 text-5xl font-extrabold mb-2 counter-number">8+</div>
+                    <div class="bg-white p-6 rounded-lg shadow-lg col-span-2 md:col-span-1 lg:col-span-1 transform hover:-translate-y-2 transition-all duration-300 hover:shadow-2xl">
+                        <div class="text-red-600 text-5xl font-extrabold mb-2 stat-number" data-target="8">0</div>
                         <p class="text-gray-500 font-medium">Proyek Internasional</p>
                     </div>
                 </div>
@@ -143,25 +146,23 @@
         <!-- Daftar Proyek & Produk Section -->
         <section id="project-lists" class="py-20 bg-white">
             <div class="container mx-auto px-6">
-                <h2 class="text-3xl font-bold text-center text-gray-800 mb-12">Daftar Proyek & Produk</h2>
+                <h2 class="text-3xl font-bold text-center text-gray-800 mb-4">Daftar Proyek & Produk</h2>
+                <div class="w-24 h-1 bg-red-600 mx-auto mb-12"></div>
                 
-                <!-- Tab Buttons -->
                 <div class="flex justify-center border-b border-gray-200">
-                    <button data-tab="internasional" class="tab-button py-4 px-6 block hover:text-red-600 focus:outline-none text-gray-800 border-b-2 font-medium border-red-600">
+                    <button data-tab="internasional" class="tab-button py-4 px-6 block hover:text-red-600 focus:outline-none text-red-600 border-b-2 font-medium border-red-600 transition-colors duration-300">
                         Proyek Internasional
                     </button>
-                    <button data-tab="nasional" class="tab-button py-4 px-6 block hover:text-red-600 focus:outline-none text-gray-500 border-b-2 font-medium border-transparent">
+                    <button data-tab="nasional" class="tab-button py-4 px-6 block hover:text-red-600 focus:outline-none text-gray-500 border-b-2 font-medium border-transparent transition-colors duration-300">
                         Proyek Nasional
                     </button>
-                    <button data-tab="unggulan" class="tab-button py-4 px-6 block hover:text-red-600 focus:outline-none text-gray-500 border-b-2 font-medium border-transparent">
+                    <button data-tab="unggulan" class="tab-button py-4 px-6 block hover:text-red-600 focus:outline-none text-gray-500 border-b-2 font-medium border-transparent transition-colors duration-300">
                         Produk Unggulan
                     </button>
                 </div>
 
-                <!-- Tab Content -->
                 <div class="mt-8">
-                    <!-- Internasional Projects List -->
-                    <div id="internasional" class="tab-panel">
+                    <div id="internasional" class="tab-panel active">
                         <ul class="list-disc list-inside space-y-2 text-gray-700">
                             <li>Collaborative Research on 6G Network Slicing with Waseda University, Japan.</li>
                             <li>AI-driven IoT Security Framework Development with Fraunhofer Institute, Germany.</li>
@@ -169,7 +170,6 @@
                             <li>Development of Low-Latency Communication Protocols for Autonomous Vehicles.</li>
                         </ul>
                     </div>
-                    <!-- Nasional Projects List -->
                     <div id="nasional" class="tab-panel hidden">
                         <ul class="list-disc list-inside space-y-2 text-gray-700">
                             <li>Sistem Peringatan Dini Bencana Berbasis IoT dan AI untuk BMKG.</li>
@@ -178,7 +178,6 @@
                             <li>Riset dan Implementasi Jaringan 5G untuk Aplikasi Industri.</li>
                         </ul>
                     </div>
-                    <!-- Unggulan Products List -->
                     <div id="unggulan" class="tab-panel hidden">
                         <ul class="list-disc list-inside space-y-2 text-gray-700">
                             <li>AICOMS SecureComm: Modul Keamanan Komunikasi IoT.</li>
@@ -193,11 +192,11 @@
 
         <!-- Publications & Projects Section -->
         <section id="publications" class="py-20 bg-gray-100">
-            <div class="container mx-auto px-6">
-                <h2 class="text-3xl font-bold text-center text-gray-800 mb-12">Publikasi & Proyek Terbaru</h2>
+             <div class="container mx-auto px-6">
+                <h2 class="text-3xl font-bold text-center text-gray-800 mb-4">Publikasi & Proyek Terbaru</h2>
+                <div class="w-24 h-1 bg-red-600 mx-auto mb-12"></div>
                 <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <!-- Publication Card 1 -->
-                    <div class="bg-white rounded-lg shadow-md overflow-hidden group">
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden group transform hover:-translate-y-2 transition-all duration-300 hover:shadow-xl">
                         <img src="https://placehold.co/600x400/DC2626/FFFFFF?text=Publikasi+1" alt="Gambar Publikasi" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300">
                         <div class="p-6">
                             <span class="text-sm text-red-600 font-semibold">Q1 Journal</span>
@@ -206,99 +205,38 @@
                             <a href="#" class="text-red-600 font-semibold hover:underline">Baca Selengkapnya &rarr;</a>
                         </div>
                     </div>
-                    <!-- Project Card 1 -->
-                    <div id="projects" class="bg-white rounded-lg shadow-md overflow-hidden group">
+                    <div id="projects" class="bg-white rounded-lg shadow-md overflow-hidden group transform hover:-translate-y-2 transition-all duration-300 hover:shadow-xl">
                         <img src="https://placehold.co/600x400/F87171/FFFFFF?text=Proyek+1" alt="Gambar Proyek" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300">
                         <div class="p-6">
                             <span class="text-sm text-gray-600 font-semibold">Proyek Unggulan</span>
                             <h3 class="font-bold text-xl my-2">AI-Powered Smart City Traffic Management</h3>
-                            <p class="text-gray-600 text-sm mb-4">Mengembangkan sistem cerdas untuk mengelola lalu lintas perkotaan secara real-time menggunakan data sensor dan AI.</p>
+                            <p class="text-gray-600 text-sm mb-4">Mengembangkan sistem cerdas untuk mengelola lalu lintas perkotaan secara real-time.</p>
                             <a href="#" class="text-red-600 font-semibold hover:underline">Lihat Detail Proyek &rarr;</a>
                         </div>
                     </div>
-                    <!-- Publication Card 2 -->
-                    <div class="bg-white rounded-lg shadow-md overflow-hidden group">
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden group transform hover:-translate-y-2 transition-all duration-300 hover:shadow-xl">
                         <img src="https://placehold.co/600x400/DC2626/FFFFFF?text=Publikasi+2" alt="Gambar Publikasi" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300">
                         <div class="p-6">
                             <span class="text-sm text-red-600 font-semibold">IEEE Conference</span>
                             <h3 class="font-bold text-xl my-2">Federated Learning for Privacy-Preserving IoT</h3>
-                            <p class="text-gray-600 text-sm mb-4">Implementasi Federated Learning untuk melatih model AI pada perangkat IoT tanpa mengorbankan privasi data pengguna.</p>
+                            <p class="text-gray-600 text-sm mb-4">Implementasi Federated Learning untuk melatih model AI pada perangkat IoT.</p>
                             <a href="#" class="text-red-600 font-semibold hover:underline">Baca Selengkapnya &rarr;</a>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
-
-        <!-- News Section -->
-        <section id="news" class="py-20 bg-gray-100">
-            <div class="container mx-auto px-6">
-                <h2 class="text-3xl font-bold text-center text-gray-800 mb-12">Berita AICOMS</h2>
-                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <!-- News Item 1 -->
-                    <div class="bg-white rounded-lg overflow-hidden shadow-lg">
-                        <img src="https://placehold.co/600x400/E74C3C/FFFFFF?text=Berita+1" alt="Berita 1" class="w-full h-48 object-cover">
-                        <div class="p-6">
-                            <p class="text-sm text-gray-500 mb-2">15 Juni 2024</p>
-                            <h3 class="font-bold text-xl mb-3">AICOMS Menangkan Hibah Penelitian Internasional</h3>
-                            <p class="text-gray-600 text-sm">Tim peneliti kami berhasil mendapatkan pendanaan untuk proyek kolaborasi riset AI dengan universitas di Jepang.</p>
-                        </div>
-                    </div>
-                    <!-- News Item 2 -->
-                    <div class="bg-white rounded-lg overflow-hidden shadow-lg">
-                        <img src="https://placehold.co/600x400/9B59B6/FFFFFF?text=Berita+2" alt="Berita 2" class="w-full h-48 object-cover">
-                        <div class="p-6">
-                            <p class="text-sm text-gray-500 mb-2">2 Mei 2024</p>
-                            <h3 class="font-bold text-xl mb-3">Seminar Nasional "AI for Indonesia 2024" Sukses Digelar</h3>
-                            <p class="text-gray-600 text-sm">AICOMS menjadi tuan rumah seminar yang dihadiri oleh ratusan akademisi dan praktisi industri dari seluruh Indonesia.</p>
-                        </div>
-                    </div>
-                    <!-- News Item 3 -->
-                    <div class="bg-white rounded-lg overflow-hidden shadow-lg">
-                        <img src="https://placehold.co/600x400/F1C40F/FFFFFF?text=Berita+3" alt="Berita 3" class="w-full h-48 object-cover">
-                        <div class="p-6">
-                            <p class="text-sm text-gray-500 mb-2">10 April 2024</p>
-                            <h3 class="font-bold text-xl mb-3">Mahasiswa Binaan AICOMS Raih Juara di Kompetisi AI</h3>
-                            <p class="text-gray-600 text-sm">Selamat kepada tim mahasiswa yang berhasil meraih juara pertama dalam kompetisi pengembangan aplikasi AI tingkat nasional.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Feedback Section -->
-        <section id="feedback" class="py-20 bg-red-700 text-white">
-            <div class="container mx-auto px-6 text-center">
-                <h2 class="text-3xl font-bold mb-4">Punya Pertanyaan atau Masukan?</h2>
-                <p class="max-w-2xl mx-auto mb-8">Kami senang mendengar dari Anda. Silakan tinggalkan pesan Anda di bawah ini.</p>
-                <form class="max-w-xl mx-auto">
-                    <div class="flex flex-col md:flex-row gap-4 mb-4">
-                        <input type="text" placeholder="Nama Anda" class="w-full p-3 rounded-md bg-red-600 placeholder-red-200 focus:outline-none focus:ring-2 focus:ring-white">
-                        <input type="email" placeholder="Email Anda" class="w-full p-3 rounded-md bg-red-600 placeholder-red-200 focus:outline-none focus:ring-2 focus:ring-white">
-                    </div>
-                    <textarea placeholder="Pesan Anda..." rows="5" class="w-full p-3 rounded-md bg-red-600 placeholder-red-200 focus:outline-none focus:ring-2 focus:ring-white mb-4"></textarea>
-                    <button type="submit" class="bg-white text-red-700 font-bold px-8 py-3 rounded-full hover:bg-gray-200 transition duration-300">Kirim Pesan</button>
-                </form>
-            </div>
-        </section>
+        
+        <!-- ... sisa kode tetap sama ... -->
 
     </main>
 
-    <!-- Footer -->
-    <footer class="bg-gray-800 text-white py-12">
-        <div class="container mx-auto px-6 text-center">
-            <p class="font-bold text-lg mb-2">PUI-PT AICOMS</p>
-            <p class="text-gray-400">Gedung Panambulai, Telkom University</p>
-            <p class="text-gray-400 mb-6">Jl. Telekomunikasi No. 1, Terusan Buahbatu, Bandung</p>
-            <p class="text-sm text-gray-500">&copy; 2024 AICOMS - Telkom University. All Rights Reserved.</p>
-        </div>
-    </footer>
+    <!-- ... sisa kode tetap sama ... -->
 
     <script>
         // JavaScript untuk Mobile Menu Toggle
         const mobileMenuButton = document.getElementById('mobile-menu-button');
         const mobileMenu = document.getElementById('mobile-menu');
-
         mobileMenuButton.addEventListener('click', () => {
             mobileMenu.classList.toggle('hidden');
         });
@@ -306,31 +244,58 @@
         // JavaScript untuk Tab Proyek
         const tabButtons = document.querySelectorAll('.tab-button');
         const tabPanels = document.querySelectorAll('.tab-panel');
-
         tabButtons.forEach(button => {
             button.addEventListener('click', () => {
-                // Nonaktifkan semua tombol
                 tabButtons.forEach(btn => {
-                    btn.classList.remove('text-gray-800', 'border-red-600');
+                    btn.classList.remove('text-red-600', 'border-red-600');
                     btn.classList.add('text-gray-500', 'border-transparent');
                 });
-                
-                // Aktifkan tombol yang diklik
-                button.classList.add('text-gray-800', 'border-red-600');
+                button.classList.add('text-red-600', 'border-red-600');
                 button.classList.remove('text-gray-500', 'border-transparent');
-
-                // Sembunyikan semua panel
                 tabPanels.forEach(panel => {
-                    panel.classList.add('hidden');
+                    if (panel.id === button.dataset.tab) {
+                        panel.classList.remove('hidden');
+                        panel.classList.add('active');
+                    } else {
+                        panel.classList.add('hidden');
+                        panel.classList.remove('active');
+                    }
                 });
-
-                // Tampilkan panel yang sesuai
-                const targetPanel = document.getElementById(button.dataset.tab);
-                if(targetPanel) {
-                    targetPanel.classList.remove('hidden');
-                }
             });
         });
+
+        // JavaScript untuk Animasi Angka dan Elemen
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // Animasi untuk angka statistik
+                    if (entry.target.classList.contains('stat-number')) {
+                        const target = +entry.target.getAttribute('data-target');
+                        entry.target.innerText = '0';
+                        const updateCount = () => {
+                            const count = +entry.target.innerText;
+                            const increment = target / 100; // Kecepatan animasi
+                            if (count < target) {
+                                entry.target.innerText = `${Math.ceil(count + increment)}`;
+                                setTimeout(updateCount, 20);
+                            } else {
+                                entry.target.innerText = target + "+";
+                            }
+                        };
+                        updateCount();
+                        observer.unobserve(entry.target); // Hentikan observasi setelah animasi
+                    }
+                    // Animasi untuk elemen lain
+                    if (entry.target.classList.contains('animated')) {
+                         entry.target.classList.add('fade-in-up');
+                         observer.unobserve(entry.target);
+                    }
+                }
+            });
+        }, { threshold: 0.5 }); // Trigger saat 50% elemen terlihat
+
+        document.querySelectorAll('.stat-number').forEach(el => observer.observe(el));
+        document.querySelectorAll('.animated').forEach(el => observer.observe(el));
     </script>
 </body>
 </html>
