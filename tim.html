@@ -8,13 +8,22 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Impor Supabase Client -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
         body { font-family: 'Inter', sans-serif; }
+        .fade-in {
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800">
 
+    <!-- Header / Navigation Bar (Diperbarui) -->
     <header class="bg-white/80 backdrop-blur-lg shadow-md fixed top-0 left-0 right-0 z-50">
         <div class="container mx-auto px-6 py-2 flex justify-between items-center">
             <a href="index.html">
@@ -58,7 +67,8 @@
             </button>
         </div>
         <div id="mobile-menu" class="hidden md:hidden bg-white">
-             </div>
+             <!-- Mobile links... -->
+        </div>
     </header>
 
     <main class="pt-24">
@@ -66,20 +76,113 @@
             <div class="container mx-auto px-6">
                 <h1 class="text-4xl font-bold text-center text-gray-800 mb-2">Tim Kami</h1>
                 <p class="text-center text-gray-600 mb-12">Kenali para peneliti dan inovator di balik AICOMS.</p>
+                
+                <!-- Kontainer ini akan diisi secara dinamis oleh JavaScript -->
                 <div id="team-grid-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+                    <!-- Loading state... -->
+                    <div class="col-span-full flex justify-center items-center py-10">
+                        <svg class="animate-spin h-8 w-8 text-red-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                        <p class="ml-4 text-gray-500">Memuat data anggota...</p>
                     </div>
+                </div>
             </div>
         </section>
     </main>
 
     <footer class="bg-gray-800 text-white py-12">
         <div class="container mx-auto px-6 text-center">
-             <p>&copy; 2024 AICOMS - Telkom University. All Rights Reserved.</p>
+            <p class="font-bold text-lg mb-2">PUI-PT AICOMS</p>
+            <p class="text-gray-400">Gedung Panambulai, Telkom University</p>
+            <p class="text-gray-400 mb-6">Jl. Telekomunikasi No. 1, Terusan Buahbatu, Bandung</p>
+            <p class="text-sm text-gray-500">&copy; 2024 AICOMS - Telkom University. All Rights Reserved.</p>
         </div>
     </footer>
 
     <script>
-        // Skrip Supabase dan lainnya tetap sama
+        // --- KONEKSI SUPABASE ---
+        const SUPABASE_URL = 'https://ostoxfgxxjfbvfouydiv.supabase.co';
+        // --- Kunci API yang Anda berikan. Kunci ini TIDAK VALID karena tanggalnya di masa depan. ---
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9zdG94Zmd4eGpmYnZmb3V5ZGl2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTE2OTI1MzcsImV4cCI6MjA2NzI2ODUzN30.PqEWjFaTGZZmQ5o2rNmv2G34k1-UKfloU_ETDxhwcro';
+
+        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        // --- FUNGSI UNTUK MEMUAT DATA TIM ---
+        async function loadTeamMembers() {
+            const teamGridContainer = document.getElementById('team-grid-container');
+            
+            // Ambil data dari tabel 'anggota'
+            const { data, error } = await supabase
+                .from('anggota')
+                .select('*');
+
+            if (error) {
+                console.error('Error fetching team members:', error);
+                let errorMessage = `
+                    <div class="col-span-full text-center bg-red-50 border border-red-200 p-6 rounded-lg">
+                        <p class="font-bold text-red-600 text-lg">Koneksi ke Database Gagal</p>
+                        <p class="mt-2 text-gray-700">Penyebab paling umum adalah <strong>Kunci API salah</strong> atau <strong>Aturan Akses Tabel (RLS) belum diatur</strong>.</p>
+                        <div class="mt-4 text-sm text-left">
+                            <p class="font-semibold text-gray-800">Langkah-langkah Perbaikan:</p>
+                            <ol class="list-decimal list-inside mt-2 space-y-1 text-gray-600">
+                                <li><strong>Buat Kunci API Baru:</strong> Buka dashboard Supabase > Project Settings > API. Klik <strong>"Generate new key"</strong> untuk kunci <strong><code>anon</code></strong>.</li>
+                                <li>Salin kunci yang baru dan tempelkan untuk menggantikan nilai <code>SUPABASE_ANON_KEY</code> di dalam kode.</li>
+                                <li><strong>Periksa Aturan Akses (RLS):</strong> Buka dashboard Supabase > Authentication > Policies. Pastikan tabel <strong><code>anggota</code></strong> memiliki aturan (policy) yang aktif untuk operasi <strong>SELECT</strong>.</li>
+                            </ol>
+                        </div>
+                    </div>
+                `;
+                teamGridContainer.innerHTML = errorMessage;
+                return;
+            }
+
+            if (data && data.length > 0) {
+                // --- LOGIKA PENGURUTAN KHUSUS BERDASARKAN JABATAN ---
+                const specificOrder = [
+                    "Direktur PUI-PT AICOMS",
+                    "Manajer PUI-PT AICOMS",
+                    "Asisten Manajer Urusan Kolaborasi Nasional",
+                    "Asisten Manajer Urusan Kolaborasi Internasional",
+                    "Staff Administrasi Urusan Internasional/Eksternal",
+                    "Staff Administrasi Urusan Nasional/Internal"
+                ];
+
+                data.sort((a, b) => {
+                    const indexA = specificOrder.indexOf(a.jabatan);
+                    const indexB = specificOrder.indexOf(b.jabatan);
+
+                    if (indexA !== -1 && indexB !== -1) return indexA - indexB;
+                    if (indexA !== -1) return -1;
+                    if (indexB !== -1) return 1;
+                    return a.nama.localeCompare(b.nama);
+                });
+
+                teamGridContainer.innerHTML = '';
+                
+                data.forEach(member => {
+                    const memberCard = `
+                        <a href="detail-anggota.html?id=${member.id}" class="block bg-white rounded-lg shadow-lg text-center p-6 group hover:shadow-2xl hover:-translate-y-2 transition-all duration-300">
+                            <img src="${member.foto_url || 'https://placehold.co/200x200/F87171/FFFFFF?text=Foto'}" alt="Foto ${member.nama}" class="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-white group-hover:border-red-300 transition-colors object-cover">
+                            <h3 class="font-bold text-xl text-gray-800">${member.nama}</h3>
+                            <p class="text-red-600 font-semibold">${member.jabatan}</p>
+                        </a>
+                    `;
+                    teamGridContainer.innerHTML += memberCard;
+                });
+            } else {
+                teamGridContainer.innerHTML = '<p class="col-span-full text-center text-gray-500">Belum ada data anggota.</p>';
+            }
+        }
+
+        // Panggil fungsi saat halaman dimuat
+        document.addEventListener('DOMContentLoaded', loadTeamMembers);
+
+        // Script untuk mobile menu
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        });
     </script>
 </body>
 </html>
