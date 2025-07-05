@@ -93,6 +93,37 @@
             }
 
             if (data && data.length > 0) {
+                // --- LOGIKA PENGURUTAN KHUSUS ---
+                const specificOrder = [
+                    "Dr. Eng. Khoirul Anwar, S.T., M.Eng.",
+                    "Dr. Gelar Budiman",
+                    "Dr. Nopendri",
+                    "Fardan, S.T, M.Sc.",
+                    "Ferdhy Ramadan, S.M.",
+                    "Lovei Miftahul Jannah, S.M."
+                ];
+
+                data.sort((a, b) => {
+                    const indexA = specificOrder.indexOf(a.nama);
+                    const indexB = specificOrder.indexOf(b.nama);
+
+                    // Jika keduanya ada di daftar urutan khusus
+                    if (indexA !== -1 && indexB !== -1) {
+                        return indexA - indexB;
+                    }
+                    // Jika hanya A yang ada di daftar
+                    if (indexA !== -1) {
+                        return -1; // A comes first
+                    }
+                    // Jika hanya B yang ada di daftar
+                    if (indexB !== -1) {
+                        return 1; // B comes first
+                    }
+                    // Jika keduanya tidak ada di daftar, urutkan berdasarkan abjad
+                    return a.nama.localeCompare(b.nama);
+                });
+                // --- AKHIR LOGIKA PENGURUTAN ---
+
                 // Kosongkan kontainer sebelum mengisi data baru
                 teamGridContainer.innerHTML = '';
                 
