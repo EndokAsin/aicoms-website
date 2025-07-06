@@ -8,77 +8,32 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Impor Supabase Client -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
         body { font-family: 'Inter', sans-serif; }
-        html { scroll-behavior: smooth; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        .animated { opacity: 0; }
-        .fade-in-up { animation: fadeInUp 0.5s ease-out forwards; }
-        .gradient-text { background: linear-gradient(90deg, #ef4444, #f87171); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        
-        /* Background shapes styling */
-        .bg-shapes {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            z-index: 0;
-            overflow: hidden;
-        }
-        .shape {
-            position: absolute;
-            opacity: 0.08;
-            mix-blend-mode: multiply;
-        }
-        .circle {
-            border-radius: 50%;
-            background: linear-gradient(135deg, #ef4444, #f87171);
-        }
-        .triangle {
-            width: 0;
-            height: 0;
-            border-style: solid;
-            border-color: transparent transparent #ef4444 transparent;
-        }
-        .square {
-            background: linear-gradient(135deg, #f87171, #ef4444);
-            transform: rotate(45deg);
-        }
-        .team-card { position: relative; z-index: 1; }
-        
-        /* Skeleton loading */
-        .skeleton {
-            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-        }
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
-        }
     </style>
 </head>
-<body class="bg-white text-gray-800">
+<body class="bg-gray-50 text-gray-800">
 
-    <!-- Header / Navigation Bar -->
-    <header class="bg-white/90 backdrop-blur-lg shadow-sm fixed top-0 left-0 right-0 z-50 border-b border-red-100">
+    <!-- Header / Navigation Bar (Konsisten dengan halaman lain) -->
+    <header class="bg-white/80 backdrop-blur-lg shadow-md fixed top-0 left-0 right-0 z-50">
         <div class="container mx-auto px-6 py-2 flex justify-between items-center">
-            <a href="index.html" class="flex items-center">
+            <a href="index.html">
                 <img src="images/1. Logo AICOMS.png" alt="Logo AICOMS" class="h-16 w-auto">
             </a>
             <nav class="hidden md:flex items-center space-x-8">
                 <a href="index.html" class="text-gray-600 hover:text-red-600 transition duration-300">Home</a>
                 <div class="relative group py-6 -my-6">
-                    <button class="text-red-600 font-semibold flex items-center transition-all">
-                        <span>About Us</span>
+                    <button class="text-red-600 font-semibold flex items-center">
+                        About Us
                         <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                     </button>
                     <div class="absolute left-0 top-full pt-4 w-48 bg-transparent -mt-2">
-                        <div class="bg-white rounded-md shadow-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 invisible group-hover:visible border border-gray-100">
-                            <a href="sejarah.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-red-50 rounded-t-md hover:text-red-600">Sejarah</a>
-                            <a href="visimisi.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-red-50 hover:text-red-600">Visi & Misi</a>
-                            <a href="tim.html" class="block px-4 py-2 text-sm text-red-600 font-semibold hover:bg-red-50 rounded-b-md">Tim Kami</a>
+                        <div class="bg-white rounded-md shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 invisible group-hover:visible">
+                            <a href="sejarah.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-red-50 rounded-t-md">Sejarah</a>
+                            <a href="visimisi.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-red-50">Visi & Misi</a>
+                            <a href="tim.html" class="block px-4 py-2 text-sm text-red-700 font-semibold hover:bg-red-50 rounded-b-md">Tim Kami</a>
                         </div>
                     </div>
                 </div>
@@ -87,104 +42,63 @@
                 <a href="projects.html" class="text-gray-600 hover:text-red-600 transition duration-300">Projects</a>
                 <div class="relative group py-6 -my-6">
                     <button class="text-gray-600 hover:text-red-600 transition duration-300 flex items-center">
-                        <span>Publications</span>
+                        Publications
                         <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                     </button>
                     <div class="absolute left-0 top-full pt-4 w-48 bg-transparent -mt-2">
-                        <div class="bg-white rounded-md shadow-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 invisible group-hover:visible border border-gray-100">
-                            <a href="news.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-red-50 rounded-t-md hover:text-red-600">News</a>
-                            <a href="papers.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-red-50 hover:text-red-600">Papers</a>
-                            <a href="journals.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-red-50 rounded-b-md hover:text-red-600">Jurnal</a>
+                        <div class="bg-white rounded-md shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 invisible group-hover:visible">
+                            <a href="news.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-red-50 rounded-t-md">News</a>
+                            <a href="papers.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-red-50">Papers</a>
+                            <a href="journals.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-red-50 rounded-b-md">Jurnal</a>
                         </div>
                     </div>
                 </div>
-                <a href="index.html#feedback" class="bg-gradient-to-r from-red-600 to-red-500 text-white px-6 py-2 rounded-full hover:from-red-700 hover:to-red-600 transition duration-300 shadow-lg hover:shadow-xl font-medium">Join Us</a>
+                <a href="index.html#feedback" class="bg-red-600 text-white px-4 py-2 rounded-full hover:bg-red-700 transition duration-300 shadow hover:shadow-lg">Join Us</a>
             </nav>
-            <button id="mobile-menu-button" class="md:hidden text-gray-600 hover:text-red-600">
+            <button id="mobile-menu-button" class="md:hidden">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
             </button>
         </div>
-        <div id="mobile-menu" class="hidden md:hidden bg-white divide-y divide-gray-100 border-t border-gray-200">
-            <a href="index.html" class="block px-6 py-3 text-gray-600 hover:bg-red-50 hover:text-red-600">Home</a>
-            <a href="sejarah.html" class="block px-6 py-3 text-gray-600 hover:bg-red-50 hover:text-red-600">Sejarah</a>
-            <a href="visimisi.html" class="block px-6 py-3 text-gray-600 hover:bg-red-50 hover:text-red-600">Visi & Misi</a>
-            <a href="tim.html" class="block px-6 py-3 text-red-600 font-semibold hover:bg-red-50 hover:text-red-600">Tim Kami</a>
-            <a href="activities.html" class="block px-6 py-3 text-gray-600 hover:bg-red-50 hover:text-red-600">Activities</a>
-            <a href="partners.html" class="block px-6 py-3 text-gray-600 hover:bg-red-50 hover:text-red-600">Partners</a>
-            <a href="projects.html" class="block px-6 py-3 text-gray-600 hover:bg-red-50 hover:text-red-600">Projects</a>
-            <a href="news.html" class="block px-6 py-3 text-gray-600 hover:bg-red-50 hover:text-red-600">News</a>
-            <a href="papers.html" class="block px-6 py-3 text-gray-600 hover:bg-red-50 hover:text-red-600">Papers</a>
-            <a href="journals.html" class="block px-6 py-3 text-gray-600 hover:bg-red-50 hover:text-red-600">Jurnal</a>
-            <a href="index.html#feedback" class="block px-6 py-3 text-white bg-gradient-to-r from-red-600 to-red-500 text-center font-medium">Join Us</a>
+        <div id="mobile-menu" class="hidden md:hidden bg-white divide-y divide-gray-100">
+            <a href="index.html" class="block px-6 py-3 text-gray-600 hover:bg-red-50">Home</a>
+            <a href="sejarah.html" class="block px-6 py-3 text-gray-600 hover:bg-red-50">Sejarah</a>
+            <a href="visimisi.html" class="block px-6 py-3 text-gray-600 hover:bg-red-50">Visi & Misi</a>
+            <a href="tim.html" class="block px-6 py-3 text-red-600 font-semibold hover:bg-red-50">Tim Kami</a>
+            <a href="activities.html" class="block px-6 py-3 text-gray-600 hover:bg-red-50">Activities</a>
+            <a href="partners.html" class="block px-6 py-3 text-gray-600 hover:bg-red-50">Partners</a>
+            <a href="projects.html" class="block px-6 py-3 text-gray-600 hover:bg-red-50">Projects</a>
+            <a href="news.html" class="block px-6 py-3 text-gray-600 hover:bg-red-50">News</a>
+            <a href="papers.html" class="block px-6 py-3 text-gray-600 hover:bg-red-50">Papers</a>
+            <a href="journals.html" class="block px-6 py-3 text-gray-600 hover:bg-red-50">Jurnal</a>
+            <a href="index.html#feedback" class="block px-6 py-3 text-white bg-red-600 text-center">Join Us</a>
         </div>
     </header>
 
-    <main class="pt-20">
-        <!-- Team Section with Background Shapes -->
-        <section id="team-list" class="py-12 bg-white relative overflow-hidden">
-            <div class="bg-shapes" id="background-shapes"></div>
-            <div class="container mx-auto px-6 relative z-10">
-                <div class="text-center mb-12">
-                    <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Anggota <span class="gradient-text">Tim Kami</span></h2>
-                    <div class="w-24 h-1 bg-gradient-to-r from-red-500 to-red-300 mx-auto mb-6 rounded-full"></div>
-                    <p class="max-w-2xl mx-auto text-gray-600">Tim profesional yang berdedikasi dalam pengembangan kecerdasan buatan dan telekomunikasi.</p>
+    <main class="pt-24">
+        <section id="team-list" class="py-16">
+            <div class="container mx-auto px-6">
+                <!-- Judul Bagian yang Diperbarui -->
+                <div class="text-center mb-16">
+                    <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight">
+                        <span class="text-gray-900">Anggota</span>
+                        <span class="text-red-600">Tim Kami</span>
+                    </h1>
+                    <div class="w-32 h-1.5 bg-gradient-to-r from-red-700 to-red-200 mx-auto mt-4 mb-6 rounded-full"></div>
+                    <p class="max-w-2xl mx-auto text-lg md:text-xl text-gray-500">
+                        Kenali para peneliti dan inovator di balik AICOMS.
+                    </p>
                 </div>
                 
-                <!-- Skeleton Loading -->
-                <div id="team-grid-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                    <!-- Skeleton loading cards (4 items) -->
-                    <div class="team-card bg-white rounded-xl shadow overflow-hidden border border-gray-100">
-                        <div class="p-6 flex justify-center">
-                            <div class="w-32 h-32 rounded-full skeleton bg-gray-200"></div>
-                        </div>
-                        <div class="p-6 text-center">
-                            <div class="h-6 w-3/4 mx-auto skeleton bg-gray-200 mb-3"></div>
-                            <div class="h-5 w-1/2 mx-auto skeleton bg-gray-200 mb-4"></div>
-                            <div class="h-4 w-1/3 mx-auto skeleton bg-gray-200"></div>
-                        </div>
-                    </div>
-                    <div class="team-card bg-white rounded-xl shadow overflow-hidden border border-gray-100">
-                        <div class="p-6 flex justify-center">
-                            <div class="w-32 h-32 rounded-full skeleton bg-gray-200"></div>
-                        </div>
-                        <div class="p-6 text-center">
-                            <div class="h-6 w-3/4 mx-auto skeleton bg-gray-200 mb-3"></div>
-                            <div class="h-5 w-1/2 mx-auto skeleton bg-gray-200 mb-4"></div>
-                            <div class="h-4 w-1/3 mx-auto skeleton bg-gray-200"></div>
-                        </div>
-                    </div>
-                    <div class="team-card bg-white rounded-xl shadow overflow-hidden border border-gray-100">
-                        <div class="p-6 flex justify-center">
-                            <div class="w-32 h-32 rounded-full skeleton bg-gray-200"></div>
-                        </div>
-                        <div class="p-6 text-center">
-                            <div class="h-6 w-3/4 mx-auto skeleton bg-gray-200 mb-3"></div>
-                            <div class="h-5 w-1/2 mx-auto skeleton bg-gray-200 mb-4"></div>
-                            <div class="h-4 w-1/3 mx-auto skeleton bg-gray-200"></div>
-                        </div>
-                    </div>
-                    <div class="team-card bg-white rounded-xl shadow overflow-hidden border border-gray-100">
-                        <div class="p-6 flex justify-center">
-                            <div class="w-32 h-32 rounded-full skeleton bg-gray-200"></div>
-                        </div>
-                        <div class="p-6 text-center">
-                            <div class="h-6 w-3/4 mx-auto skeleton bg-gray-200 mb-3"></div>
-                            <div class="h-5 w-1/2 mx-auto skeleton bg-gray-200 mb-4"></div>
-                            <div class="h-4 w-1/3 mx-auto skeleton bg-gray-200"></div>
-                        </div>
+                <div id="team-grid-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+                    <!-- Loading state... -->
+                    <div class="col-span-full flex justify-center items-center py-10">
+                        <svg class="animate-spin h-8 w-8 text-red-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                        <p class="ml-4 text-gray-500">Memuat data anggota...</p>
                     </div>
                 </div>
-            </div>
-        </section>
-
-        <!-- CTA Section -->
-        <section class="py-16 bg-gray-50">
-            <div class="container mx-auto px-6 text-center">
-                <h2 class="text-2xl md:text-3xl font-bold text-gray-800 mb-6">Tertarik Bergabung dengan <span class="gradient-text">Tim Kami?</span></h2>
-                <p class="max-w-2xl mx-auto text-gray-600 mb-8">Kami selalu mencari talenta-talenta baru yang bersemangat di bidang AI dan telekomunikasi.</p>
-                <a href="index.html#feedback" class="inline-block bg-gradient-to-r from-red-600 to-red-500 text-white px-8 py-3 rounded-full font-bold hover:from-red-700 hover:to-red-600 transition duration-300 shadow-lg hover:shadow-xl">
-                    Hubungi Kami
-                </a>
             </div>
         </section>
     </main>
@@ -260,94 +174,9 @@
         const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9zdG94Zmd4eGpmYnZmb3V5ZGl2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTE2OTI1MzcsImV4cCI6MjA2NzI2ODUzN30.PqEWjFaTGZZmQ5o2rNmv2G34k1-UKfloU_ETDxhwcro';
         const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-        // Create background shapes
-        function createBackgroundShapes() {
-            const container = document.getElementById('background-shapes');
-            const shapes = ['circle', 'triangle', 'square'];
-            
-            // Clear existing shapes
-            container.innerHTML = '';
-            
-            // Create 12 shapes
-            for (let i = 0; i < 12; i++) {
-                const shapeType = shapes[Math.floor(Math.random() * shapes.length)];
-                const shape = document.createElement('div');
-                shape.className = `shape ${shapeType}`;
-                
-                // Random position and size
-                const size = Math.random() * 100 + 50; // 50-150px
-                const posX = Math.random() * 100;
-                const posY = Math.random() * 100;
-                
-                // Set shape properties
-                if (shapeType === 'circle') {
-                    shape.style.width = `${size}px`;
-                    shape.style.height = `${size}px`;
-                } 
-                else if (shapeType === 'triangle') {
-                    shape.style.borderWidth = `0 ${size/2}px ${size}px ${size/2}px`;
-                } 
-                else { // square
-                    shape.style.width = `${size}px`;
-                    shape.style.height = `${size}px`;
-                }
-                
-                shape.style.left = `${posX}%`;
-                shape.style.top = `${posY}%`;
-                shape.style.opacity = `${Math.random() * 0.1 + 0.05}`; // 0.05-0.15 opacity
-                
-                container.appendChild(shape);
-            }
-        }
-
         async function loadTeamMembers() {
             const teamGridContainer = document.getElementById('team-grid-container');
             
-            // Show skeleton loading first
-            teamGridContainer.innerHTML = `
-                <div class="team-card bg-white rounded-xl shadow overflow-hidden border border-gray-100">
-                    <div class="p-6 flex justify-center">
-                        <div class="w-32 h-32 rounded-full skeleton bg-gray-200"></div>
-                    </div>
-                    <div class="p-6 text-center">
-                        <div class="h-6 w-3/4 mx-auto skeleton bg-gray-200 mb-3"></div>
-                        <div class="h-5 w-1/2 mx-auto skeleton bg-gray-200 mb-4"></div>
-                        <div class="h-4 w-1/3 mx-auto skeleton bg-gray-200"></div>
-                    </div>
-                </div>
-                <div class="team-card bg-white rounded-xl shadow overflow-hidden border border-gray-100">
-                    <div class="p-6 flex justify-center">
-                        <div class="w-32 h-32 rounded-full skeleton bg-gray-200"></div>
-                    </div>
-                    <div class="p-6 text-center">
-                        <div class="h-6 w-3/4 mx-auto skeleton bg-gray-200 mb-3"></div>
-                        <div class="h-5 w-1/2 mx-auto skeleton bg-gray-200 mb-4"></div>
-                        <div class="h-4 w-1/3 mx-auto skeleton bg-gray-200"></div>
-                    </div>
-                </div>
-                <div class="team-card bg-white rounded-xl shadow overflow-hidden border border-gray-100">
-                    <div class="p-6 flex justify-center">
-                        <div class="w-32 h-32 rounded-full skeleton bg-gray-200"></div>
-                    </div>
-                    <div class="p-6 text-center">
-                        <div class="h-6 w-3/4 mx-auto skeleton bg-gray-200 mb-3"></div>
-                        <div class="h-5 w-1/2 mx-auto skeleton bg-gray-200 mb-4"></div>
-                        <div class="h-4 w-1/3 mx-auto skeleton bg-gray-200"></div>
-                    </div>
-                </div>
-                <div class="team-card bg-white rounded-xl shadow overflow-hidden border border-gray-100">
-                    <div class="p-6 flex justify-center">
-                        <div class="w-32 h-32 rounded-full skeleton bg-gray-200"></div>
-                    </div>
-                    <div class="p-6 text-center">
-                        <div class="h-6 w-3/4 mx-auto skeleton bg-gray-200 mb-3"></div>
-                        <div class="h-5 w-1/2 mx-auto skeleton bg-gray-200 mb-4"></div>
-                        <div class="h-4 w-1/3 mx-auto skeleton bg-gray-200"></div>
-                    </div>
-                </div>
-            `;
-            
-            // Fetch data from Supabase
             const { data, error } = await supabase.from('anggota').select('*');
 
             if (error) {
@@ -355,7 +184,15 @@
                 teamGridContainer.innerHTML = `
                     <div class="col-span-full text-center bg-red-50 border border-red-200 p-6 rounded-lg">
                         <p class="font-bold text-red-600 text-lg">Koneksi ke Database Gagal</p>
-                        <p class="mt-2 text-gray-700">Silakan coba lagi nanti atau hubungi administrator.</p>
+                        <p class="mt-2 text-gray-700">Penyebabnya adalah Kunci API yang tidak valid. Silakan buat kunci baru.</p>
+                        <div class="mt-4 text-sm text-left">
+                            <p class="font-semibold text-gray-800">Langkah-langkah Perbaikan:</p>
+                            <ol class="list-decimal list-inside mt-2 space-y-1 text-gray-600">
+                                <li>Buka dashboard Supabase > Project Settings > API.</li>
+                                <li>Klik <strong>"Generate new key"</strong> untuk kunci <strong><code>anon</code></strong>.</li>
+                                <li>Salin kunci baru dan tempelkan ke variabel <code>SUPABASE_ANON_KEY</code> di semua file HTML.</li>
+                            </ol>
+                        </div>
                     </div>
                 `;
                 return;
@@ -382,44 +219,15 @@
 
                 teamGridContainer.innerHTML = '';
                 
-                data.forEach((member, index) => {
+                data.forEach(member => {
                     const memberCard = `
-                        <div class="team-card bg-white rounded-xl shadow-lg overflow-hidden group transform hover:-translate-y-2 transition-all duration-300 hover:shadow-xl border border-gray-100 animated" style="animation-delay: ${index * 0.1}s">
-                            <div class="relative p-6 flex justify-center">
-                                <div class="relative w-32 h-32">
-                                    <img src="${member.foto_url || 'https://placehold.co/400x400/F87171/FFFFFF?text=Foto'}" 
-                                         alt="Foto ${member.nama}" 
-                                         class="w-full h-full rounded-full object-cover border-4 border-white shadow-md">
-                                    <div class="absolute inset-0 rounded-full border-2 border-red-100 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                                </div>
-                            </div>
-                            <div class="p-6 text-center">
-                                <h3 class="font-bold text-lg mb-2 text-gray-800 group-hover:text-red-600 transition">${member.nama}</h3>
-                                <p class="text-red-600 font-semibold mb-4 text-sm">${member.jabatan}</p>
-                                <a href="detail-anggota.html?id=${member.id}" class="inline-flex items-center text-xs text-gray-600 hover:text-red-600 font-medium">
-                                    Lihat Profil
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 ml-1 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                                    </svg>
-                                </a>
-                            </div>
-                        </div>
+                        <a href="detail-anggota.html?id=${member.id}" class="block bg-white rounded-lg shadow-lg text-center p-6 group hover:shadow-2xl hover:-translate-y-2 transition-all duration-300">
+                            <img src="${member.foto_url || 'https://placehold.co/200x200/F87171/FFFFFF?text=Foto'}" alt="Foto ${member.nama}" class="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-white group-hover:border-red-300 transition-colors object-cover">
+                            <h3 class="font-bold text-xl text-gray-800">${member.nama}</h3>
+                            <p class="text-red-600 font-semibold">${member.jabatan}</p>
+                        </a>
                     `;
                     teamGridContainer.innerHTML += memberCard;
-                });
-
-                // Animate team members as they come into view
-                const observer = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            entry.target.classList.add('fade-in-up');
-                            observer.unobserve(entry.target);
-                        }
-                    });
-                }, { threshold: 0.1 });
-
-                document.querySelectorAll('#team-grid-container > div').forEach(el => {
-                    observer.observe(el);
                 });
             } else {
                 teamGridContainer.innerHTML = '<p class="col-span-full text-center text-gray-500">Belum ada data anggota.</p>';
@@ -427,18 +235,12 @@
         }
 
         document.addEventListener('DOMContentLoaded', () => {
-            createBackgroundShapes();
             loadTeamMembers();
-            
-            // Mobile Menu Toggle
             const mobileMenuButton = document.getElementById('mobile-menu-button');
             const mobileMenu = document.getElementById('mobile-menu');
             mobileMenuButton.addEventListener('click', () => {
                 mobileMenu.classList.toggle('hidden');
             });
-
-            // Recreate shapes on resize for better responsiveness
-            window.addEventListener('resize', createBackgroundShapes);
         });
     </script>
 </body>
