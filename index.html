@@ -311,25 +311,54 @@
         </section>
         
         <!-- Feedback Section -->
-        <section id="feedback" class="py-20 bg-gradient-to-br from-red-700 to-red-600 text-white relative overflow-hidden">
-            <div class="absolute inset-0 opacity-10">
-                <div class="absolute top-0 left-0 w-32 h-32 bg-white rounded-full filter blur-3xl opacity-20"></div>
-                <div class="absolute bottom-0 right-0 w-64 h-64 bg-white rounded-full filter blur-3xl opacity-20"></div>
+<section id="feedback" class="py-20 bg-gradient-to-br from-red-700 to-red-600 text-white relative overflow-hidden">
+    <div class="absolute inset-0 opacity-10">
+        <div class="absolute top-0 left-0 w-32 h-32 bg-white rounded-full filter blur-3xl opacity-20"></div>
+        <div class="absolute bottom-0 right-0 w-64 h-64 bg-white rounded-full filter blur-3xl opacity-20"></div>
+    </div>
+    <div class="container mx-auto px-6 text-center relative z-10">
+        <h2 class="text-3xl font-bold mb-4">Punya Pertanyaan atau Masukan?</h2>
+        <p class="max-w-2xl mx-auto mb-8 text-white/90">Kami senang mendengar dari Anda. Silakan tinggalkan pesan Anda di bawah ini.</p>
+        <form id="feedbackForm" class="max-w-2xl mx-auto bg-white/10 backdrop-blur-sm p-8 rounded-2xl border border-white/20">
+            <div class="flex flex-col md:flex-row gap-4 mb-4">
+                <input type="text" id="name" name="name" placeholder="Nama Anda" required
+                       class="w-full p-4 rounded-lg bg-white/10 placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-white/50 border border-white/20">
+                <input type="email" id="email" name="email" placeholder="Email Anda" required
+                       class="w-full p-4 rounded-lg bg-white/10 placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-white/50 border border-white/20">
             </div>
-            <div class="container mx-auto px-6 text-center relative z-10">
-                <h2 class="text-3xl font-bold mb-4">Punya Pertanyaan atau Masukan?</h2>
-                <p class="max-w-2xl mx-auto mb-8 text-white/90">Kami senang mendengar dari Anda. Silakan tinggalkan pesan Anda di bawah ini.</p>
-                <form class="max-w-2xl mx-auto bg-white/10 backdrop-blur-sm p-8 rounded-2xl border border-white/20">
-                    <div class="flex flex-col md:flex-row gap-4 mb-4">
-                        <input type="text" placeholder="Nama Anda" class="w-full p-4 rounded-lg bg-white/10 placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-white/50 border border-white/20">
-                        <input type="email" placeholder="Email Anda" class="w-full p-4 rounded-lg bg-white/10 placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-white/50 border border-white/20">
-                    </div>
-                    <textarea placeholder="Pesan Anda..." rows="5" class="w-full p-4 rounded-lg bg-white/10 placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-white/50 border border-white/20 mb-6"></textarea>
-                    <button type="submit" class="bg-white text-red-700 font-bold px-8 py-4 rounded-full hover:bg-gray-100 transition duration-300 shadow-lg hover:shadow-xl">Kirim Pesan</button>
-                </form>
-            </div>
-        </section>
-    </main>
+            <textarea id="message" name="message" placeholder="Pesan Anda..." rows="5" required
+                      class="w-full p-4 rounded-lg bg-white/10 placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-white/50 border border-white/20 mb-6"></textarea>
+            <button type="submit" class="bg-white text-red-700 font-bold px-8 py-4 rounded-full hover:bg-gray-100 transition duration-300 shadow-lg hover:shadow-xl">
+                Kirim Pesan
+            </button>
+        </form>
+    </div>
+</section>
+
+<script>
+    document.getElementById('feedbackForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Ambil nilai form
+        const name = document.getElementById('name').value;
+        const email = document.getElementById('email').value;
+        const message = document.getElementById('message').value;
+        
+        // Buat link mailto
+        const subject = `Pesan dari ${name}`;
+        const body = `Nama: ${name}%0D%0AEmail: ${email}%0D%0A%0D%0APesan:%0D%0A${message}`;
+        const mailtoLink = `mailto:aicoms@telkomuniversity.ac.id?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        
+        // Buka default email client
+        window.location.href = mailtoLink;
+        
+        // Reset form setelah pengiriman
+        this.reset();
+        
+        // Tampilkan pesan sukses (opsional)
+        alert('Terima kasih atas pesan Anda! Email client akan terbuka untuk mengirim pesan.');
+    });
+</script>
 
     <footer class="bg-gray-900 text-white pt-16 pb-8">
     <div class="container mx-auto px-6">
