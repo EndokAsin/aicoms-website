@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visi & Misi - AICOMS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <!-- Header / Navigation Bar (Konsisten dengan halaman lain) -->
+    <header class="bg-white/80 backdrop-blur-lg shadow-md fixed top-0 left-0 right-0 z-50">
+        <div class="container mx-auto px-6 py-2 flex justify-between items-center">
+            <a href="index.html">
+                <img src="images/1. Logo AICOMS.png" alt="Logo AICOMS" class="h-16 w-auto">
+            </a>
+            <nav class="hidden md:flex items-center space-x-8">
+                <a href="index.html" class="text-gray-600 hover:text-red-600 transition duration-300">Home</a>
+                <div class="relative group py-6 -my-6">
+                    <button class="text-red-600 font-semibold flex items-center">
+                        About Us
+                        <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div class="absolute left-0 top-full pt-4 w-48 bg-transparent -mt-2">
+                        <div class="bg-white rounded-md shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 invisible group-hover:visible">
+                            <a href="sejarah.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-red-50 rounded-t-md">Sejarah</a>
+                            <a href="visimisi.html" class="block px-4 py-2 text-sm text-red-700 font-semibold hover:bg-red-50">Visi & Misi</a>
+                            <a href="tim.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-red-50 rounded-b-md">Tim Kami</a>
+                        </div>
+                    </div>
+                </div>
+                <a href="activities.html" class="text-gray-600 hover:text-red-600 transition duration-300">Activities</a>
+                <a href="partners.html" class="text-gray-600 hover:text-red-600 transition duration-300">Partners</a>
+                <a href="projects.html" class="text-gray-600 hover:text-red-600 transition duration-300">Projects</a>
+                <div class="relative group py-6 -my-6">
+                    <button class="text-gray-600 hover:text-red-600 transition duration-300 flex items-center">
+                        Publications
+                        <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div class="absolute left-0 top-full pt-4 w-48 bg-transparent -mt-2">
+                        <div class="bg-white rounded-md shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 invisible group-hover:visible">
+                            <a href="news.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-red-50 rounded-t-md">News</a>
+                            <a href="papers.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-red-50">Papers</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-red-50 rounded-b-md">Jurnal</a>
+                        </div>
+                    </div>
+                </div>
+                <a href="index.html#feedback" class="bg-red-600 text-white px-4 py-2 rounded-full hover:bg-red-700 transition duration-300 shadow hover:shadow-lg">Join Us</a>
+            </nav>
+            <button id="mobile-menu-button" class="md:hidden">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-white divide-y divide-gray-100">
+            <a href="index.html" class="block px-6 py-3 text-gray-600 hover:bg-red-50">Home</a>
+            <a href="sejarah.html" class="block px-6 py-3 text-gray-600 hover:bg-red-50">Sejarah</a>
+            <a href="visimisi.html" class="block px-6 py-3 text-red-600 font-semibold hover:bg-red-50">Visi & Misi</a>
+            <a href="tim.html" class="block px-6 py-3 text-gray-600 hover:bg-red-50">Tim Kami</a>
+            <a href="activities.html" class="block px-6 py-3 text-gray-600 hover:bg-red-50">Activities</a>
+            <a href="partners.html" class="block px-6 py-3 text-gray-600 hover:bg-red-50">Partners</a>
+            <a href="projects.html" class="block px-6 py-3 text-gray-600 hover:bg-red-50">Projects</a>
+            <a href="news.html" class="block px-6 py-3 text-gray-600 hover:bg-red-50">News</a>
+            <a href="papers.html" class="block px-6 py-3 text-gray-600 hover:bg-red-50">Papers</a>
+            <a href="#" class="block px-6 py-3 text-gray-600 hover:bg-red-50">Jurnal</a>
+            <a href="index.html#feedback" class="block px-6 py-3 text-white bg-red-600 text-center">Join Us</a>
+        </div>
+    </header>
+
+    <main class="pt-24 bg-white">
+        <section class="py-20">
+            <div class="container mx-auto px-6">
+                <h1 class="text-4xl font-bold text-center text-gray-800 mb-4">Visi & Misi</h1>
+                <div class="w-24 h-1 bg-red-600 mx-auto mb-12"></div>
+
+                <div class="max-w-4xl mx-auto space-y-12">
+                    <!-- Visi Section -->
+                    <div class="bg-white p-8 rounded-lg shadow-lg">
+                        <h2 class="text-3xl font-bold text-red-700 mb-4">Visi</h2>
+                        <p class="text-lg text-gray-600 leading-relaxed">
+                            Menjadi pusat unggulan riset dan inovasi telekomunikasi cerdas yang diakui secara internasional dan memberikan kontribusi signifikan bagi kemajuan teknologi dan masyarakat.
+                        </p>
+                    </div>
+                    
+                    <!-- Misi Section -->
+                    <div class="bg-white p-8 rounded-lg shadow-lg">
+                        <h2 class="text-3xl font-bold text-red-700 mb-4">Misi</h2>
+                        <ol class="list-decimal list-inside space-y-4 text-gray-600 leading-relaxed">
+                            <li>Melaksanakan penelitian berkualitas tinggi dan inovatif di bidang telekomunikasi cerdas dan kecerdasan buatan.</li>
+                            <li>Mengembangkan sumber daya manusia yang unggul dan kompeten melalui pendidikan dan pelatihan riset.</li>
+                            <li>Membangun kolaborasi strategis dengan industri, pemerintah, dan lembaga riset lain di tingkat nasional maupun internasional.</li>
+                            <li>Menghasilkan publikasi ilmiah bereputasi, paten, dan produk teknologi yang dapat dihilirisasi untuk kepentingan masyarakat luas.</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="container mx-auto px-6 text-center">
+            <p class="font-bold text-lg mb-2">PUI-PT AICOMS</p>
+            <p class="text-gray-400">Gedung Panambulai, Telkom University</p>
+            <p class="text-gray-400 mb-6">Jl. Telekomunikasi No. 1, Terusan Buahbatu, Bandung</p>
+            <p class="text-sm text-gray-500">&copy; 2024 AICOMS - Telkom University. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+    </script>
+</body>
+</html>
