@@ -1,1 +1,112 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jurnal - AICOMS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style> body { font-family: 'Inter', sans-serif; } </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <!-- Header / Navigation Bar (Konsisten dengan halaman lain) -->
+    <header class="bg-white/80 backdrop-blur-lg shadow-md fixed top-0 left-0 right-0 z-50">
+        <div class="container mx-auto px-6 py-2 flex justify-between items-center">
+            <a href="index.html">
+                <img src="images/1. Logo AICOMS.png" alt="Logo AICOMS" class="h-16 w-auto">
+            </a>
+            <nav class="hidden md:flex items-center space-x-8">
+                <a href="index.html" class="text-gray-600 hover:text-red-600 transition duration-300">Home</a>
+                <div class="relative group py-6 -my-6">
+                    <button class="text-gray-600 hover:text-red-600 flex items-center">
+                        About Us
+                        <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div class="absolute left-0 top-full pt-4 w-48 bg-transparent -mt-2">
+                        <div class="bg-white rounded-md shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 invisible group-hover:visible">
+                            <a href="sejarah.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-red-50 rounded-t-md">Sejarah</a>
+                            <a href="visimisi.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-red-50">Visi & Misi</a>
+                            <a href="tim.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-red-50 rounded-b-md">Tim Kami</a>
+                        </div>
+                    </div>
+                </div>
+                <a href="activities.html" class="text-gray-600 hover:text-red-600 transition duration-300">Activities</a>
+                <a href="partners.html" class="text-gray-600 hover:text-red-600 transition duration-300">Partners</a>
+                <a href="projects.html" class="text-gray-600 hover:text-red-600 transition duration-300">Projects</a>
+                <div class="relative group py-6 -my-6">
+                    <button class="text-red-600 font-semibold flex items-center">
+                        Publications
+                        <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div class="absolute left-0 top-full pt-4 w-48 bg-transparent -mt-2">
+                        <div class="bg-white rounded-md shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 invisible group-hover:visible">
+                            <a href="news.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-red-50 rounded-t-md">News</a>
+                            <a href="papers.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-red-50">Papers</a>
+                            <a href="journals.html" class="block px-4 py-2 text-sm text-red-700 font-semibold hover:bg-red-50 rounded-b-md">Jurnal</a>
+                        </div>
+                    </div>
+                </div>
+                <a href="index.html#feedback" class="bg-red-600 text-white px-4 py-2 rounded-full hover:bg-red-700 transition duration-300 shadow hover:shadow-lg">Join Us</a>
+            </nav>
+            <button id="mobile-menu-button" class="md:hidden">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-white divide-y divide-gray-100">
+            <!-- Mobile links... -->
+        </div>
+    </header>
+
+    <main class="pt-24 bg-white">
+        <section class="py-20">
+            <div class="container mx-auto px-6">
+                <h1 class="text-4xl font-bold text-center text-gray-800 mb-4">Jurnal Binaan AICOMS</h1>
+                <div class="w-24 h-1 bg-red-600 mx-auto mb-12"></div>
+                <p class="max-w-3xl mx-auto text-center text-gray-600 mb-12">
+                    Pusat Unggulan IPTEKS Perguruan Tinggi (PUI-PT) The University Center of Excellence for Advanced Intelligent Communications (AICOMS), Telkom University saat ini membina dan memberikan penguatan untuk tiga journal berikut, diantaranya:
+                </p>
+
+                <div class="grid md:grid-cols-1 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
+                    <!-- Jurnal Card 1 -->
+                    <div class="bg-gray-50 rounded-lg shadow-md p-8 flex flex-col items-center text-center transform hover:-translate-y-2 transition-transform duration-300">
+                        <h3 class="text-xl font-bold text-red-700">International Journal on Applied Information Technology (IJAIT)</h3>
+                        <div class="w-16 h-1 bg-red-200 my-4"></div>
+                        <p class="text-gray-600 text-sm flex-grow">Jurnal internasional yang berfokus pada aplikasi teknologi informasi di berbagai bidang.</p>
+                        <a href="journal-detail.html?id=ijait" class="mt-6 inline-block bg-red-600 text-white px-5 py-2 rounded-full hover:bg-red-700 transition-colors">Lihat Detail</a>
+                    </div>
+                    <!-- Jurnal Card 2 -->
+                    <div class="bg-gray-50 rounded-lg shadow-md p-8 flex flex-col items-center text-center transform hover:-translate-y-2 transition-transform duration-300">
+                        <h3 class="text-xl font-bold text-red-700">International Journal of Innovation in Enterprise System (IJIES)</h3>
+                        <div class="w-16 h-1 bg-red-200 my-4"></div>
+                        <p class="text-gray-600 text-sm flex-grow">Fokus pada inovasi dalam sistem enterprise, mencakup manajemen, teknologi, dan strategi.</p>
+                        <a href="journal-detail.html?id=ijies" class="mt-6 inline-block bg-red-600 text-white px-5 py-2 rounded-full hover:bg-red-700 transition-colors">Lihat Detail</a>
+                    </div>
+                    <!-- Jurnal Card 3 -->
+                    <div class="bg-gray-50 rounded-lg shadow-md p-8 flex flex-col items-center text-center transform hover:-translate-y-2 transition-transform duration-300">
+                        <h3 class="text-xl font-bold text-red-700">Jurnal Penelitian dan Pengembangan TEKTRIKA</h3>
+                        <div class="w-16 h-1 bg-red-200 my-4"></div>
+                        <p class="text-gray-600 text-sm flex-grow">Mencakup penelitian di bidang Telekomunikasi, Kendali, Komputer, Elektrik, dan Elektronika.</p>
+                        <a href="journal-detail.html?id=tektrika" class="mt-6 inline-block bg-red-600 text-white px-5 py-2 rounded-full hover:bg-red-700 transition-colors">Lihat Detail</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-gray-800 text-white py-12">
+        <!-- ... Kode footer konsisten ... -->
+    </footer>
+
+    <script>
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+    </script>
+</body>
+</html>
 
