@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detail Jurnal - AICOMS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style> 
+        body { font-family: 'Inter', sans-serif; } 
+        .prose-custom p { margin-bottom: 1.25em; }
+    </style>
+</head>
+<body class="bg-gray-50">
+
+    <header class="bg-white/80 backdrop-blur-lg shadow-md fixed top-0 left-0 right-0 z-50">
+        <!-- ... Kode header konsisten ... -->
+    </header>
+
+    <main class="pt-24">
+        <div id="journal-detail-container" class="max-w-4xl mx-auto py-16 px-6 bg-white my-8 rounded-lg shadow-lg min-h-[400px] flex justify-center items-center">
+            <!-- Konten detail jurnal akan dimuat di sini -->
+        </div>
+    </main>
+
+    <footer class="bg-gray-800 text-white py-12">
+        <!-- ... Kode footer konsisten ... -->
+    </footer>
+
+    <script>
+        const journalData = {
+            'ijait': {
+                title: 'International Journal on Applied Information Technology (IJAIT)',
+                description: 'IJAIT adalah jurnal peer-review yang didedikasikan untuk publikasi hasil penelitian berkualitas tinggi dalam semua aspek teknologi informasi terapan. Jurnal ini bertujuan untuk menjadi platform bagi para peneliti dan akademisi untuk berbagi ide-ide inovatif dan perkembangan terbaru.',
+                link: '#' // Ganti dengan link asli
+            },
+            'ijies': {
+                title: 'International Journal of Innovation in Enterprise System (IJIES)',
+                description: 'IJIES berfokus pada inovasi dalam sistem enterprise. Jurnal ini mencakup berbagai topik termasuk, namun tidak terbatas pada, sistem informasi, manajemen strategis, rekayasa perangkat lunak enterprise, dan integrasi sistem untuk meningkatkan efisiensi dan efektivitas organisasi.',
+                link: '#' // Ganti dengan link asli
+            },
+            'tektrika': {
+                title: 'Jurnal Penelitian dan Pengembangan TEKTRIKA',
+                description: 'TEKTRIKA adalah jurnal nasional yang mewadahi publikasi hasil penelitian dan pengembangan di bidang Teknik Telekomunikasi, Teknik Kendali, Teknik Komputer, Teknik Elektro, dan Teknik Elektronika. Jurnal ini bertujuan untuk mendorong diseminasi pengetahuan dan inovasi teknologi di Indonesia.',
+                link: '#' // Ganti dengan link asli
+            }
+        };
+
+        function loadJournalDetail() {
+            const container = document.getElementById('journal-detail-container');
+            const urlParams = new URLSearchParams(window.location.search);
+            const journalId = urlParams.get('id');
+
+            const data = journalData[journalId];
+
+            if (!data) {
+                container.innerHTML = '<p class="text-center text-red-500">Jurnal tidak ditemukan.</p>';
+                return;
+            }
+
+            document.title = `${data.title} - AICOMS`;
+            
+            const detailHTML = `
+                <article class="prose-custom max-w-none">
+                    <div class="mb-8">
+                        <a href="journals.html" class="text-red-600 hover:text-red-800 transition-colors duration-300 flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd" /></svg>
+                            Kembali ke Daftar Jurnal
+                        </a>
+                    </div>
+                    <h1 class="text-4xl font-extrabold text-gray-900">${data.title}</h1>
+                    <div class="text-gray-700 leading-relaxed mt-8">
+                        <p>${data.description}</p>
+                    </div>
+                    <a href="${data.link}" target="_blank" class="mt-8 inline-block bg-red-600 text-white px-6 py-3 rounded-full hover:bg-red-700 transition-colors no-underline">
+                        Kunjungi Website Jurnal &rarr;
+                    </a>
+                </article>
+            `;
+            container.innerHTML = detailHTML;
+        }
+        
+        document.addEventListener('DOMContentLoaded', loadJournalDetail);
+    </script>
+</body>
+</html>
